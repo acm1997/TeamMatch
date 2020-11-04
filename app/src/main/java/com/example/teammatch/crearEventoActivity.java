@@ -18,7 +18,7 @@ public class crearEventoActivity extends AppCompatActivity {
         setContentView(R.layout.nuevo_evento);
       //  TextView tVSaludo = findViewById(R.id.tVSaludo);
 
-        final EditText tVNombreEvento = findViewById(R.id.nomEvento);
+        final EditText tVNombreEvento = findViewById(R.id.nomEvent);
         final EditText tVFechaEvento = findViewById(R.id.fechaEvento);
         Button botonCrear = findViewById(R.id.buttonCrear);
 
