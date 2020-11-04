@@ -8,8 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class
-crearEventoActivity extends AppCompatActivity {
+public class crearEventoActivity extends AppCompatActivity {
 
 
 
@@ -19,7 +18,7 @@ crearEventoActivity extends AppCompatActivity {
         setContentView(R.layout.nuevo_evento);
       //  TextView tVSaludo = findViewById(R.id.tVSaludo);
 
-        final EditText tVNombreEvento = findViewById(R.id.nomEvent);
+        final EditText tVNombreEvento = findViewById(R.id.nomEvento);
         final EditText tVFechaEvento = findViewById(R.id.fechaEvento);
         Button botonCrear = findViewById(R.id.buttonCrear);
 

@@ -23,7 +23,7 @@
             app:layout_constraintVertical_bias="0.022" />
 
         <TextView
-            android:id="@+id/nomEvent"
+            android:id="@+id/deportEvent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -40,23 +40,35 @@
             android:layout_height="70dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.056"
+            app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PartidoD"
-            app:layout_constraintVertical_bias="0.026"
+            app:layout_constraintVertical_bias="0.025"
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/descEvent"
-            android:layout_width="283dp"
-            android:layout_height="70dp"
+            android:id="@+id/nomEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.282"
+            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintStart_toEndOf="@+id/iconEvent"
+            app:layout_constraintTop_toBottomOf="@+id/deportEvent"
+            app:layout_constraintVertical_bias="0.023" />
+
+        <TextView
+            android:id="@+id/descEvent"
+            android:layout_width="278dp"
+            android:layout_height="41dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.276"
             app:layout_constraintStart_toEndOf="@+id/iconEvent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.077" />
+            app:layout_constraintVertical_bias="0.115" />
 
         <Button
             android:id="@+id/inscribirseBoton"
