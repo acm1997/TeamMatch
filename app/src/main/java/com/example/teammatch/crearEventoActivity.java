@@ -29,7 +29,7 @@ public class crearEventoActivity extends AppCompatActivity {
         setContentView(R.layout.nuevo_evento);
       //  TextView tVSaludo = findViewById(R.id.tVSaludo);
 
-        final EditText tVNombreEvento = findViewById(R.id.deportEvent);
+        final EditText tVNombreEvento = findViewById(R.id.nomEvento);
         final EditText tVFechaEvento = findViewById(R.id.fechaEvento);
 
 

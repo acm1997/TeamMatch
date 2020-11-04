@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyProfileActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListEventsP"
+        android:layout_width="377dp"
+        android:layout_height="137dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="550dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tVEventosPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eventos en los que participas"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="513dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="112dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tVPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Mi Perfil"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tVUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="235dp"
+        tools:layout_editor_absoluteY="132dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/bEditP"
+        android:layout_width="173dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="28dp"
+        android:text="Editar Perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="198dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tVEventosCreadosP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eventos creados"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="316dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ListEventsC"
+        android:layout_width="383dp"
+        android:layout_height="140dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="350dp"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
