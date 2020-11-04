@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +9,110 @@
         android:id="@+id/tVSaludo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="estamos en activity crear evento."
+        android:text="Nuevo evento"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/nomEvento"
+        android:layout_width="343dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="96dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Nombre del evento."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tVSaludo" />
+
+    <EditText
+        android:id="@+id/fechaEvento"
+        android:layout_width="162dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="168dp"
+        android:ems="10"
+        android:inputType="date"
+        android:text="Fecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tVSaludo" />
+
+    <EditText
+        android:id="@+id/horaEvento"
+        android:layout_width="164dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="168dp"
+        android:ems="10"
+        android:inputType="time"
+        android:text="Hora"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.862"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tVSaludo" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName3"
+        android:layout_width="347dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="78dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Deporte"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/horaEvento" />
+
+    <EditText
+        android:id="@+id/numParticipantes"
+        android:layout_width="348dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Número de participantes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName3" />
+
+    <EditText
+        android:id="@+id/descEvento"
+        android:layout_width="347dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="76dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Descripción del evento"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/numParticipantes" />
+
+    <EditText
+        android:id="@+id/selPista"
+        android:layout_width="345dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="84dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Seleccione la pista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/descEvento" />
+
+    <Button
+        android:id="@+id/buttonCrear"
+        android:layout_width="170dp"
+        android:layout_height="56dp"
+        android:text="CREAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/selPista" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
