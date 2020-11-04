@@ -13,7 +13,9 @@ public class MisEventos extends AppCompatActivity {
         setContentView(R.layout.activity_mis_eventos);
 
         String nombreEvento = getIntent().getStringExtra("NOMBRE EVENTO");
+        String fechaEvento = getIntent().getStringExtra("FECHA");
         if ( nombreEvento == null ) nombreEvento="";
+        if ( fechaEvento == null ) fechaEvento="";
         TextView tVMostrarNombreEvento = findViewById(R.id.nomEvento);
         tVMostrarNombreEvento.setText("El evento creado es:  "+nombreEvento);
     }

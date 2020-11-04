@@ -20,6 +20,7 @@ public class crearEventoActivity extends AppCompatActivity {
       //  TextView tVSaludo = findViewById(R.id.tVSaludo);
 
         final EditText tVNombreEvento = findViewById(R.id.nomEvento);
+        final EditText tVFechaEvento = findViewById(R.id.fechaEvento);
         Button botonCrear = findViewById(R.id.buttonCrear);
 
         botonCrear.setOnClickListener(new View.OnClickListener() { //estamso definiendo otra clase dentro de MainActivity
@@ -27,7 +28,9 @@ public class crearEventoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(crearEventoActivity.this,MisEventos.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
                 String nombreEvento = tVNombreEvento.getText().toString();
+                String fechaEvento = tVFechaEvento.getText().toString();
                 intent.putExtra("NOMBRE EVENTO", nombreEvento);
+                intent.putExtra("FECHA", fechaEvento);
                 startActivity(intent);
             }
         });
