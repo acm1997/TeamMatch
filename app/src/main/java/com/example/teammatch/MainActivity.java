@@ -22,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);//ANGEL CAÑADA MUÑOZ
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabNuevoEvento = findViewById(R.id.fabNuevoEvento);
+        fabNuevoEvento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)//COMENTARIO PRUEBA PUSHHHH
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
