@@ -18,7 +18,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String FILE_NAME = "MainActivityData.txt";
 
     public static final int ADD_EVENTO_REQUEST = 0;
 
@@ -70,6 +83,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        // Load saved ToDoItems, if necessary
+
+        if (mAdapter.getItemCount() == 0)
+            loadItems();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -89,5 +112,67 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    // Load stored ToDoItems
+    private void loadItems() {
+        BufferedReader reader = null;
+        try {
+            FileInputStream fis = openFileInput(FILE_NAME);
+            reader = new BufferedReader(new InputStreamReader(fis));
+
+            String nombre = null;
+            String fecha = null;
+            String participantes =  null;
+            String descripcion =  null;
+            String deporte =  null;
+
+
+            while (null != (nombre = reader.readLine())) {
+                fecha = reader.readLine();
+                participantes = reader.readLine();
+                descripcion = reader.readLine();
+                deporte = reader.readLine();
+                // Todo
+                //  mAdapter.add(new Evento(nombre,fecha,participantes, descripcion,deporte);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != reader) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    // Save ToDoItems to file
+    private void saveItems() {
+        PrintWriter writer = null;
+        try {
+            FileOutputStream fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+                    fos)));
+
+            for (int idx = 0; idx < mAdapter.getItemCount(); idx++) {
+
+                writer.println(mAdapter.getItem(idx));
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != writer) {
+                writer.close();
+            }
+        }
     }
 }
