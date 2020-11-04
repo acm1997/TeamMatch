@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +24,7 @@ public class crearEventoActivity extends AppCompatActivity {
         botonCrear.setOnClickListener(new View.OnClickListener() { //estamso definiendo otra clase dentro de MainActivity
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(crearEventoActivity.this,MisEventos.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
+                Intent intent = new Intent(crearEventoActivity.this, MisEventosAtivity.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
                 String nombreEvento = tVNombreEvento.getText().toString();
                 intent.putExtra("NOMBRE EVENTO", nombreEvento);
                 startActivity(intent);
