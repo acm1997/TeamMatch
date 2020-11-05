@@ -27,7 +27,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.util.Date;
+
+import com.example.teammatch.Evento.Deporte;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,6 +96,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        //Save ToDoItems
+        saveItems();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -123,24 +133,26 @@ public class MainActivity extends AppCompatActivity {
             reader = new BufferedReader(new InputStreamReader(fis));
 
             String nombre = null;
-            String fecha = null;
+            Date fecha = null;
             String participantes =  null;
             String descripcion =  null;
             String deporte =  null;
 
 
             while (null != (nombre = reader.readLine())) {
-                fecha = reader.readLine();
+                fecha = Evento.FORMAT.parse(reader.readLine());
                 participantes = reader.readLine();
                 descripcion = reader.readLine();
                 deporte = reader.readLine();
-                // Todo
-                //  mAdapter.add(new Evento(nombre,fecha,participantes, descripcion,deporte);
+                mAdapter.add(new Evento(nombre,fecha,Integer.parseInt(participantes),
+                        descripcion, Deporte.valueOf(deporte)));
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         } finally {
             if (null != reader) {

@@ -22,7 +22,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public EventAdapter(OnItemClickListener listener) {
-
         this.listener = listener;
     }
 
@@ -56,10 +55,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
 
     public void clear(){
-
         mItems.clear();
         notifyDataSetChanged();
-
     }
 
     public Object getItem(int pos) {
