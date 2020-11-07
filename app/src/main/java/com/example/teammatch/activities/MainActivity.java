@@ -1,8 +1,12 @@
-package com.example.teammatch;
+package com.example.teammatch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.teammatch.R;
+import com.example.teammatch.activities.CrearEventoActivity;
+import com.example.teammatch.adapters.EventAdapter;
+import com.example.teammatch.objects.Evento;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.snackbar.SnackbarContentLayout;
@@ -29,8 +33,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.Date;
+import com.example.teammatch.objects.Evento.Deporte;
 
-import com.example.teammatch.Evento.Deporte;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,crearEventoActivity.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
+                Intent intent = new Intent(MainActivity.this, CrearEventoActivity.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
                 startActivityForResult(intent, ADD_EVENTO_REQUEST);
             }
         });
