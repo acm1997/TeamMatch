@@ -10,13 +10,14 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.teammatch.MainActivity"
+    tools:context="com.example.teammatch.activities.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
+        android:layout_width="381dp"
+        android:layout_height="196dp"
         android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        tools:itemCount="9" />
 
 </RelativeLayout>

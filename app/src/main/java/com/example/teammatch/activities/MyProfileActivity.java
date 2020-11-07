@@ -1,9 +1,11 @@
-package com.example.teammatch;
+package com.example.teammatch.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.teammatch.R;
 
 public class MyProfileActivity extends AppCompatActivity {
 

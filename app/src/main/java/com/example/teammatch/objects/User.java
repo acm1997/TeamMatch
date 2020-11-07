@@ -1,10 +1,8 @@
-package com.example.teammatch;
+package com.example.teammatch.objects;
 
 import android.content.Intent;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class User {
 

@@ -1,4 +1,4 @@
-package com.example.teammatch;
+package com.example.teammatch.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.teammatch.R;
+import com.example.teammatch.objects.Evento;
 
 import java.util.ArrayList;
 import java.util.List;
