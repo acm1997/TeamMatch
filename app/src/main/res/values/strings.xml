@@ -11,5 +11,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="nombre_evento_hint">nombre del evento</string>
+    <string name="idResultado">Resultado</string>
+    <string name="idBuscarPista">Buscar pista:</string>
+    <string name="idIconoFutbol">Fútbol</string>
+    <string name="idIconoVoleibol">Voleibol</string>
+    <string name="idIconoBaloncesto">Baloncesto</string>
+    <string name="idIconoTenis">Tenis</string>
 </resources>
