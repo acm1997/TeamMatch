@@ -1,8 +1,7 @@
-package com.example.teammatch;
+package com.example.teammatch.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,11 +9,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.teammatch.Evento.Deporte;
+
+import com.example.teammatch.R;
+import com.example.teammatch.objects.Evento;
+import com.example.teammatch.objects.Evento.Deporte;
 
 import java.util.Date;
 
-public class crearEventoActivity extends AppCompatActivity {
+public class CrearEventoActivity extends AppCompatActivity {
 
     private EditText mNombre;
     private Date mFecha;
@@ -29,7 +31,7 @@ public class crearEventoActivity extends AppCompatActivity {
         setContentView(R.layout.nuevo_evento);
       //  TextView tVSaludo = findViewById(R.id.tVSaludo);
 
-        final EditText tVNombreEvento = findViewById(R.id.nomEvento);
+        final EditText tVNombreEvento = findViewById(R.id.nombreEvent);
         final EditText tVFechaEvento = findViewById(R.id.fechaEvento);
 
 

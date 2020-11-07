@@ -1,9 +1,11 @@
-package com.example.teammatch;
+package com.example.teammatch.activities;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.teammatch.R;
 
 public class MisEventosAtivity extends AppCompatActivity {
 
