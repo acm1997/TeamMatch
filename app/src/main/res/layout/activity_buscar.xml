@@ -31,6 +31,7 @@
         android:id="@+id/idResultado"
         android:layout_width="170dp"
         android:layout_height="48dp"
+        android:text="@string/idResultado"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +57,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/idBuscarPista"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,8 +88,9 @@
         app:layout_constraintHorizontal_bias="0.924"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639"
-        app:srcCompat="@drawable/voleibol" />
+        app:layout_constraintVertical_bias="0.632"
+        app:srcCompat="@drawable/voleibol"
+        tools:srcCompat="@drawable/voleibol" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -99,7 +102,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.869"
-        app:srcCompat="@drawable/baloncesto" />
+        app:srcCompat="@drawable/baloncesto"
+        tools:srcCompat="@drawable/baloncesto" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -107,7 +111,7 @@
         android:layout_height="112dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.882"
+        app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.882"
@@ -121,6 +125,7 @@
         android:layout_marginTop="527dp"
         android:layout_marginEnd="272dp"
         android:layout_marginBottom="185dp"
+        android:text="@string/idIconoFutbol"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -136,6 +141,7 @@
         android:layout_marginTop="527dp"
         android:layout_marginEnd="99dp"
         android:layout_marginBottom="185dp"
+        android:text="@string/idIconoVoleibol"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -151,6 +157,7 @@
         android:layout_marginTop="678dp"
         android:layout_marginEnd="276dp"
         android:layout_marginBottom="34dp"
+        android:text="@string/idIconoBaloncesto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -164,6 +171,7 @@
         android:layout_marginTop="678dp"
         android:layout_marginEnd="99dp"
         android:layout_marginBottom="34dp"
+        android:text="@string/idIconoTenis"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

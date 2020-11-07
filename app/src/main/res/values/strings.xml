@@ -19,4 +19,10 @@
     <string name="register">Register</string>
     <string name="re_type_password">Re-type Password</string>
     <string name="your_name">Full Name</string>
+    <string name="idResultado">Resultado</string>
+    <string name="idIconoFutbol">Fútbol</string>
+    <string name="idIconoBaloncesto">Baloncesto</string>
+    <string name="idIconoVoleibol">Voleibol</string>
+    <string name="idIconoTenis">Tenis</string>
+    <string name="idBuscarPista">Buscar pista:</string>
 </resources>
