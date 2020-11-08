@@ -55,6 +55,14 @@ public class Evento {
     private Deporte mDeporte = Deporte.FUTBOL;
 
 
+    public Evento() {
+        this.mNombre = "";
+        this.mFecha = null;
+        this.mParticipantes = 0;
+        this.mDescripcion = "";
+        this.mDeporte = null;
+    }
+
     @Ignore
     public Evento(String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte) {
         this.mNombre = mNombre;

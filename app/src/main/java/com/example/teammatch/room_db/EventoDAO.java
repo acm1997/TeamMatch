@@ -1,5 +1,6 @@
 package com.example.teammatch.room_db;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -9,6 +10,7 @@ import com.example.teammatch.objects.Evento;
 
 import java.util.List;
 
+@Dao
 public interface EventoDAO {
 
     @Query("SELECT * FROM evento")
@@ -18,7 +20,7 @@ public interface EventoDAO {
     public long insert(Evento evento);
 
     @Update
-    public long update(Evento evento);
+    public int update(Evento evento);
 
     @Delete
     public void delete(Evento evento);
