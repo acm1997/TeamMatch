@@ -20,6 +20,13 @@ public class User {
     private ArrayList<Evento> mMyEvents = new ArrayList<Evento>();
     private ArrayList<Evento> mMyEventsPart = new ArrayList<Evento>();
 
+    User(String mUsername, String mPassword){
+        this.mUsername = mUsername;
+        this.mPassword = mPassword;
+        this.mMyEvents = null;
+        this.mMyEventsPart = null;
+    }
+
     User(String mUsername, String mPassword, ArrayList<Evento> mMyEvents) {
         this.mUsername = mUsername;
         this.mPassword = mPassword;
