@@ -3,13 +3,13 @@ package com.example.teammatch.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
-import com.example.teammatch.activities.CrearEventoActivity;
 import com.example.teammatch.adapters.EventAdapter;
 import com.example.teammatch.objects.Evento;
+import com.example.teammatch.room_db.EventoDataBase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.snackbar.SnackbarContentLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,21 +20,13 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.util.Date;
-import com.example.teammatch.objects.Evento.Deporte;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         mRecyclerView = findViewById(R.id.my_recycler_view);
 
         mRecyclerView.setHasFixedSize(true);
@@ -75,11 +66,14 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Evento item) {
-                Snackbar.make(mRecyclerView, "Evento" +  item.getmNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+                Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
             }
         });
 
         mRecyclerView.setAdapter(mAdapter);
+
+        EventoDataBase.getInstance(this);
+
     }
 
     @Override
@@ -87,8 +81,23 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_EVENTO_REQUEST && resultCode == RESULT_OK){
+
             Evento EventoItem = new Evento(data);
-            mAdapter.add(EventoItem);
+
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    //añadir evento en la BD
+                    EventoDataBase evento_dataBase = EventoDataBase.getInstance(MainActivity.this);
+                    long id_evento = evento_dataBase.getDao().insert(EventoItem);
+
+                    //actualizar evento
+                    EventoItem.setId(id_evento);
+
+                    //insertar evento en la lista
+                    runOnUiThread(() -> mAdapter.add(EventoItem) );
+                }
+            });
         }
     }
 
@@ -108,6 +117,12 @@ public class MainActivity extends AppCompatActivity {
         //Save ToDoItems
         saveItems();
     }
+    @Override
+    protected void onDestroy() {
+        EventoDataBase.getInstance(this).close();
+        super.onDestroy();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,42 +149,14 @@ public class MainActivity extends AppCompatActivity {
 
     // Load stored ToDoItems
     private void loadItems() {
-        BufferedReader reader = null;
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            reader = new BufferedReader(new InputStreamReader(fis));
-
-            String nombre = null;
-            Date fecha = null;
-            String participantes =  null;
-            String descripcion =  null;
-            String deporte =  null;
-
-
-            while (null != (nombre = reader.readLine())) {
-                fecha = Evento.FORMAT.parse(reader.readLine());
-                participantes = reader.readLine();
-                descripcion = reader.readLine();
-                deporte = reader.readLine();
-                mAdapter.add(new Evento(nombre,fecha,Integer.parseInt(participantes),
-                        descripcion, Deporte.valueOf(deporte)));
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Evento> eventos = EventoDataBase.getInstance(MainActivity.this).getDao().getAll();
+                runOnUiThread(() -> mAdapter.load(eventos));
             }
+        });
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
 

@@ -39,93 +39,110 @@ public class Evento {
             "yyyy-MM-dd HH:mm:ss", Locale.US);
 
     @PrimaryKey (autoGenerate = true)
-    private long mID;
+    private long id;
 
     @ColumnInfo(name = "nombre")
-    private String mNombre = new String();
+    private String nombre = new String();
 
     @TypeConverters(FechaConverter.class)
-    private Date mFecha = new Date();
+    private Date fecha = new Date();
 
-    private Integer mParticipantes = new Integer(0);
+    private Integer participantes = new Integer(0);
 
-    private String mDescripcion = new String();
+    private String descripcion = new String();
 
     @TypeConverters(DeporteConverter.class)
-    private Deporte mDeporte = Deporte.FUTBOL;
+    private Deporte deporte = Deporte.FUTBOL;
 
 
     public Evento() {
-        this.mNombre = "";
-        this.mFecha = null;
-        this.mParticipantes = 0;
-        this.mDescripcion = "";
-        this.mDeporte = null;
+        this.nombre = "";
+        this.fecha = null;
+        this.participantes = 0;
+        this.descripcion = "";
+        this.deporte = null;
     }
 
     @Ignore
     public Evento(String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte) {
-        this.mNombre = mNombre;
-        this.mFecha = mFecha;
-        this.mParticipantes = mParticipantes;
-        this.mDescripcion = mDescripcion;
-        this.mDeporte = mDeporte;
+        this.nombre = mNombre;
+        this.fecha = mFecha;
+        this.participantes = mParticipantes;
+        this.descripcion = mDescripcion;
+        this.deporte = mDeporte;
     }
 
     @Ignore
     public Evento(Intent intent){
-        mNombre = intent.getStringExtra(Evento.NOMBRE);
-        mParticipantes = intent.getIntExtra(Evento.PARTICIPANTES, 0);
-        mDescripcion = intent.getStringExtra(Evento.DESCRIPCION);
-        mDeporte = Deporte.valueOf(intent.getStringExtra(Evento.DEPORTE));
+        nombre = intent.getStringExtra(Evento.NOMBRE);
+        participantes = intent.getIntExtra(Evento.PARTICIPANTES, 0);
+        descripcion = intent.getStringExtra(Evento.DESCRIPCION);
+        deporte = Deporte.valueOf(intent.getStringExtra(Evento.DEPORTE));
 
         try {
-            mFecha = Evento.FORMAT.parse(intent.getStringExtra(Evento.FECHA));
+            fecha = Evento.FORMAT.parse(intent.getStringExtra(Evento.FECHA));
         } catch (ParseException e) {
-            mFecha = new Date();
+            fecha = new Date();
         }
 
 
     }
 
-    public String getmNombre() {
-        return mNombre;
+    public Evento(long id, String nombre, Date fecha, Integer participantes, String descripcion, Deporte deporte) {
+        this.id = id;
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.participantes = this.participantes;
+        this.descripcion = this.descripcion;
+        this.deporte = this.deporte;
     }
 
-    public Date getmFecha() {
-        return mFecha;
+    public long getId() {
+        return id;
     }
 
-    public Integer getmParticipantes() {
-        return mParticipantes;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getmDescripcion() {
-        return mDescripcion;
+    public String getNombre() {
+        return nombre;
     }
 
-    public Deporte getmDeporte() {
-        return mDeporte;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setmNombre(String mNombre) {
-        this.mNombre = mNombre;
+    public Integer getParticipantes() {
+        return participantes;
     }
 
-    public void setmFecha(Date mFecha) {
-        this.mFecha = mFecha;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setmParticipantes(Integer mParticipantes) {
-        this.mParticipantes = mParticipantes;
+    public Deporte getDeporte() {
+        return deporte;
     }
 
-    public void setmDescripcion(String mDescripcion) {
-        this.mDescripcion = mDescripcion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setmDeporte(Deporte mDeporte) {
-        this.mDeporte = mDeporte;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setParticipantes(Integer participantes) {
+        this.participantes = participantes;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setDeporte(Deporte deporte) {
+        this.deporte = deporte;
     }
 
     public static void packageIntent(Intent intent, String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte) {

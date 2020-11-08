@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
-    private final List<Evento> mItems = new ArrayList<Evento>();
+    private List<Evento> mItems = new ArrayList<Evento>();
 
 
     public interface OnItemClickListener {
@@ -51,8 +51,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
 
     public void add(Evento item) {
-
         mItems.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void load(List<Evento> items){
+        mItems.clear();
+        mItems = items;
         notifyDataSetChanged();
 
     }
@@ -63,9 +68,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
 
     public Object getItem(int pos) {
-
         return mItems.get(pos);
-
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -86,16 +89,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         public void bind(final Evento evento, final OnItemClickListener listener) {
 
-            nombreView.setText(evento.getmNombre());
+            nombreView.setText(evento.getNombre());
 
-            participantesView.setText(evento.getmParticipantes());
+            participantesView.setText(evento.getParticipantes());
 
-            descripcionView.setText(evento.getmDescripcion());
+            descripcionView.setText(evento.getDescripcion());
 
-            deporteView.setText(evento.getmDeporte().toString());
+            deporteView.setText(evento.getDeporte().toString());
 
             // Hint - use ToDoItem.FORMAT.format(toDoItem.getDate()) to get date and time String
-            fechaView.setText(evento.FORMAT.format(evento.getmFecha()));
+            fechaView.setText(evento.FORMAT.format(evento.getFecha()));
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
