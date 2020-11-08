@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -35,16 +36,25 @@ import java.text.ParseException;
 import java.util.Date;
 import com.example.teammatch.objects.Evento.Deporte;
 
+import static java.lang.Math.log;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String FILE_NAME = "MainActivityData.txt";
+    //IDs for menu items
+    private static final int MENU_SETTINGS = Menu.FIRST;
+    private static final int MENU_LOGIN = Menu.FIRST + 1;
 
     public static final int ADD_EVENTO_REQUEST = 0;
+    public static final int LOGIN_REQUEST = 0;
+
+    private static final String TAG = "UserInterface";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mlayoutManager;
     private EventAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +67,12 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CrearEventoActivity.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
+                //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
+                Intent intent = new Intent(MainActivity.this, CrearEventoActivity.class);
                 startActivityForResult(intent, ADD_EVENTO_REQUEST);
             }
         });
+
 
         mRecyclerView = findViewById(R.id.my_recycler_view);
 
@@ -108,8 +120,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, "Settings");
+        menu.add(Menu.NONE, MENU_LOGIN, Menu.NONE, "Login");
         // Inflate the menu; this adds items to the action bar if it is present
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+      //  getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -118,14 +134,25 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()){
+            case MENU_SETTINGS:
+                log("Item settings funciona");
+                //NewSetting()
+                return true;
+            case MENU_LOGIN:
+                log("Item LOGIN funciona");
+             /*       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+
+;
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, LOGIN_REQUEST);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -190,5 +217,13 @@ public class MainActivity extends AppCompatActivity {
                 writer.close();
             }
         }
+    }
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }
