@@ -18,6 +18,8 @@
         android:layout_width="381dp"
         android:layout_height="196dp"
         android:scrollbars="vertical"
-        tools:itemCount="9" />
+        tools:itemCount="9">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

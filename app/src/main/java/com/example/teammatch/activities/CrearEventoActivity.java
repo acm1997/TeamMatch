@@ -24,6 +24,8 @@ public class CrearEventoActivity extends AppCompatActivity {
     private EditText mDescripcion;
     private RadioGroup mDeportes;
     private RadioButton mDefaultDeporte;
+    public static final int BUSCAR_EVENTO_REQUEST = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,15 @@ public class CrearEventoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
                 finish();
+            }
+        });
+
+        final Button botonBuscar = findViewById(R.id.idBotonBuscar);
+        botonBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(CrearEventoActivity.this, buscarActivity.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
+                startActivityForResult(intent2, BUSCAR_EVENTO_REQUEST);
             }
         });
 

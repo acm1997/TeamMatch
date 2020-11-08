@@ -20,6 +20,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.io.BufferedReader;
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_EVENTO_REQUEST);
             }
         });
+
+
 
         mRecyclerView = findViewById(R.id.my_recycler_view);
 
