@@ -3,42 +3,58 @@ package com.example.teammatch.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
+import com.example.teammatch.activities.CrearEventoActivity;
 import com.example.teammatch.adapters.EventAdapter;
 import com.example.teammatch.objects.Evento;
-import com.example.teammatch.room_db.EventoDataBase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.SnackbarContentLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.List;
+import java.text.ParseException;
+import java.util.Date;
+import com.example.teammatch.objects.Evento.Deporte;
+
+import static java.lang.Math.log;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String FILE_NAME = "MainActivityData.txt";
+    //IDs for menu items
+    private static final int MENU_SETTINGS = Menu.FIRST;
+    private static final int MENU_LOGIN = Menu.FIRST + 1;
 
     public static final int ADD_EVENTO_REQUEST = 0;
+    public static final int LOGIN_REQUEST = 0;
+
+    private static final String TAG = "UserInterface";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mlayoutManager;
     private EventAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CrearEventoActivity.class); //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
+                //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
+                Intent intent = new Intent(MainActivity.this, CrearEventoActivity.class);
                 startActivityForResult(intent, ADD_EVENTO_REQUEST);
             }
         });
@@ -72,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mRecyclerView.setAdapter(mAdapter);
-
-        EventoDataBase.getInstance(this);
-
     }
 
     @Override
@@ -82,23 +96,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_EVENTO_REQUEST && resultCode == RESULT_OK){
-
             Evento EventoItem = new Evento(data);
-
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    //añadir evento en la BD
-                    EventoDataBase evento_dataBase = EventoDataBase.getInstance(MainActivity.this);
-                    long id_evento = evento_dataBase.getDao().insert(EventoItem);
-
-                    //actualizar evento
-                    EventoItem.setId(id_evento);
-
-                    //insertar evento en la lista
-                    runOnUiThread(() -> mAdapter.add(EventoItem) );
-                }
-            });
+            mAdapter.add(EventoItem);
         }
     }
 
@@ -118,17 +117,15 @@ public class MainActivity extends AppCompatActivity {
         //Save ToDoItems
         saveItems();
     }
-    @Override
-    protected void onDestroy() {
-        EventoDataBase.getInstance(this).close();
-        super.onDestroy();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, "Settings");
+        menu.add(Menu.NONE, MENU_LOGIN, Menu.NONE, "Login");
         // Inflate the menu; this adds items to the action bar if it is present
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+      //  getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -137,27 +134,66 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()){
+            case MENU_SETTINGS:
+                log("Item settings funciona");
+                //NewSetting()
+                return true;
+            case MENU_LOGIN:
+                log("Item LOGIN funciona");
+             /*       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+
+;
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
 
     // Load stored ToDoItems
     private void loadItems() {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<Evento> eventos = EventoDataBase.getInstance(MainActivity.this).getDao().getAll();
-                runOnUiThread(() -> mAdapter.load(eventos));
-            }
-        });
+        BufferedReader reader = null;
+        try {
+            FileInputStream fis = openFileInput(FILE_NAME);
+            reader = new BufferedReader(new InputStreamReader(fis));
 
+            String nombre = null;
+            Date fecha = null;
+            String participantes =  null;
+            String descripcion =  null;
+            String deporte =  null;
+
+
+            while (null != (nombre = reader.readLine())) {
+                fecha = Evento.FORMAT.parse(reader.readLine());
+                participantes = reader.readLine();
+                descripcion = reader.readLine();
+                deporte = reader.readLine();
+                mAdapter.add(new Evento(nombre,fecha,Integer.parseInt(participantes),
+                        descripcion, Deporte.valueOf(deporte)));
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != reader) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 
@@ -181,5 +217,13 @@ public class MainActivity extends AppCompatActivity {
                 writer.close();
             }
         }
+    }
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }
