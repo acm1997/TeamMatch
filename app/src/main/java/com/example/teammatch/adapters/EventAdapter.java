@@ -32,7 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                       int viewType) {
-        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.evento,parent,false); //TODO Es posible que haya que cambiar el layout del fragment por el layout de un evento en particular
+        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.evento,parent,false);
 
        return new ViewHolder(v);
     }
@@ -91,7 +91,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
             nombreView.setText(evento.getNombre());
 
-            participantesView.setText(evento.getParticipantes());
+            participantesView.setText(evento.getParticipantes().toString());
 
             descripcionView.setText(evento.getDescripcion());
 

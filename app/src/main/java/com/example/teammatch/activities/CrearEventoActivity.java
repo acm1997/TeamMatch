@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -102,13 +103,15 @@ public class CrearEventoActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String n = mNombre.getText().toString();
-                Date d = mFecha;
-                Integer p = mParticipantes.getTextAlignment();
+                String d = fechaString +"-" + horaString;
+                Integer p = Integer.parseInt(mParticipantes.getText().toString()) ;
                 String desc = mDescripcion.getText().toString();
                 Deporte dep = getDeporte();
 
+
                 Intent i = new Intent();
                 Evento.packageIntent(i,n,d,p,desc,dep);
+
 
                 setResult(RESULT_OK, i);
                 finish();
@@ -230,6 +233,7 @@ public class CrearEventoActivity extends AppCompatActivity {
             horaView.setText(horaString);
         }
     }
+
     private Deporte getDeporte() {
 
         switch (mDeportes.getCheckedRadioButtonId()) {
@@ -247,6 +251,15 @@ public class CrearEventoActivity extends AppCompatActivity {
                 return Deporte.TENIS;
             }
         }
+    }
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 
 }

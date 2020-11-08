@@ -33,6 +33,7 @@ public class Evento {
     public final static String DESCRIPCION = "descripcion";
     @Ignore
     public final static String DEPORTE = "deporte";
+    //todo Falta pista
 
     @Ignore
     public final static SimpleDateFormat FORMAT = new SimpleDateFormat(
@@ -145,11 +146,11 @@ public class Evento {
         this.deporte = deporte;
     }
 
-    public static void packageIntent(Intent intent, String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte) {
+    public static void packageIntent(Intent intent, String mNombre, String mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte) {
         intent.putExtra(Evento.NOMBRE, mNombre);
         intent.putExtra(Evento.DESCRIPCION, mDescripcion);
         intent.putExtra(Evento.FECHA, mFecha);
         intent.putExtra(Evento.PARTICIPANTES, mParticipantes);
-        intent.putExtra(Evento.DEPORTE, mDeporte);
+        intent.putExtra(Evento.DEPORTE, mDeporte.toString());
     }
 }

@@ -73,44 +73,18 @@
     </RadioGroup>
 
     <EditText
-        android:id="@+id/numParticipantes"
-        android:layout_width="348dp"
-        android:layout_height="45dp"
+        android:id="@+id/descEvento"
+        android:layout_width="355dp"
+        android:layout_height="101dp"
         android:ems="10"
-        android:hint="Número de participantes"
+        android:hint="Descripción"
         android:inputType="textPersonName"
-        android:text="Número de participantes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.081" />
-
-    <EditText
-        android:id="@+id/descEvento"
-        android:layout_width="347dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="76dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/numParticipantes" />
-
-    <EditText
-        android:id="@+id/selPista"
-        android:layout_width="345dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="84dp"
-        android:ems="10"
-        android:hint="Seleccione la pista"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/descEvento" />
+        app:layout_constraintTop_toBottomOf="@+id/numParticipantes"
+        app:layout_constraintVertical_bias="0.082" />
 
     <Button
         android:id="@+id/buttonCrear"
@@ -120,9 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.885"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selPista"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/cancelButton"
@@ -132,9 +104,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonCrear"
         app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selPista"
-        app:layout_constraintVertical_bias="0.405" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -198,5 +168,19 @@
         app:layout_constraintStart_toEndOf="@+id/botonfecha"
         app:layout_constraintTop_toBottomOf="@+id/hora"
         app:layout_constraintVertical_bias="0.024" />
+
+    <EditText
+        android:id="@+id/numParticipantes"
+        android:layout_width="352dp"
+        android:layout_height="52dp"
+        android:ems="10"
+        android:hint="Numero de Participantes"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.098" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
