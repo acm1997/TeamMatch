@@ -3,10 +3,12 @@ package com.example.teammatch.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.activities.CrearEventoActivity;
 import com.example.teammatch.adapters.EventAdapter;
 import com.example.teammatch.objects.Evento;
+import com.example.teammatch.room_db.EventoDataBase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.snackbar.SnackbarContentLayout;
@@ -34,6 +36,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
+
 import com.example.teammatch.objects.Evento.Deporte;
 
 import static java.lang.Math.log;
@@ -97,7 +101,20 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == ADD_EVENTO_REQUEST && resultCode == RESULT_OK){
             Evento EventoItem = new Evento(data);
-            mAdapter.add(EventoItem);
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    //añadir evento en la BD
+                    EventoDataBase evento_dataBase = EventoDataBase.getInstance(MainActivity.this);
+                    long id_evento = evento_dataBase.getDao().insert(EventoItem);
+
+                    //actualizar evento
+                    EventoItem.setId(id_evento);
+
+                    //insertar evento en la lista
+                    runOnUiThread(() -> mAdapter.add(EventoItem) );
+                }
+            });
         }
     }
 
@@ -116,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         //Save ToDoItems
         saveItems();
+    }
+    @Override
+    protected void onDestroy() {
+        EventoDataBase.getInstance(this).close();
+        super.onDestroy();
     }
 
     @Override
@@ -158,42 +180,13 @@ public class MainActivity extends AppCompatActivity {
 
     // Load stored ToDoItems
     private void loadItems() {
-        BufferedReader reader = null;
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            reader = new BufferedReader(new InputStreamReader(fis));
-
-            String nombre = null;
-            Date fecha = null;
-            String participantes =  null;
-            String descripcion =  null;
-            String deporte =  null;
-
-
-            while (null != (nombre = reader.readLine())) {
-                fecha = Evento.FORMAT.parse(reader.readLine());
-                participantes = reader.readLine();
-                descripcion = reader.readLine();
-                deporte = reader.readLine();
-                mAdapter.add(new Evento(nombre,fecha,Integer.parseInt(participantes),
-                        descripcion, Deporte.valueOf(deporte)));
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Evento> eventos = EventoDataBase.getInstance(MainActivity.this).getDao().getAll();
+                runOnUiThread(() -> mAdapter.load(eventos));
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-            if (null != reader) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        });
     }
 
 
