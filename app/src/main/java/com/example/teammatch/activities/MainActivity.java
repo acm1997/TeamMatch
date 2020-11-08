@@ -20,6 +20,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

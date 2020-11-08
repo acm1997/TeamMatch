@@ -9,7 +9,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_text"
+        android:id="@+id/action_text_login"
         android:orderInCategory="100"
         android:title="Login"
         app:showAsAction="never" />
