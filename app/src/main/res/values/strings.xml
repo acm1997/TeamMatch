@@ -25,4 +25,5 @@
     <string name="idIconoVoleibol">Voleibol</string>
     <string name="idIconoTenis">Tenis</string>
     <string name="idBuscarPista">Buscar pista:</string>
+    <string name="Nuevo_Evento">Nuevo Evento</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.teammatch.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
@@ -71,4 +73,5 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    
 }

@@ -9,7 +9,7 @@
         android:id="@+id/tVSaludo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:text="@string/Nuevo_Evento"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,27 +20,31 @@
 
     <EditText
         android:id="@+id/nombreEvento"
-        android:layout_width="343dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="84dp"
         android:layout_weight="1"
         android:ems="10"
         android:hint="Nombre de Evento"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tVSaludo" />
+        app:layout_constraintTop_toTopOf="@+id/tVSaludo"
+        app:layout_constraintVertical_bias="0.013" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="398dp"
-        android:layout_height="31dp"
-        android:orientation="horizontal"
+        android:layout_width="350dp"
+        android:layout_height="108dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.031">
 
         <RadioButton
             android:id="@+id/radioFutbol"
@@ -74,17 +78,17 @@
 
     <EditText
         android:id="@+id/descEvento"
-        android:layout_width="355dp"
-        android:layout_height="101dp"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
         android:ems="10"
         android:hint="Descripción"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numParticipantes"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <Button
         android:id="@+id/buttonCrear"
@@ -93,57 +97,62 @@
         android:text="CREAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.885"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.873"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descEvento"
+        app:layout_constraintVertical_bias="0.318" />
 
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:text="CANCELAR"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonCrear"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descEvento"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="138dp"
+        android:layout_width="140dp"
         android:layout_height="25dp"
         android:text="Tiempo y Fecha"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
+        app:layout_constraintHorizontal_bias="0.107"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreEvento"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintVertical_bias="0.047" />
 
     <EditText
         android:id="@+id/fecha"
-        android:layout_width="125dp"
-        android:layout_height="41dp"
+        android:layout_width="160dp"
+        android:layout_height="47dp"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintHorizontal_bias="0.661"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.018" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <EditText
         android:id="@+id/hora"
-        android:layout_width="107dp"
-        android:layout_height="44dp"
+        android:layout_width="162dp"
+        android:layout_height="46dp"
         android:ems="10"
         android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.792"
-        app:layout_constraintStart_toEndOf="@+id/fecha"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.018" />
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fecha"
+        app:layout_constraintVertical_bias="0.025" />
 
     <Button
         android:id="@+id/botonfecha"
@@ -152,35 +161,48 @@
         android:text="ELIGE FECHA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fecha"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.02" />
 
     <Button
         android:id="@+id/botonhora"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="108dp"
+        android:layout_height="46dp"
         android:text="ELIGE HORA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.888"
-        app:layout_constraintStart_toEndOf="@+id/botonfecha"
-        app:layout_constraintTop_toBottomOf="@+id/hora"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonfecha"
+        app:layout_constraintVertical_bias="0.022" />
 
     <EditText
         android:id="@+id/numParticipantes"
-        android:layout_width="352dp"
-        android:layout_height="52dp"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
         android:ems="10"
         android:hint="Numero de Participantes"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintVertical_bias="0.075" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="140dp"
+        android:layout_height="25dp"
+        android:text="Deporte"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonhora"
+        app:layout_constraintVertical_bias="0.05" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

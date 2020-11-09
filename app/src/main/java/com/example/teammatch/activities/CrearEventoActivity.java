@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -104,17 +105,27 @@ public class CrearEventoActivity extends AppCompatActivity {
 
                 String n = mNombre.getText().toString();
                 String d = fechaString +"-" + horaString;
-                Integer p = Integer.parseInt(mParticipantes.getText().toString()) ;
+                Integer p = Integer.parseInt(mParticipantes.getText().toString()) ; //TODO comprobar que no esté vacío
                 String desc = mDescripcion.getText().toString();
                 Deporte dep = getDeporte();
 
+                if(n != null && n.equals("")){
+                    Toast.makeText(CrearEventoActivity.this, "El nombre del evento está vacío", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(p != null && p.equals("")){
+                        Toast.makeText(CrearEventoActivity.this, "El número de participantes está vacío", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(desc != null && desc.equals("")){
+                            Toast.makeText(CrearEventoActivity.this, "El deporte está vacío", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent i = new Intent();
+                            Evento.packageIntent(i, n, d, p, desc, dep);
 
-                Intent i = new Intent();
-                Evento.packageIntent(i,n,d,p,desc,dep);
-
-
-                setResult(RESULT_OK, i);
-                finish();
+                            setResult(RESULT_OK, i);
+                            finish();
+                        }
+                    }
+                }
             }
         });
 
