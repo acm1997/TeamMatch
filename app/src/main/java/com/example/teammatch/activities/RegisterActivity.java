@@ -27,7 +27,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mEmail;
     private EditText mPassword;
     private EditText mRePassword;
-    private ArrayList<Evento> MyEvents = new ArrayList<Evento>();
     private ArrayList<Evento> MyEventsPart = new ArrayList<Evento>();
 
     public static final int GO_TO_LOGIN_REQUEST = 0;
@@ -53,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(password.equals(repassword)){
                     Intent i = new Intent();
-                    User.packageIntent(i, email, password, MyEvents, MyEventsPart);
+                    User.packageIntent(i, username, email, password, MyEventsPart);
 
                     finish();
                 } else {

@@ -2,81 +2,137 @@ package com.example.teammatch.objects;
 
 import android.content.Intent;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
+@Entity(tableName = "usuarios")
 public class User {
 
+    public static final String ITEM_SEP = System.getProperty("line.separator");
+
+    @Ignore
+    public final static String ID = "ID";
+    @Ignore
     public final static String USERNAME = "username";
+    @Ignore
+    public final static String EMAIL = "email";
+    @Ignore
     public final static String PASSWORD = "password";
     //Lista de Eventos del usuario
-    private final static ArrayList<Evento> myEvents = new ArrayList<Evento>(); //Lista de Eventos creados por el user
-    private final static ArrayList<Evento> myEventsPart = new ArrayList<Evento>(); //Lista de eventos en los que participa el user
+//    @Ignore
+//    public final static ArrayList<Evento> myEvents = new ArrayList<Evento>(); //Lista de Eventos creados por el user
+    @Ignore
+    public final static ArrayList<Evento> myEventsPart = new ArrayList<Evento>(); //Lista de eventos en los que participa el user
 
- //   private String mUsername = new String();
- //   private String mPassword = new String();
-    //De momento vamos a crear un usuario estático
-    private String mUsername = "Jose Luis";
-    private String mPassword = "mongolito";
-    private ArrayList<Evento> mMyEvents = new ArrayList<Evento>();
-    private ArrayList<Evento> mMyEventsPart = new ArrayList<Evento>();
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+    @ColumnInfo(name = "username")
+    private String Username = new String();
+    @ColumnInfo(name = "email")
+    private String Email = new String();
+    @ColumnInfo(name = "password")
+    private String Password = new String();
+//    @Ignore
+//    private ArrayList<Evento> MyEvents;
+    @Ignore
+    private ArrayList<Evento> MyEventsPart;
 
-    User(String mUsername, String mPassword){
-        this.mUsername = mUsername;
-        this.mPassword = mPassword;
-        this.mMyEvents = null;
-        this.mMyEventsPart = null;
+    public User() {
+        this.Username = "";
+        this.Email = "";
+        this.Password = "";
+        this.MyEventsPart = null;
     }
 
-    User(String mUsername, String mPassword, ArrayList<Evento> mMyEvents) {
-        this.mUsername = mUsername;
-        this.mPassword = mPassword;
-        this.mMyEvents = mMyEvents;
-        this.mMyEventsPart = mMyEventsPart;
+    @Ignore
+    public User(String username, String email, String password, ArrayList<Evento> myEventsPart) {
+        Username = username;
+        Email = email;
+        Password = password;
+  //      MyEvents = myEvents;
+        MyEventsPart = myEventsPart;
+    }
+
+    @Ignore
+    public User(String Username, String Email ,String Password){
+        this.Username = Username;
+        this.Email = Email;
+        this.Password = Password;
+//        this.MyEvents = new ArrayList<Evento>();
+        this.MyEventsPart = new ArrayList<Evento>();
+    }
+
+    public User(long id, String Username, String Email ,String Password, ArrayList<Evento> MyEventsPart) {
+        this.id = id;
+        this.Username = Username;
+        this.Email = Email;
+        this.Password = Password;
+ //       this.MyEvents = MyEvents;
+        this.MyEventsPart = MyEventsPart;
     }
 
     User(Intent intent){
-        mUsername = intent.getStringExtra(User.USERNAME);
-        mPassword = intent.getStringExtra(User.PASSWORD);
-        mMyEvents = (ArrayList<Evento>) intent.getSerializableExtra("myEvents");
-        mMyEventsPart = (ArrayList<Evento>) intent.getSerializableExtra("myEventsPart");
+        id = intent.getLongExtra(User.ID,0);
+        Username = intent.getStringExtra(User.USERNAME);
+        Email = intent.getStringExtra(User.EMAIL);
+        Password = intent.getStringExtra(User.PASSWORD);
+ //       MyEvents = (ArrayList<Evento>) intent.getSerializableExtra("myEvents");
+        MyEventsPart = (ArrayList<Evento>) intent.getSerializableExtra("myEventsPart");
     }
 
-    public String getmUsername() {
-        return mUsername;
+    public long getId() {
+        return id;
     }
 
-    public void setmUsername(String mUsername) {
-        this.mUsername = mUsername;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getmPassword() {
-        return mPassword;
+    public String getUsername() {
+        return Username;
     }
 
-    public void setmPassword(String mPassword) {
-        this.mPassword = mPassword;
+    public void setUsername(String username) {
+        Username = username;
     }
 
-    public ArrayList<Evento> getmMyEvents() {
-        return mMyEvents;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setmMyEvents(ArrayList<Evento> mMyEvents) {
-        this.mMyEvents = mMyEvents;
+    public void setEmail(String email) {
+        Email = email;
     }
 
-    public ArrayList<Evento> getmMyEventsPart() {
-        return mMyEventsPart;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setmMyEventsPart(ArrayList<Evento> mMyEventsPart) {
-        this.mMyEventsPart = mMyEventsPart;
+    public void setPassword(String password) {
+        Password = password;
     }
 
-    public static void packageIntent(Intent intent, String mUsername, String mPassword, ArrayList<Evento> mMyEvents, ArrayList<Evento> mMyEventsPart) {
+    public ArrayList<Evento> getMyEventsPart() {
+        return MyEventsPart;
+    }
+
+    public void setMyEventsPart(ArrayList<Evento> myEventsPart) {
+        MyEventsPart = myEventsPart;
+    }
+
+    public static void packageIntent(Intent intent, String mUsername, String mEmail , String mPassword, ArrayList<Evento> mMyEventsPart) {
         intent.putExtra(User.USERNAME, mUsername);
+        intent.putExtra(User.EMAIL, mEmail);
         intent.putExtra(User.PASSWORD, mPassword);
-        intent.putExtra("MyEvents", mMyEvents);
+//        intent.putExtra("MyEvents", mMyEvents);
         intent.putExtra("MyEventsPart", mMyEventsPart);
+    }
+
+    public String toString() {
+        return id + ITEM_SEP + Username + ITEM_SEP + Email + ITEM_SEP + Password;
     }
 }
