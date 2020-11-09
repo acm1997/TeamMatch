@@ -1,34 +1,28 @@
 package com.example.teammatch.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.teammatch.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MyProfileActivity extends AppCompatActivity {
-
+public class BuscarActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+        setContentView(R.layout.activity_buscar);
 
-        String username = getIntent().getStringExtra("USERNAME");
-        if(username==null) username = "";
-
-        TextView tVUsername = findViewById(R.id.tVUsername);
-        tVUsername.setText(""+username);
 
         //Inicio variable bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Pongo seleccion de "Inicio".
-        bottomNavigationView.setSelectedItemId(R.id.ic_usuario);
+        bottomNavigationView.setSelectedItemId(R.id.ic_buscar);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -52,4 +46,6 @@ public class MyProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

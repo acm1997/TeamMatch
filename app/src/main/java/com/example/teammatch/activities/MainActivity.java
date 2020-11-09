@@ -9,10 +9,12 @@ import com.example.teammatch.activities.CrearEventoActivity;
 import com.example.teammatch.adapters.EventAdapter;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.room_db.EventoDataBase;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.snackbar.SnackbarContentLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -74,6 +76,33 @@ public class MainActivity extends AppCompatActivity {
                 //MainActivity.this es el MainActivity,IMPORTANTE porque en este caso si ponemos solo this se refiere a la clase creada OneClickListener
                 Intent intent = new Intent(MainActivity.this, CrearEventoActivity.class);
                 startActivityForResult(intent, ADD_EVENTO_REQUEST);
+            }
+        });
+
+        //Inicio variable bottom navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //Pongo seleccion de "Inicio".
+        bottomNavigationView.setSelectedItemId(R.id.ic_home);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.ic_usuario:
+                        startActivity(new Intent(getApplicationContext(), MyProfileActivity.class ));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.ic_home:
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class ));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.ic_buscar:
+                        startActivity(new Intent(getApplicationContext(), BuscarActivity.class ));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
             }
         });
 
