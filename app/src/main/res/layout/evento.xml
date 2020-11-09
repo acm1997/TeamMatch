@@ -1,72 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/myborder">
 
     <TextView
         android:id="@+id/nomEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre: "
+        android:layout_width="170dp"
+        android:layout_height="37dp"
+        android:layout_marginEnd="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
-
-    <TextView
-        android:id="@+id/descEvento"
-        android:layout_width="144dp"
-        android:layout_height="48dp"
-        android:text="Descripcion:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
-
-    <TextView
-        android:id="@+id/fechaEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.535"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.765"
+        app:layout_constraintStart_toEndOf="@+id/deporteEvento"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.041" />
 
     <TextView
-        android:id="@+id/deporteEvento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Deporte: "
+        android:id="@+id/fechaEvento"
+        android:layout_width="157dp"
+        android:layout_height="57dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.572"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descEvento"
+        app:layout_constraintVertical_bias="0.036" />
+
+    <TextView
+        android:id="@+id/deporteEvento"
+        android:layout_width="160dp"
+        android:layout_height="39dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintVertical_bias="0.039" />
 
     <TextView
         android:id="@+id/participantesEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Participantes"
+        android:layout_width="37dp"
+        android:layout_height="38dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.631"
+        app:layout_constraintHorizontal_bias="0.824"
+        app:layout_constraintStart_toEndOf="@+id/fechaEvento"
+        app:layout_constraintTop_toBottomOf="@+id/descEvento"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <TextView
+        android:id="@+id/descEvento"
+        android:layout_width="323dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.698"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.148" />
+        app:layout_constraintTop_toBottomOf="@+id/deporteEvento"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="101dp"
+        android:layout_height="23dp"
+        android:text="Participantes:"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/participantesEvent"
+        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintStart_toEndOf="@+id/fechaEvento"
+        app:layout_constraintTop_toBottomOf="@+id/descEvento"
+        app:layout_constraintVertical_bias="0.073" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
