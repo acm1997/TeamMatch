@@ -182,7 +182,7 @@
         android:id="@+id/numParticipantes"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:ems="10"
+        android:ems="0"
         android:hint="Numero de Participantes"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -105,9 +105,11 @@ public class CrearEventoActivity extends AppCompatActivity {
 
                 String n = mNombre.getText().toString();
                 String d = fechaString +"-" + horaString;
-                Integer p = Integer.parseInt(mParticipantes.getText().toString()) ; //TODO comprobar que no esté vacío
+                String p = mParticipantes.getText().toString();
                 String desc = mDescripcion.getText().toString();
                 Deporte dep = getDeporte();
+
+
 
                 if(n != null && n.equals("")){
                     Toast.makeText(CrearEventoActivity.this, "El nombre del evento está vacío", Toast.LENGTH_SHORT).show();
@@ -119,7 +121,7 @@ public class CrearEventoActivity extends AppCompatActivity {
                             Toast.makeText(CrearEventoActivity.this, "El deporte está vacío", Toast.LENGTH_SHORT).show();
                         }else {
                             Intent i = new Intent();
-                            Evento.packageIntent(i, n, d, p, desc, dep);
+                            Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep);
 
                             setResult(RESULT_OK, i);
                             finish();
