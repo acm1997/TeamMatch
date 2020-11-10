@@ -31,11 +31,11 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private long id;
     @ColumnInfo(name = "username")
-    private String Username = new String();
+    private String Username;
     @ColumnInfo(name = "email")
-    private String Email = new String();
+    private String Email;
     @ColumnInfo(name = "password")
-    private String Password = new String();
+    private String Password;
 //    @Ignore
 //    private ArrayList<Evento> MyEvents;
     @Ignore
@@ -75,7 +75,7 @@ public class User {
         this.MyEventsPart = MyEventsPart;
     }
 
-    User(Intent intent){
+    public User(Intent intent){
         id = intent.getLongExtra(User.ID,0);
         Username = intent.getStringExtra(User.USERNAME);
         Email = intent.getStringExtra(User.EMAIL);

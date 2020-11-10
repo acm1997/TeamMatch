@@ -18,6 +18,9 @@ public interface UserDAO {
     @Insert
     public long insert(User usuario);
 
+    @Insert
+    void registerUser(User usuario);
+
     @Update
     public int update(User usuario);
 
@@ -26,4 +29,7 @@ public interface UserDAO {
 
     @Delete
     public void deleteUser(User usuario);
+
+    @Query("SELECT * FROM usuarios where username=(:username) and password=(:password)")
+    User login(String username, String password);
 }

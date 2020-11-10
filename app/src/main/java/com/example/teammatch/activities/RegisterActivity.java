@@ -5,11 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,7 +15,8 @@ import android.widget.Toast;
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.teammatch.room_db.UserDAO;
+import com.example.teammatch.room_db.UserDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -30,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mPassword;
     private EditText mRePassword;
     private ArrayList<Evento> MyEventsPart = new ArrayList<Evento>();
+    private Button btn_register;
 
     public static final int GO_TO_LOGIN_REQUEST = 0;
 
@@ -38,29 +37,49 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mUsername = findViewById(R.id.et_name);
-        mEmail = findViewById(R.id.et_email);
+        mUsername = findViewById(R.id.et_username_register);
+        mEmail = findViewById(R.id.et_email_username);
         mPassword = findViewById(R.id.et_password);
-        mRePassword = findViewById(R.id.et_repassword);
+        mRePassword = findViewById(R.id.et_repassword_register);
+        btn_register = findViewById(R.id.btn_register);
 
-        final Button submitRegisterButton = findViewById(R.id.btn_register);
-        submitRegisterButton.setOnClickListener(new View.OnClickListener() {
+        btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String username = mUsername.getText().toString();
-                String email = mEmail.getText().toString();
+            public void onClick(View v) {
                 String password = mPassword.getText().toString();
                 String repassword = mRePassword.getText().toString();
 
+                //Si las contraseña y confirmación de contraseña coinciden se crea el usuario
                 if(password.equals(repassword)){
-                    Intent i = new Intent();
-                    User.packageIntent(i, username, email, password, MyEventsPart);
+                    //Crear nuevo usuario
+                    User user = new User();
+                    user.setUsername(mUsername.getText().toString());
+                    user.setEmail(mEmail.getText().toString());
+                    user.setPassword(mPassword.getText().toString());
+                    boolean validacion_register = validarCampos(user);
 
-                    finish();
+                    if(validacion_register){
+                        UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
+                        UserDAO userDao = userdatabase.userDao();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                userDao.registerUser(user);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                                        String username = user.getUsername();
+                                        startActivity(new Intent(RegisterActivity.this, MyProfileActivity.class).putExtra("username", username));
+                                    }
+                                });
+                            }
+                        }).start();
+                    }
                 } else {
-                     Snackbar.make(view, "Las contraseñas no coinciden", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -73,5 +92,18 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    
+
+    private Boolean validarCampos(User user){
+        if(user.getUsername().isEmpty() || user.getEmail().isEmpty() || user.getPassword().isEmpty()){
+            Toast.makeText(this, "Ingresa un nombre de usuario, email y contraseña", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(user.getUsername().length()<8 || user.getPassword().length()<8){
+            Toast.makeText(this, "Ingrese al menos un nombre de usuario y contraseña de 8 carácteres", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
 }

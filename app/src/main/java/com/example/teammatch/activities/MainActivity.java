@@ -8,7 +8,9 @@ import com.example.teammatch.R;
 import com.example.teammatch.activities.CrearEventoActivity;
 import com.example.teammatch.adapters.EventAdapter;
 import com.example.teammatch.objects.Evento;
+import com.example.teammatch.objects.User;
 import com.example.teammatch.room_db.EventoDataBase;
+import com.example.teammatch.room_db.UserDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -53,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int MENU_LOGIN = Menu.FIRST + 1;
 
     public static final int ADD_EVENTO_REQUEST = 0;
-    public static final int LOGIN_REQUEST = 0;
+    public static final int REGISTER_REQUEST = 0;
+
 
     private static final String TAG = "UserInterface";
 
@@ -142,6 +145,24 @@ public class MainActivity extends AppCompatActivity {
 
                     //insertar evento en la lista
                     runOnUiThread(() -> mAdapter.add(EventoItem) );
+                }
+            });
+        }
+
+        if(requestCode == REGISTER_REQUEST && resultCode == RESULT_OK){
+            User UserItem = new User(data);
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    //Añadir usuario a la BD
+                    UserDatabase usuario_database = UserDatabase.getInstance(MainActivity.this);
+                    long id_user = usuario_database.userDao().insert(UserItem);
+
+                    //Actualizar user
+                    UserItem.setId(id_user);
+
+                    Intent intent = new Intent(MainActivity.this, MyProfileActivity.class);
+                    startActivity(intent);
                 }
             });
         }

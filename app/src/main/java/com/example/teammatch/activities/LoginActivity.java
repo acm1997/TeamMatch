@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
+import com.example.teammatch.room_db.UserDAO;
 import com.example.teammatch.room_db.UserDatabase;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mUsername;
-    private EditText mEmail;
     private EditText mPassword;
     private ArrayList<Evento> mMyEventsPart = new ArrayList<Evento>();
+    private Button btn_login;
 
     public static final int GO_TO_REGISTER_REQUEST = 0;
 
@@ -31,25 +32,41 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mUsername = findViewById(R.id.et_name);
-        mEmail = findViewById(R.id.et_email);
+        //init
+        mUsername = findViewById(R.id.et_email_username);
         mPassword = findViewById(R.id.et_password);
+        btn_login = findViewById(R.id.btn_login);
 
         UserDatabase.getInstance(this);
 
-        final Button submitLoginButton = findViewById(R.id.btn_login);
-        submitLoginButton.setOnClickListener(new View.OnClickListener() {
+        btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                String username = mUsername.getText().toString();
-                String email = mEmail.getText().toString();
-                String password = mPassword.getText().toString();
-
-                Intent i = new Intent();
-                User.packageIntent(i,username ,email, password, mMyEventsPart);
-
-                finish();
+            public void onClick(View v) {
+                final String username = mUsername.getText().toString();
+                final String password = mPassword.getText().toString();
+                boolean validacion_login = validarCampos(username, password);
+                if(validacion_login){
+                    //Inicialización BD
+                    UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
+                    UserDAO userdao = userdatabase.userDao();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            User user = userdao.login(username, password);
+                            if(user == null){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Usuario y contraseña no válidos", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                String username = user.getUsername();
+                                startActivity(new Intent(LoginActivity.this, MyProfileActivity.class).putExtra("username", username));
+                            }
+                        }
+                    }).start();
+                }
             }
         });
 
@@ -61,5 +78,17 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent2, GO_TO_REGISTER_REQUEST);
             }
         });
+    }
+
+    public boolean validarCampos(String username, String password){
+        if(username.isEmpty() || password.isEmpty()){
+            Toast.makeText(this, "Ingresa el nombre de usuario y la contraseña", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(username.length()<8 || password.length() < 8) {
+            Toast.makeText(this, "Ingrese al menos un nombre de usuario y contraseña de 8 carácteres", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            return true;
+        }
     }
 }

@@ -13,17 +13,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MyProfileActivity extends AppCompatActivity {
 
+    TextView tname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-        String username = getIntent().getStringExtra("USERNAME");
-        if(username==null) username = "";
+        tname = findViewById(R.id.tVUsername);
+        String username = getIntent().getStringExtra("username");
+        tname.setText(username);
 
-        TextView tVUsername = findViewById(R.id.tVUsername);
-        tVUsername.setText(""+username);
+
 
         //Inicio variable bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

@@ -10,6 +10,7 @@ import com.example.teammatch.objects.User;
 
 @Database(entities = {User.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
+
     private static UserDatabase instance;
 
     public static UserDatabase getInstance(Context context) {
@@ -18,5 +19,5 @@ public abstract class UserDatabase extends RoomDatabase {
         return instance;
     }
 
-    public abstract UserDAO getDao();
+    public abstract UserDAO userDao();
 }
