@@ -16,6 +16,7 @@
         <activity android:name=".activities.BuscarActivity" />
         <activity android:name=".activities.MisEventosAtivity" />
         <activity android:name=".activities.CrearEventoActivity" />
+        <activity android:name=".activities.PistaActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
