@@ -1,6 +1,7 @@
 package com.example.teammatch.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mPassword;
     private ArrayList<Evento> mMyEventsPart = new ArrayList<Evento>();
     private Button btn_login;
+    //Guardar credenciales
+    private SharedPreferences preferences;
 
     public static final int GO_TO_REGISTER_REQUEST = 0;
 
@@ -36,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         mUsername = findViewById(R.id.et_email_username);
         mPassword = findViewById(R.id.et_password);
         btn_login = findViewById(R.id.btn_login);
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
         UserDatabase.getInstance(this);
 
@@ -61,6 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putLong("usuario_id", user.getId());
+                                editor.putString("username", user.getUsername());
+                                editor.putString("email", user.getEmail());
+                                editor.commit();
                                 String username = user.getUsername();
                                 startActivity(new Intent(LoginActivity.this, MyProfileActivity.class).putExtra("username", username));
                             }
