@@ -87,6 +87,14 @@ public class CrearEventoActivity extends AppCompatActivity {
             }
         });
 
+        final Button selPista = (Button) findViewById(R.id.idSelecPista);
+        selPista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CrearEventoActivity.this, PistasActivity.class);
+                startActivityForResult(intent, RESULT_OK);
+            }
+        });
 
         final Button cancelButton = (Button) findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +116,7 @@ public class CrearEventoActivity extends AppCompatActivity {
                 String p = mParticipantes.getText().toString();
                 String desc = mDescripcion.getText().toString();
                 Deporte dep = getDeporte();
+
 
 
 

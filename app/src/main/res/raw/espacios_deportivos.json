@@ -1,9 +1,4 @@
-{
-  "head": {
-    "vars": [ "uri" , "om_perteneceAInstalacionDeportiva" , "om_outdoor" , "tipoEspacioDeportivo" , "geo_long" , "foaf_name" , "geo_lat" , "schema_address_addressCountry" , "schema_address_addressLocality" , "schema_address_streetAddress" ]
-  } ,
-  "results": {
-    "bindings": [
+ [
       {
         "uri": { "type": "uri" , "value": "http://opendata.caceres.es/recurso/deporte/instalaciones/EspacioDeportivo/79-EspacioDeportivo" } ,
         "om_perteneceAInstalacionDeportiva": { "type": "uri" , "value": "http://opendata.caceres.es/recurso/deporte/instalaciones/InstalacionDeportiva/37-ciudad-deportiva-de-la-junta-de-extremadura" } ,
@@ -1093,5 +1088,3 @@
         "schema_address_streetAddress": { "type": "literal" , "value": "Avda Heroes De Baler, 41" }
       }
     ]
-  }
-}
