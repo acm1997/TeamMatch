@@ -37,4 +37,5 @@
     <string name="VER_EN_MAPA">Ver en mapa</string>
     <string name="ADD_TO_EVENTO">Añadir al evento</string>
     <string name="PARTICIPANTES">Participantes</string>
+    <string name="action_share">Compartir</string>
 </resources>

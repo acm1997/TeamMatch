@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -195,10 +196,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, "Ajustes");
-        menu.add(Menu.NONE, MENU_LOGIN, Menu.NONE, "Iniciar Sesión");
         // Inflate the menu; this adds items to the action bar if it is present
-        // getMenuInflater().inflate(R.menu.menu_main, menu);
+         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -208,23 +207,35 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        switch(item.getItemId()){
+        int id = item.getItemId();
+
+        if(id == R.id.action_settings) {
+            //accion Setting
+        } else if(id == R.id.action_text_login){
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else if(id == R.id.action_text_share){
+            compartirApp();
+        }
+        return super.onOptionsItemSelected(item);
+
+       /* switch(item.getItemId()){
             case MENU_SETTINGS:
                 log("Item settings funciona");
                 //NewSetting()
                 return true;
             case MENU_LOGIN:
-                log("Item LOGIN funciona");
+                log("Item LOGIN funciona");*/
              /*       Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
 
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+              /*  Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
-        }
+        }*/
     }
 
 
@@ -261,12 +272,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-    private void log(String msg) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.i(TAG, msg);
+
+    private void compartirApp(){
+        try{
+            Intent ishare = new Intent(Intent.ACTION_SEND);
+            ishare.setType("text/plain");
+            ishare.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
+            String aux = "Descarga la aplicación Team Match\n";
+            aux += "https://play.google.com/store/apps/details?id=il.talent.winner&hl=es_419";
+            ishare.putExtra(Intent.EXTRA_TEXT, aux);
+            startActivity(ishare);
+        }catch (Exception e){ }
     }
 }
