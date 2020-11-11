@@ -66,13 +66,11 @@ public class User {
         this.MyEventsPart = new ArrayList<Evento>();
     }
 
-    public User(long id, String Username, String Email ,String Password, ArrayList<Evento> MyEventsPart) {
+    public User(long id, String Username, String Email ,String Password) {
         this.id = id;
         this.Username = Username;
         this.Email = Email;
         this.Password = Password;
- //       this.MyEvents = MyEvents;
-        this.MyEventsPart = MyEventsPart;
     }
 
     public User(Intent intent){

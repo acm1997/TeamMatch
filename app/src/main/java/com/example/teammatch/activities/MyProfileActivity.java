@@ -36,8 +36,9 @@ public class MyProfileActivity extends AppCompatActivity {
         Long usuario_id = preferences.getLong("usuario_id", 0);
         String name = preferences.getString("username", null);
         String email = preferences.getString("email", null);
+        String password = preferences.getString("password", null);
 
-        if(usuario_id > 0 && name != null && email != null){
+        if(usuario_id > 0 && name != null && email != null && password != null){
             tname.setText(name);
         }
 
@@ -101,7 +102,7 @@ public class MyProfileActivity extends AppCompatActivity {
             finish();
             System.exit(0);
         } else if(id == R.id.action_cerrar_sesion){
-            preferences.edit().clear().apply();
+                preferences.edit().clear().apply();
             Toast.makeText(getApplicationContext(), "Se ha cerrado la sesión", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MyProfileActivity.this, LoginActivity.class);
             startActivityForResult(intent, GO_LOGIN_REQUEST);
