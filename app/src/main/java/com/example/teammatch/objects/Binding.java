@@ -1,9 +1,10 @@
+
 package com.example.teammatch.objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Pistum {
+public class Binding {
 
     @SerializedName("uri")
     @Expose
