@@ -1,5 +1,7 @@
 package com.example.teammatch.adapters;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teammatch.R;
 import com.example.teammatch.activities.PistasActivity;
-import com.example.teammatch.objects.Pistum;
+import com.example.teammatch.objects.Binding;
+import com.example.teammatch.objects.Pistas;
 
 import java.util.List;
 
 public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder> {
-    private List<Pistum> mDataset;
+    private List<Binding> mDataset;
+    private static final String TAG = "Pistas: ";
+
 
     public interface OnListInteractionListener{
         public void onListInteraction(String url);
@@ -28,7 +33,7 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
         public TextView mNombrePista;
         public View mView;
 
-        public Pistum mItem;
+        public Binding mItem;
 
         public MyViewHolder(View v) {
             super(v);
@@ -38,13 +43,13 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public PistaAdapter(List<Pistum> myDataset, PistasActivity listener) {
+    public PistaAdapter(List<Binding> myDataset, OnListInteractionListener listener) {
         mDataset = myDataset;
-      //  mListener = listener;
+        mListener = listener;
     }
 
     @Override
-    public PistaAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+    public MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
         // Create new views (invoked by the layout manager)
@@ -60,7 +65,7 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
         holder.mItem = mDataset.get(position);
         holder.mNombrePista.setText(mDataset.get(position).getFoafName().getValue());
 
-       /* holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -70,18 +75,29 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
 
                 }
             }
-        });*/
+        });
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
+        log("Texto pista count: "+ mDataset.toString());
         return mDataset.size();
     }
 
-    public void swap(List<Pistum> dataset){
+    public void swap(List<Binding> dataset){
         mDataset = dataset;
         notifyDataSetChanged();
+    }
+
+
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }
