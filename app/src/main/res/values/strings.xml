@@ -37,4 +37,11 @@
     <string name="VER_EN_MAPA">Ver en mapa</string>
     <string name="ADD_TO_EVENTO">Añadir al evento</string>
     <string name="PARTICIPANTES">Participantes</string>
+    <string name="title_activity_crear_equipo">CrearEquipoActivity</string>
+    <string name="NUEVO_EQUIPO">Nuevo Equipo</string>
+    <string name="NOMBRE_EQUIPO">Nombre del equipo</string>
+    <string name="NUM_MIEMBROS">Número de miembros</string>
+    <string name="DESCRIPCION_EQUIPO">Descripción del equipo</string>
+    <string name="CREAR">CREAR</string>
+    <string name="CANCELAR">CANCELAR</string>
 </resources>

@@ -21,9 +21,9 @@ public class Equipo {
     @PrimaryKey (autoGenerate = true)
     private long id;
     @ColumnInfo(name = "nombre")
-    private String nombre = "";
-    private Integer miembros = 0;
-    private String descripcion = "";
+    private String nombre;
+    private Integer miembros;
+    private String descripcion;
 
     @Ignore
     public Equipo() {
@@ -85,7 +85,7 @@ public class Equipo {
         this.descripcion = descripcion;
     }
 
-    public static void packageIntent(Intent intent, String mNombre, String mFecha, Integer mMiembros, String mDescripcion){
+    public static void packageIntent(Intent intent, String mNombre, Integer mMiembros, String mDescripcion){
         intent.putExtra(Equipo.NOMBRE, mNombre);
         intent.putExtra(Equipo.DESCRIPCION, mDescripcion);
         intent.putExtra(Equipo.MIEMBROS, mMiembros);
