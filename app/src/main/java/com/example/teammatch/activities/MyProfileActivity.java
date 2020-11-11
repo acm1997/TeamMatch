@@ -47,39 +47,38 @@ public class MyProfileActivity extends AppCompatActivity {
 
         btn_EditP = findViewById(R.id.bEditP);
 
-        btn_EditP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyProfileActivity.this, EditUserActivity.class);
-                startActivityForResult(intent, EDIT_PROFILE_REQUEST);
-            }
+        btn_EditP.setOnClickListener(v -> {
+            Intent intent = new Intent(MyProfileActivity.this, EditUserActivity.class);
+            startActivityForResult(intent, EDIT_PROFILE_REQUEST);
         });
 
         //Inicio variable bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Pongo seleccion de "Inicio".
         bottomNavigationView.setSelectedItemId(R.id.ic_usuario);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.ic_usuario:
-                        startActivity(new Intent(getApplicationContext(), MyProfileActivity.class ));
-                        overridePendingTransition(0,0);
-                        return true;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.ic_usuario:
+                    startActivity(new Intent(getApplicationContext(), MyProfileActivity.class ));
+                    overridePendingTransition(0,0);
+                    return true;
 
-                    case R.id.ic_home:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class ));
-                        overridePendingTransition(0,0);
-                        return true;
+                case R.id.ic_home:
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class ));
+                    overridePendingTransition(0,0);
+                    return true;
 
-                    case R.id.ic_buscar:
-                        startActivity(new Intent(getApplicationContext(), BuscarActivity.class ));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
+                case R.id.ic_buscar:
+                    startActivity(new Intent(getApplicationContext(), BuscarActivity.class ));
+                    overridePendingTransition(0,0);
+                    return true;
+
+                case R.id.ic_equipos:
+                    startActivity(new Intent(getApplicationContext(), EquiposActivity.class ));
+                    overridePendingTransition(0,0);
+                    return true;
             }
+            return false;
         });
     }
 

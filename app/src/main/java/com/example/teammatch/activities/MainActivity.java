@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int ADD_EVENTO_REQUEST = 0;
     public static final int REGISTER_REQUEST = 1;
+    public static final int ADD_EQUIPO_REQUEST = 2;
 
 
     private static final String TAG = "UserInterface";
@@ -103,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.ic_buscar:
                         startActivity(new Intent(getApplicationContext(), BuscarActivity.class ));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.ic_equipos:
+                        startActivity(new Intent(getApplicationContext(), EquiposActivity.class ));
                         overridePendingTransition(0,0);
                         return true;
                 }
