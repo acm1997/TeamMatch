@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MENU_LOGIN = Menu.FIRST + 1;
 
     public static final int ADD_EVENTO_REQUEST = 0;
-    public static final int REGISTER_REQUEST = 0;
+    public static final int REGISTER_REQUEST = 1;
 
 
     private static final String TAG = "UserInterface";

@@ -41,6 +41,7 @@ public class User {
     @Ignore
     private ArrayList<Evento> MyEventsPart;
 
+    @Ignore
     public User() {
         this.Username = "";
         this.Email = "";

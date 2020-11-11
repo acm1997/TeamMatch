@@ -31,4 +31,10 @@
     <string name="action_salir">Salir</string>
     <string name="action_cerrar_sesion">Cerrar Sesión</string>
     <string name="textborrar">¿Deseas borrar tu perfil? \nNOTA: Todos tus datos se perderan</string>
+    <string name="NOMBRE">Nombre</string>
+    <string name="CIUDAD">Ciudad</string>
+    <string name="CALLE">Calle</string>
+    <string name="VER_EN_MAPA">Ver en mapa</string>
+    <string name="ADD_TO_EVENTO">Añadir al evento</string>
+    <string name="PARTICIPANTES">Participantes</string>
 </resources>
