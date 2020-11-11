@@ -43,14 +43,14 @@ public class Evento {
     private long id;
 
     @ColumnInfo(name = "nombre")
-    private String nombre = new String();
+    private String nombre;
 
     @TypeConverters(FechaConverter.class)
     private Date fecha = new Date();
 
-    private Integer participantes = new Integer(0);
+    private Integer participantes = 0;
 
-    private String descripcion = new String();
+    private String descripcion;
 
     @TypeConverters(DeporteConverter.class)
     private Deporte deporte = Deporte.FUTBOL;
@@ -93,9 +93,9 @@ public class Evento {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
-        this.participantes = this.participantes;
-        this.descripcion = this.descripcion;
-        this.deporte = this.deporte;
+        this.participantes = participantes;
+        this.descripcion = descripcion;
+        this.deporte = deporte;
     }
 
     public long getId() {
