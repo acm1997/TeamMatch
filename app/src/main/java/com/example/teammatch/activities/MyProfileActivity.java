@@ -24,7 +24,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private SharedPreferences preferences;
 
     public static final int EDIT_PROFILE_REQUEST = 0;
-    public static final int GO_LOGIN_REQUEST = 0;
+    public static final int GO_LOGIN_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

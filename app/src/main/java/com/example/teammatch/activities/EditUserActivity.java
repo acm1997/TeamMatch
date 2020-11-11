@@ -63,9 +63,25 @@ public class EditUserActivity extends AppCompatActivity {
 
                 if(editpassword.equals(editRepassword)){
                     boolean validacion_editar = validarNuevosCampos(editusername, editemail, editpassword);
-                  /*  if(validacion_editar){
-
-                    }*/
+                    if(validacion_editar){
+                        UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
+                        UserDAO userdao = userdatabase.userDao();
+                        User userupdate = new User(usuario_id, editusername, editemail, editpassword);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putLong("usuario_id", userupdate.getId());
+                                editor.putString("username", userupdate.getUsername());
+                                editor.putString("email", userupdate.getEmail());
+                                editor.putString("password", userupdate.getPassword());
+                                editor.commit();
+                                userdao.update(userupdate);
+                                String username = userupdate.getUsername();
+                                startActivity(new Intent(EditUserActivity.this, MyProfileActivity.class).putExtra("username", username));
+                            }
+                        }).start();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                 }
@@ -74,7 +90,7 @@ public class EditUserActivity extends AppCompatActivity {
         });
 
 
-        //Botón borrar un usuario
+        //Borrar un usuario
         btn_deleteuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

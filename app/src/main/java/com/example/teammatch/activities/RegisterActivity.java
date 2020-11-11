@@ -1,17 +1,20 @@
 package com.example.teammatch.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
@@ -29,8 +32,10 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mRePassword;
     private ArrayList<Evento> MyEventsPart = new ArrayList<Evento>();
     private Button btn_register;
+    private SharedPreferences preferences;
 
-    public static final int GO_TO_LOGIN_REQUEST = 0;
+    public static final int GO_TO_LOGIN_REQUEST = 98;
+    public static final int GO_TO_PROFILE = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String password = mPassword.getText().toString();
                 String repassword = mRePassword.getText().toString();
+                preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
                 //Si las contraseña y confirmación de contraseña coinciden se crea el usuario
                 if(password.equals(repassword)){
@@ -59,22 +65,23 @@ public class RegisterActivity extends AppCompatActivity {
                     boolean validacion_register = validarCampos(user);
 
                     if(validacion_register){
-                        UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
-                        UserDAO userDao = userdatabase.userDao();
-                        new Thread(new Runnable() {
+                        AppExecutors.getInstance().diskIO().execute(new Runnable() {
                             @Override
                             public void run() {
-                                userDao.registerUser(user);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
-                                        String username = user.getUsername();
-                                        startActivity(new Intent(RegisterActivity.this, MyProfileActivity.class).putExtra("username", username));
-                                    }
-                                });
+                                UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
+                                long id_user = userdatabase.userDao().insert(user);
+                                user.setId(id_user);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putLong("usuario_id", user.getId());
+                                editor.putString("username", user.getUsername());
+                                editor.putString("email", user.getEmail());
+                                editor.putString("password", user.getPassword());
+                                editor.commit();
+                                
+                                Intent intentP = new Intent(RegisterActivity.this, MyProfileActivity.class);
+                                startActivityForResult(intentP, GO_TO_PROFILE);
                             }
-                        }).start();
+                        });
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -105,5 +112,4 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
-
 }
