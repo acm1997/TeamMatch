@@ -195,10 +195,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, "Settings");
-        menu.add(Menu.NONE, MENU_LOGIN, Menu.NONE, "Login");
+        menu.add(Menu.NONE, MENU_SETTINGS, Menu.NONE, "Ajustes");
+        menu.add(Menu.NONE, MENU_LOGIN, Menu.NONE, "Iniciar Sesión");
         // Inflate the menu; this adds items to the action bar if it is present
-      //  getMenuInflater().inflate(R.menu.menu_main, menu);
+        // getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
