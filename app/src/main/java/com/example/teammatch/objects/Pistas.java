@@ -31,11 +31,4 @@ public class Pistas {
         this.results = results;
     }
 
-    @Override
-    public String toString() {
-        return "Pistas{" +
-                "head=" + head +
-                ", results=" + results +
-                '}';
-    }
 }

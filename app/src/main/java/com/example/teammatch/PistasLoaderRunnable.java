@@ -13,7 +13,6 @@ public class PistasLoaderRunnable implements Runnable{
 
     private final InputStream mInFile;
     private final OnReposLoadedListener mOnReposLoadedListener;
-    private static final String TAG = "Pistas: ";
 
     public PistasLoaderRunnable(InputStream inFile, OnReposLoadedListener onReposLoadedListener){
         mInFile = inFile;
@@ -26,7 +25,6 @@ public class PistasLoaderRunnable implements Runnable{
         JsonReader reader = new JsonReader(new InputStreamReader(mInFile));
         // Parse JsonReader into list of Repo using Gson
         Pistas pistas = new Gson().fromJson(reader, Pistas.class);
-        log("Texto pistaaaaaaaaaaaaaa: "+ pistas.toString());
 /*                for(Pistum p : pistas){
                     try{
                         Thread.sleep(50);
@@ -43,14 +41,6 @@ public class PistasLoaderRunnable implements Runnable{
         });
 
 
-    }
-    private void log(String msg) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.i(TAG, msg);
     }
 }
 
