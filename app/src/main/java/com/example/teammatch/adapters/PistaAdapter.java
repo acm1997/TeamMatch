@@ -1,7 +1,6 @@
 package com.example.teammatch.adapters;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +81,6 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        log("Texto pista count: "+ mDataset.toString());
         return mDataset.size();
     }
 
@@ -91,13 +89,4 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
         notifyDataSetChanged();
     }
 
-
-    private void log(String msg) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.i(TAG, msg);
-    }
 }

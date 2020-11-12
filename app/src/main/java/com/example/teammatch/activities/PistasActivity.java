@@ -3,7 +3,6 @@ package com.example.teammatch.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,9 +56,11 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
 
         OpenDataService service = retrofit.create(OpenDataService.class);//Retrofit me crea instancia de interfaz de arriba
 
-        service.cogerPistas("GetData?dataset=om:EspacioDeportivo&format=json").enqueue(new Callback<Pistas>() {
+
+        service.cogerPistas().enqueue(new Callback<Pistas>() {
             @Override
             public void onResponse(Call<Pistas> call, Response<Pistas> response) {
+
                 Pistas p = response.body();
                 runOnUiThread(new Runnable() {
                     @Override
@@ -87,13 +88,5 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
         startActivity(webIntent);
     }
 
-    private void log(String msg) {
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.i(TAG, msg);
-    }
 
 }

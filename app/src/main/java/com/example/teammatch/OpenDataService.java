@@ -10,6 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface OpenDataService {
-    @GET("{url}")
-    Call<Pistas> cogerPistas(@Path("url") String url);
+    @GET("GetData?dataset=om:EspacioDeportivo&format=json")
+    Call<Pistas> cogerPistas();
 }
