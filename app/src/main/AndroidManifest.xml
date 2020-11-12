@@ -10,9 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.EditUserActivity"
-            android:parentActivityName=".activities.MyProfileActivity"></activity>
+            android:parentActivityName=".activities.MyProfileActivity">
+        </activity>
         <activity android:name=".activities.LoginActivity"
-            android:parentActivityName=".activities.MainActivity"></activity>/>
+            android:parentActivityName=".activities.MainActivity">
+        </activity>
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.MyProfileActivity" />
         <activity android:name=".activities.BuscarActivity" />
