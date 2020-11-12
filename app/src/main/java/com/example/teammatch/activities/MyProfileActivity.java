@@ -59,9 +59,14 @@ public class MyProfileActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.ic_usuario:
-                    startActivity(new Intent(getApplicationContext(), MyProfileActivity.class ));
-                    overridePendingTransition(0,0);
-                    return true;
+                    if (usuario_id > 0 && name != null && email != null && password != null) {
+                        startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    } else {
+                        Toast.makeText(getApplicationContext(), "No estas registrado en la aplicación", Toast.LENGTH_LONG).show();
+                        return false;
+                    }
 
                 case R.id.ic_home:
                     startActivity(new Intent(getApplicationContext(), MainActivity.class ));

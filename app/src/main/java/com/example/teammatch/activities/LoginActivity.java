@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //init
         mUsername = findViewById(R.id.et_email_username);
