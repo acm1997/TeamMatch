@@ -67,74 +67,51 @@ public class CrearEventoActivity extends AppCompatActivity {
         // the Date dialog
 
         final Button datePickerButton = (Button) findViewById(R.id.botonfecha);
-        datePickerButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });
+        datePickerButton.setOnClickListener(v -> showDatePickerDialog());
 
         // OnClickListener for the Time button, calls showTimePickerDialog() to show
         // the Time Dialog
 
         final Button timePickerButton = (Button) findViewById(R.id.botonhora);
-        timePickerButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog();
-            }
-        });
+        timePickerButton.setOnClickListener(v -> showTimePickerDialog());
 
         final Button selPista = (Button) findViewById(R.id.idSelecPista);
-        selPista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CrearEventoActivity.this, PistasActivity.class);
-                startActivityForResult(intent, RESULT_OK);
-            }
+        selPista.setOnClickListener(v -> {
+            Intent intent = new Intent(CrearEventoActivity.this, PistasActivity.class);
+            startActivityForResult(intent, RESULT_OK);
         });
 
         final Button cancelButton = (Button) findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
+        cancelButton.setOnClickListener(v -> {
+            setResult(RESULT_CANCELED);
+            finish();
         });
 
 
         final  Button submitButton = findViewById(R.id.buttonCrear);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        submitButton.setOnClickListener(view -> {
 
-                String n = mNombre.getText().toString();
-                String d = fechaString +"-" + horaString;
-                String p = mParticipantes.getText().toString();
-                String desc = mDescripcion.getText().toString();
-                Deporte dep = getDeporte();
+            String n = mNombre.getText().toString();
+            String d = fechaString +"-" + horaString;
+            String p = mParticipantes.getText().toString();
+            String desc = mDescripcion.getText().toString();
+            Deporte dep = getDeporte();
 
 
-
-
-                if(n != null && n.equals("")){
-                    Toast.makeText(CrearEventoActivity.this, "El nombre del evento está vacío", Toast.LENGTH_SHORT).show();
+            if(n != null && n.equals("")){
+                Toast.makeText(CrearEventoActivity.this, "El nombre del evento está vacío", Toast.LENGTH_SHORT).show();
+            }else{
+                if(p != null && p.equals("")){
+                    Toast.makeText(CrearEventoActivity.this, "El número de participantes está vacío", Toast.LENGTH_SHORT).show();
                 }else{
-                    if(p != null && p.equals("")){
-                        Toast.makeText(CrearEventoActivity.this, "El número de participantes está vacío", Toast.LENGTH_SHORT).show();
-                    }else{
-                        if(desc != null && desc.equals("")){
-                            Toast.makeText(CrearEventoActivity.this, "El deporte está vacío", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Intent i = new Intent();
-                            Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep);
+                    if(desc != null && desc.equals("")){
+                        Toast.makeText(CrearEventoActivity.this, "La descripción está vacía", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent i = new Intent();
+                        Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep);
 
-                            setResult(RESULT_OK, i);
-                            finish();
-                        }
+                        setResult(RESULT_OK, i);
+                        finish();
                     }
                 }
             }

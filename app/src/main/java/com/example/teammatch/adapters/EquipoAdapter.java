@@ -5,41 +5,47 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teammatch.R;
+import com.example.teammatch.objects.Equipo;
 import com.example.teammatch.objects.Evento;
 
 import java.util.ArrayList;
 import java.util.List;
+/*
+public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder> {
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
-    private List<Evento> mItems = new ArrayList<Evento>();
+    private List<Equipo> mItems = new ArrayList<Equipo>();
 
+    public EquipoAdapter() {
+    }
 
     public interface OnItemClickListener {
-        void onItemClick(Evento item);
+        void onItemClick(Equipo item);
     }
+
 
     private final OnItemClickListener listener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EventAdapter(OnItemClickListener listener) {
+    public EquipoAdapter(EquipoAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    // Create new views (invoked by the layout manager)
-    @Override
-    public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                      int viewType) {
-        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.evento,parent,false);
 
-       return new ViewHolder(v);
+    @Override
+    public EquipoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                      int viewType) {
+        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.equipo_detalles,parent,false);
+
+        return new EquipoAdapter.ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(EquipoAdapter.ViewHolder holder, int position) {
         holder.bind(mItems.get(position),listener);
     }
 
@@ -49,12 +55,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         return mItems.size();
     }
 
-    public void add(Evento item) {
+    public void add(Equipo item) {
         mItems.add(item);
         notifyDataSetChanged();
     }
 
-    public void load(List<Evento> items){
+    public void load(List<Equipo> items){
         mItems.clear();
         mItems = items;
         notifyDataSetChanged();
@@ -71,41 +77,32 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nombreView;
-        private TextView fechaView;
-        private TextView participantesView;
+        private TextView miembrosView;
         private TextView descripcionView;
-        private TextView deporteView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nombreView = itemView.findViewById(R.id.nomEvento);
-            fechaView = itemView.findViewById(R.id.fechaEvento);
-            participantesView = itemView.findViewById(R.id.participantesEvent);
-            descripcionView = itemView.findViewById(R.id.descEvento);
-            deporteView = itemView.findViewById(R.id.deporteEvento);
+            nombreView = itemView.findViewById(R.id. );
+            miembrosView = itemView.findViewById(R.id. );
+            descripcionView = itemView.findViewById(R.id. );
         }
 
-        public void bind(final Evento evento, final OnItemClickListener listener) {
+        public void bind(final Equipo equipo, final EquipoAdapter.OnItemClickListener listener) {
 
-            nombreView.setText(evento.getNombre());
+            nombreView.setText(equipo.getNombre());
 
-            participantesView.setText(evento.getParticipantes().toString());
+            miembrosView.setText(equipo.getMiembros().toString());
 
-            descripcionView.setText(evento.getDescripcion());
-
-            deporteView.setText(evento.getDeporte().toString());
-
-            fechaView.setText(evento.FORMAT.format(evento.getFecha()));
-
+            descripcionView.setText(equipo.getDescripcion());
 
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(evento);
+                    listener.onItemClick(equipo);
                 }
             });
         }
     }
-
 }
+*/
