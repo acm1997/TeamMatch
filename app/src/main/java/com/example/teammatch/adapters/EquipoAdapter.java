@@ -5,27 +5,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Equipo;
-import com.example.teammatch.objects.Evento;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
+
 public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder> {
 
-    private List<Equipo> mItems = new ArrayList<Equipo>();
-
-    public EquipoAdapter() {
-    }
+    private List<Equipo> mItems = new ArrayList<>();
 
     public interface OnItemClickListener {
         void onItemClick(Equipo item);
     }
-
 
     private final OnItemClickListener listener;
 
@@ -36,9 +30,8 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
 
 
     @Override
-    public EquipoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                      int viewType) {
-        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.equipo_detalles,parent,false);
+    public EquipoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.equipo_detalle,parent,false);
 
         return new EquipoAdapter.ViewHolder(v);
     }
@@ -82,9 +75,9 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nombreView = itemView.findViewById(R.id. );
-            miembrosView = itemView.findViewById(R.id. );
-            descripcionView = itemView.findViewById(R.id. );
+            nombreView = itemView.findViewById(R.id.nombreEquipo);
+            miembrosView = itemView.findViewById(R.id.numMiembros);
+            descripcionView = itemView.findViewById(R.id.descEquipo);
         }
 
         public void bind(final Equipo equipo, final EquipoAdapter.OnItemClickListener listener) {
@@ -105,4 +98,3 @@ public class EquipoAdapter extends RecyclerView.Adapter<EquipoAdapter.ViewHolder
         }
     }
 }
-*/

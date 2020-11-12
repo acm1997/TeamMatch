@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Equipo;
-import com.example.teammatch.objects.Evento;
 
 public class CrearEquipoActivity extends AppCompatActivity {
 
@@ -29,12 +28,12 @@ public class CrearEquipoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_equipo);
 
-        mNombre = (EditText) findViewById(R.id.tagNombreEquipo);
-        mMiembros = (EditText) findViewById(R.id.tagNumMiembros);
-        mDescripcion = (EditText) findViewById(R.id.tagDescripcionEquipo);
+        mNombre = findViewById(R.id.tagNombreEquipo);
+        mMiembros = findViewById(R.id.tagNumMiembros);
+        mDescripcion = findViewById(R.id.tagDescripcionEquipo);
 
 
-        final Button cancelButton = (Button) findViewById(R.id.cancelButton2);
+        final Button cancelButton = findViewById(R.id.cancelButton2);
         cancelButton.setOnClickListener(v -> {
             setResult(RESULT_CANCELED);
             finish();

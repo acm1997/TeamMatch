@@ -42,6 +42,7 @@ public class BuscarActivity extends AppCompatActivity {
                         return false;
                     }
 
+
                 case R.id.ic_home:
                     startActivity(new Intent(getApplicationContext(), MainActivity.class ));
                     overridePendingTransition(0,0);

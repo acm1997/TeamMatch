@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //Save ToDoItems
         saveItems();
     }
     @Override
@@ -236,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // Load stored ToDoItems
+    // Load stored Eventos
     private void loadItems() {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
