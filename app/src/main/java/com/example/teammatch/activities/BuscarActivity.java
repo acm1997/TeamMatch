@@ -39,6 +39,7 @@ public class BuscarActivity extends AppCompatActivity {
                         return true;
                     } else {
                         Toast.makeText(getApplicationContext(), "No estas registrado en la aplicación", Toast.LENGTH_LONG).show();
+
                         return false;
                     }
 

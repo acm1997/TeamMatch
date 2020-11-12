@@ -39,7 +39,7 @@ public class CrearEquipoActivity extends AppCompatActivity {
             finish();
         });
 
-        final Button submitButton = findViewById(R.id.buttonCrear2);
+        final Button submitButton = findViewById(R.id.buttonCrearEquipo);
         submitButton.setOnClickListener(view -> {
 
             String n = mNombre.getText().toString();
