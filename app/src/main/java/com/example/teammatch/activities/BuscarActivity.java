@@ -100,7 +100,6 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
             }
         });
     }
-
     
     private void initListener() {
         svSearch.setOnQueryTextListener(this);
