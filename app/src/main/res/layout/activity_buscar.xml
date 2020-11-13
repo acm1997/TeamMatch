@@ -143,7 +143,6 @@
         android:layout_alignParentBottom="true"
         android:elevation="8dp"
         app:labelVisibilityMode="selected"
-        app:layout_anchor="@+id/bottom_navigation"
         app:layout_anchorGravity="bottom|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
