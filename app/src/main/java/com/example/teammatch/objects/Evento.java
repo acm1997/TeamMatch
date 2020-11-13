@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-@Entity (tableName = "evento")
+@Entity (tableName = "evento" )
 public class Evento {
 
     public enum Deporte {
