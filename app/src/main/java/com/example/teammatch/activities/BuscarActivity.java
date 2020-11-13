@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teammatch.AppExecutors;
@@ -21,13 +22,15 @@ import com.example.teammatch.room_db.EventoDataBase;
 import com.example.teammatch.room_db.UserDAO;
 import com.example.teammatch.room_db.UserDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 public class BuscarActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private RecyclerView rvLista;
     private SearchView svSearch;
-    private EventAdapter adapter;
+    private RecyclerView.LayoutManager mlayoutManager;
+    private EventAdapter mAdapter;
 
     private SharedPreferences preferences;
 
@@ -37,8 +40,6 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar);
 
-        rvLista = findViewById(R.id.rvLista);
-        svSearch = findViewById(R.id.svSearch);
 
         initListener();
         // Get the intent, verify the action and get the query
@@ -89,6 +90,24 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
             }
             return false;
         });
+
+
+        rvLista = findViewById(R.id.rvLista);
+        svSearch = findViewById(R.id.svSearch);
+
+        rvLista.setHasFixedSize(true);
+
+        mlayoutManager = new LinearLayoutManager(this);
+        rvLista.setLayoutManager(mlayoutManager);
+
+        mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Evento item) {
+                Snackbar.make(rvLista, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+            }
+        });
+
+        rvLista.setAdapter(mAdapter);
     }
 
     private void doMySearch(String query) {
@@ -96,7 +115,7 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
             @Override
             public void run() {
                 List<Evento> eventos = EventoDataBase.getInstance(BuscarActivity.this).getDao().SearchByName(query);
-                runOnUiThread(() -> adapter.load(eventos));
+                runOnUiThread(() -> mAdapter.load(eventos));
             }
         });
     }

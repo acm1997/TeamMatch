@@ -1,10 +1,19 @@
 
 package com.example.teammatch.objects;
 
+import android.content.Intent;
+
+import androidx.room.Ignore;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Binding {
+    public final static String NOMBRE = "nombre";
+    public final static String CIUDAD = "ciudad";
+    public final static String CALLE = "calle";
+    public final static String LONGITUD = "longitud";
+    public final static String LATITUD = "latitud";
 
     @SerializedName("uri")
     @Expose
@@ -33,6 +42,9 @@ public class Binding {
     @SerializedName("schema_address_addressLocality")
     @Expose
     private SchemaAddressAddressLocality schemaAddressAddressLocality;
+    @SerializedName("schema_address_streetAddress")
+    @Expose
+    private SchemaAddressStreetAddress schemaAddressStreetAddress;
 
     public Uri getUri() {
         return uri;
@@ -106,4 +118,22 @@ public class Binding {
         this.schemaAddressAddressLocality = schemaAddressAddressLocality;
     }
 
+    public SchemaAddressStreetAddress getSchemaAddressStreetAddress() {
+        return schemaAddressStreetAddress;
+    }
+
+    public void setSchemaAddressStreetAddress(SchemaAddressStreetAddress schemaAddressStreetAddress) {
+        this.schemaAddressStreetAddress = schemaAddressStreetAddress;
+    }
+
+    public static void packageIntent(Intent intent, Binding b){
+        intent.putExtra(Binding.NOMBRE, b.getFoafName().getValue());
+        intent.putExtra(Binding.CIUDAD, b.getSchemaAddressAddressLocality().getValue());
+        if( b.getSchemaAddressStreetAddress() == null)
+            intent.putExtra(Binding.CALLE,"No disponible");
+        else
+            intent.putExtra(Binding.CALLE, b.getSchemaAddressStreetAddress().getValue());
+        intent.putExtra(Binding.LONGITUD, b.getGeoLong().getValue());
+        intent.putExtra(Binding.LATITUD, b.getGeoLat().getValue());
+    }
 }

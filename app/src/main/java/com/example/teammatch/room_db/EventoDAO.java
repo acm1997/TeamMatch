@@ -28,6 +28,6 @@ public interface EventoDAO {
     @Query("DELETE FROM evento")
     public void deleteAll();
 
-    @Query("SELECT * FROM evento where nombre=(:nombre)")
+    @Query("SELECT * FROM evento where nombre= :nombre")
     public List<Evento> SearchByName(String nombre);
 }
