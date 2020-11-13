@@ -101,7 +101,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ListEventsC"
+        android:id="@+id/my_recycler_view_EventosUser"
         android:layout_width="383dp"
         android:layout_height="140dp"
         app:layout_constraintBottom_toBottomOf="parent"

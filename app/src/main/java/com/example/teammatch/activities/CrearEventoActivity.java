@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +47,8 @@ public class CrearEventoActivity extends AppCompatActivity {
     private RadioButton mDefaultDeporte;
     public static final int BUSCAR_EVENTO_REQUEST = 0;
 
+    private SharedPreferences preferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,11 @@ public class CrearEventoActivity extends AppCompatActivity {
         mDefaultDeporte = (RadioButton) findViewById(R.id.radioFutbol);
         fechaView = (TextView) findViewById(R.id.fecha);
         horaView = (TextView) findViewById(R.id.hora);
+
+        //Usuario de la sesion
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        Long usuario_id = preferences.getLong("usuario_id", 0);
+
 
         // Set the default date and time
 
@@ -108,7 +116,7 @@ public class CrearEventoActivity extends AppCompatActivity {
                         Toast.makeText(CrearEventoActivity.this, "La descripción está vacía", Toast.LENGTH_SHORT).show();
                     }else {
                         Intent i = new Intent();
-                        Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep);
+                        Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, usuario_id);
 
                         setResult(RESULT_OK, i);
                         finish();

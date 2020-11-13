@@ -8,13 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teammatch.R;
 import com.example.teammatch.objects.User;
-import com.example.teammatch.room_db.UserDAO;
-import com.example.teammatch.room_db.UserDatabase;
+import com.example.teammatch.room_db.TeamMatchDAO;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 
 public class EditUserActivity extends AppCompatActivity {
 
@@ -50,7 +49,7 @@ public class EditUserActivity extends AppCompatActivity {
         //Mostrar datos actuales en los campos del usuario
         showDataUser(usuario_id, name, email, password);
 
-        UserDatabase.getInstance(this);
+        TeamMatchDataBase.getInstance(this);
 
         //Modificar los datos de un usuario
         btn_save.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +63,8 @@ public class EditUserActivity extends AppCompatActivity {
                 if(editpassword.equals(editRepassword)){
                     boolean validacion_editar = validarNuevosCampos(editusername, editemail, editpassword);
                     if(validacion_editar){
-                        UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
-                        UserDAO userdao = userdatabase.userDao();
+                        TeamMatchDataBase userdatabase = TeamMatchDataBase.getInstance(getApplicationContext());
+                        TeamMatchDAO userdao = userdatabase.getDao();
                         User userupdate = new User(usuario_id, editusername, editemail, editpassword);
                         new Thread(new Runnable() {
                             @Override
@@ -95,8 +94,8 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(usuario_id > 0 && name != null && email != null && password != null){
-                    UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
-                    UserDAO userdao = userdatabase.userDao();
+                    TeamMatchDataBase userdatabase = TeamMatchDataBase.getInstance(getApplicationContext());
+                    TeamMatchDAO userdao = userdatabase.getDao();
                     User userdelete = new User(usuario_id, name, email, password);
 
                     new Thread(new Runnable() {

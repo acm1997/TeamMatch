@@ -2,12 +2,10 @@ package com.example.teammatch.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +16,7 @@ import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
-import com.example.teammatch.room_db.UserDAO;
-import com.example.teammatch.room_db.UserDatabase;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 
 import java.util.ArrayList;
 
@@ -68,8 +64,8 @@ public class RegisterActivity extends AppCompatActivity {
                         AppExecutors.getInstance().diskIO().execute(new Runnable() {
                             @Override
                             public void run() {
-                                UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
-                                long id_user = userdatabase.userDao().insert(user);
+                                TeamMatchDataBase userdatabase = TeamMatchDataBase.getInstance(getApplicationContext());
+                                long id_user = userdatabase.getDao().insertUser(user);
                                 user.setId(id_user);
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putLong("usuario_id", user.getId());

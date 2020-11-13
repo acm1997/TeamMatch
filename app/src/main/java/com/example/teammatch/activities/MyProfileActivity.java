@@ -1,25 +1,39 @@
 package com.example.teammatch.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
+import com.example.teammatch.adapters.EventAdapter;
+import com.example.teammatch.objects.Evento;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 public class MyProfileActivity extends AppCompatActivity {
 
+    private static final String TAG = "MY_PROFILE_ACTIVITY";
+
     private TextView tname;
     private Button btn_EditP;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mlayoutManager;
+    private EventAdapter mAdapter;
 
     private SharedPreferences preferences;
 
@@ -51,6 +65,13 @@ public class MyProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(MyProfileActivity.this, EditUserActivity.class);
             startActivityForResult(intent, EDIT_PROFILE_REQUEST);
         });
+
+
+        //Todo mostar lista eventos crados
+
+
+
+
 
         //Inicio variable bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -85,6 +106,37 @@ public class MyProfileActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
+
+        loadItems();
+
+        mRecyclerView = findViewById(R.id.my_recycler_view_EventosUser);
+
+        mRecyclerView.setHasFixedSize(true);
+
+        mlayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mlayoutManager);
+
+        mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Evento item) {
+                Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+            }
+        });
+
+        mRecyclerView.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Load saved ToDoItems, if necessary
+
+        if (mAdapter.getItemCount() == 0)
+            loadItems();
     }
 
     @Override
@@ -113,5 +165,31 @@ public class MyProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-        }
     }
+
+
+    // Load stored Eventos
+    private void loadItems() {
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        Long usuario_id = preferences.getLong("usuario_id", 0);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Evento> eventosUser= TeamMatchDataBase.getInstance(MyProfileActivity.this).getDao().getAllEventosByUserId(usuario_id);
+                //log("USUARIO CREADOR" + userWithEventos.getUser().getUsername().toString());
+                runOnUiThread(() -> mAdapter.load(eventosUser));
+            }
+        });
+    }
+
+
+    private void log (String msg){
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
+    }
+}

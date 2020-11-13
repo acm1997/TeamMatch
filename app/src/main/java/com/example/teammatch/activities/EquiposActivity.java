@@ -1,13 +1,8 @@
 package com.example.teammatch.activities;
 
 import android.content.Intent;
-import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +11,7 @@ import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.adapters.EquipoAdapter;
 import com.example.teammatch.objects.Equipo;
-import com.example.teammatch.objects.Evento;
-import com.example.teammatch.room_db.EquipoDataBase;
-import com.example.teammatch.room_db.EventoDataBase;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -92,8 +85,8 @@ public class EquiposActivity extends AppCompatActivity {
         if (requestCode == ADD_EQUIPO_REQUEST && resultCode == RESULT_OK){
             Equipo equipoItem = new Equipo(data);
             AppExecutors.getInstance().diskIO().execute(() -> {
-                EquipoDataBase equipoDataBase = EquipoDataBase.getInstance(EquiposActivity.this);
-                long idEquipo = equipoDataBase.getDao().insert(equipoItem);
+                TeamMatchDataBase equipoDataBase = TeamMatchDataBase.getInstance(EquiposActivity.this);
+                long idEquipo = equipoDataBase.getDao().insertEquipo(equipoItem);
 
                 equipoItem.setId(idEquipo);
 
@@ -119,14 +112,14 @@ public class EquiposActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        EquipoDataBase.getInstance(this).close();
+        TeamMatchDataBase.getInstance(this).close();
         super.onDestroy();
     }
 
     // Load stored Equipos
     private void loadItems() {
         AppExecutors.getInstance().diskIO().execute(() -> {
-            List<Equipo> equipos = EquipoDataBase.getInstance(EquiposActivity.this).getDao().getAll();
+            List<Equipo> equipos = TeamMatchDataBase.getInstance(EquiposActivity.this).getDao().getAllEquipos();
             runOnUiThread(() -> mAdapaterEquipos.load(equipos));
         });
     }

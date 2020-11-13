@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
-import com.example.teammatch.room_db.UserDAO;
-import com.example.teammatch.room_db.UserDatabase;
+import com.example.teammatch.room_db.TeamMatchDAO;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login);
         preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
-        UserDatabase.getInstance(this);
+        TeamMatchDataBase.getInstance(this);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                 boolean validacion_login = validarCampos(username, password);
                 if(validacion_login){
                     //Inicialización BD
-                    UserDatabase userdatabase = UserDatabase.getInstance(getApplicationContext());
-                    UserDAO userdao = userdatabase.userDao();
+                    TeamMatchDataBase userdatabase = TeamMatchDataBase.getInstance(getApplicationContext());
+                    TeamMatchDAO userdao = userdatabase.getDao();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
