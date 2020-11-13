@@ -61,6 +61,7 @@ public class Evento {
 
     private long userCreatorId;
 
+    @Ignore
     public Evento() {
         this.nombre = "";
         this.fecha = null;

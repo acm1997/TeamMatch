@@ -17,10 +17,7 @@ import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.adapters.EventAdapter;
 import com.example.teammatch.objects.Evento;
-import com.example.teammatch.room_db.EventoDAO;
-import com.example.teammatch.room_db.EventoDataBase;
-import com.example.teammatch.room_db.UserDAO;
-import com.example.teammatch.room_db.UserDatabase;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -114,7 +111,7 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                List<Evento> eventos = EventoDataBase.getInstance(BuscarActivity.this).getDao().SearchByName(query);
+                List<Evento> eventos = TeamMatchDataBase.getInstance(BuscarActivity.this).getDao().SearchByName(query);
                 runOnUiThread(() -> mAdapter.load(eventos));
             }
         });
