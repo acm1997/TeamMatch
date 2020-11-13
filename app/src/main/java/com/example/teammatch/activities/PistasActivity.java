@@ -15,6 +15,7 @@ import com.example.teammatch.PistasLoaderRunnable;
 import com.example.teammatch.R;
 import com.example.teammatch.adapters.PistaAdapter;
 import com.example.teammatch.objects.Binding;
+import com.example.teammatch.objects.Pista;
 import com.example.teammatch.objects.Pistas;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -77,15 +78,19 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
         });
 
 
-
         recyclerView.setAdapter(mAdapter);
     }
 
     @Override
-    public void onListInteraction(String url) {
-         Uri webpage = Uri.parse("http://opendata.ayto-caceres.es/dataset/instalaciones-deportivas-caceres");
+    public void onListInteraction(Binding b) {
+        /*Uri webpage = Uri.parse("http://opendata.ayto-caceres.es/dataset/instalaciones-deportivas-caceres");
         Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-        startActivity(webIntent);
+        startActivity(webIntent);*/
+        setContentView(R.layout.pista_detalles);
+
+        Intent pistaIntent = new Intent(PistasActivity.this, PistaDetallesActivity.class);
+        Binding.packageIntent(pistaIntent,b);
+        startActivity(pistaIntent);
     }
 
 

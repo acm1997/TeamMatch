@@ -1,18 +1,37 @@
 package com.example.teammatch.activities;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
+import com.example.teammatch.adapters.EventAdapter;
+import com.example.teammatch.objects.Evento;
+import com.example.teammatch.room_db.EventoDAO;
+import com.example.teammatch.room_db.EventoDataBase;
+import com.example.teammatch.room_db.UserDAO;
+import com.example.teammatch.room_db.UserDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
-public class BuscarActivity extends AppCompatActivity {
+import java.util.List;
+
+public class BuscarActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+    private RecyclerView rvLista;
+    private SearchView svSearch;
+    private RecyclerView.LayoutManager mlayoutManager;
+    private EventAdapter mAdapter;
+
     private SharedPreferences preferences;
 
     @Override
@@ -20,6 +39,16 @@ public class BuscarActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar);
+
+
+        initListener();
+        // Get the intent, verify the action and get the query
+        Intent intent = getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doMySearch(query);
+        }
+
         preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         Long usuario_id = preferences.getLong("usuario_id", 0);
         String name = preferences.getString("username", null);
@@ -39,6 +68,7 @@ public class BuscarActivity extends AppCompatActivity {
                         return true;
                     } else {
                         Toast.makeText(getApplicationContext(), "No estas registrado en la aplicación", Toast.LENGTH_LONG).show();
+
                         return false;
                     }
 
@@ -60,5 +90,47 @@ public class BuscarActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
+        rvLista = findViewById(R.id.rvLista);
+        svSearch = findViewById(R.id.svSearch);
+
+        rvLista.setHasFixedSize(true);
+
+        mlayoutManager = new LinearLayoutManager(this);
+        rvLista.setLayoutManager(mlayoutManager);
+
+        mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Evento item) {
+                Snackbar.make(rvLista, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+            }
+        });
+
+        rvLista.setAdapter(mAdapter);
+    }
+
+    private void doMySearch(String query) {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Evento> eventos = EventoDataBase.getInstance(BuscarActivity.this).getDao().SearchByName(query);
+                runOnUiThread(() -> mAdapter.load(eventos));
+            }
+        });
+    }
+    
+    private void initListener() {
+        svSearch.setOnQueryTextListener(this);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

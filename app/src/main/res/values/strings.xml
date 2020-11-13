@@ -45,4 +45,5 @@
     <string name="CREAR">CREAR</string>
     <string name="CANCELAR">CANCELAR</string>
     <string name="action_share">Compartir</string>
+    <string name="search_hint">Partido futsal</string>
 </resources>

@@ -21,7 +21,7 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
 
 
     public interface OnListInteractionListener{
-        public void onListInteraction(String url);
+        public void onListInteraction(Binding b);
     }
 
     public OnListInteractionListener mListener;
@@ -70,7 +70,7 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListInteraction(holder.mItem.getUri().getValue());
+                    mListener.onListInteraction(holder.mItem);
 
                 }
             }

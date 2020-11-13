@@ -23,9 +23,6 @@ public class User {
     public final static String EMAIL = "email";
     @Ignore
     public final static String PASSWORD = "password";
-    //Lista de Eventos del usuario
-//    @Ignore
-//    public final static ArrayList<Evento> myEvents = new ArrayList<Evento>(); //Lista de Eventos creados por el user
     @Ignore
     public final static ArrayList<Evento> myEventsPart = new ArrayList<Evento>(); //Lista de eventos en los que participa el user
 
@@ -37,8 +34,6 @@ public class User {
     private String Email;
     @ColumnInfo(name = "password")
     private String Password;
-//    @Ignore
-//    private ArrayList<Evento> MyEvents;
     @Ignore
     private ArrayList<Evento> MyEventsPart;
 
@@ -80,7 +75,6 @@ public class User {
         Username = intent.getStringExtra(User.USERNAME);
         Email = intent.getStringExtra(User.EMAIL);
         Password = intent.getStringExtra(User.PASSWORD);
- //       MyEvents = (ArrayList<Evento>) intent.getSerializableExtra("myEvents");
         MyEventsPart = (ArrayList<Evento>) intent.getSerializableExtra("myEventsPart");
     }
 
@@ -116,19 +110,11 @@ public class User {
         Password = password;
     }
 
-    public ArrayList<Evento> getMyEventsPart() {
-        return MyEventsPart;
-    }
-
-    public void setMyEventsPart(ArrayList<Evento> myEventsPart) {
-        MyEventsPart = myEventsPart;
-    }
 
     public static void packageIntent(Intent intent, String mUsername, String mEmail , String mPassword, ArrayList<Evento> mMyEventsPart) {
         intent.putExtra(User.USERNAME, mUsername);
         intent.putExtra(User.EMAIL, mEmail);
         intent.putExtra(User.PASSWORD, mPassword);
-//        intent.putExtra("MyEvents", mMyEvents);
         intent.putExtra("MyEventsPart", mMyEventsPart);
     }
 

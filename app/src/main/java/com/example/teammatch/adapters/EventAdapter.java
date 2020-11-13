@@ -1,5 +1,6 @@
 package com.example.teammatch.adapters;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,21 +13,18 @@ import com.example.teammatch.objects.Evento;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     private List<Evento> mItems = new ArrayList<Evento>();
+    private final OnItemClickListener listener;
 
+    public EventAdapter(OnItemClickListener listener) { this.listener = listener;}
 
     public interface OnItemClickListener {
         void onItemClick(Evento item);
     }
 
-    private final OnItemClickListener listener;
-
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public EventAdapter(OnItemClickListener listener) {
-        this.listener = listener;
-    }
 
     // Create new views (invoked by the layout manager)
     @Override

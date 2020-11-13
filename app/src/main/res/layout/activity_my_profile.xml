@@ -33,16 +33,16 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/imageView_imgprofile"
+        android:layout_width="129dp"
+        android:layout_height="129dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.186"
+        tools:src="@drawable/previo" />
 
     <TextView
         android:id="@+id/tVPerfil"
@@ -120,8 +120,7 @@
 
         android:layout_alignParentBottom="true"
         android:elevation="8dp"
-        app:labelVisibilityMode="selected"
-        app:layout_anchor="@+id/bottom_navigation"
+        app:labelVisibilityMode="selected" app:layout_anchor="@+id/bottom_navigation"
         app:layout_anchorGravity="bottom|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -129,8 +128,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.996"
-        app:menu="@menu/main_menu_horizontal">
+        app:menu="@menu/main_menu_horizontal"
+        tools:ignore="NotSibling">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="44dp"
+        android:layout_height="37dp"
+        android:onClick="tomarFoto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.318"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.286"
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
