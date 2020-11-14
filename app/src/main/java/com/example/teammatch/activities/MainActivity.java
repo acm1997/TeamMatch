@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_EVENTO_REQUEST = 0;
     public static final int REGISTER_REQUEST = 1;
     public static final int ADD_EQUIPO_REQUEST = 2;
+    public static final int SELECCIONAR_PISTA_EVENTO = 3;
+
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mlayoutManager;
@@ -144,7 +146,9 @@ public class MainActivity extends AppCompatActivity {
                     EventoItem.setId(id_evento);
 
                     //insertar evento en la lista
-                    runOnUiThread(() -> mAdapter.add(EventoItem) );
+                    runOnUiThread(() -> {
+                        mAdapter.add(EventoItem);
+                    });
                 }
             });
         }

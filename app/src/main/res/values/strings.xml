@@ -26,6 +26,7 @@
     <string name="idIconoBaloncesto">Baloncesto</string>
     <string name="idIconoVoleibol">Voleibol</string>
     <string name="idIconoTenis">Tenis</string>
+    <string name="idBuscarPista">Seleccionar pista:</string>
     <string name="idBuscarEventoCat">Buscas tus eventos eligiendo tu deporte favorito:</string>
     <string name="Nuevo_Evento">Nuevo Evento</string>
     <string name="action_salir">Salir</string>
@@ -50,6 +51,5 @@
     <string name="btnvoleibol">Voleibol</string>
     <string name="btnbaloncesto">Baloncesto</string>
     <string name="btntenis">Tenis</string>
-    <string name="idBuscarPista">Añadir Pista</string>
     <string name="search_title">Nombre del evento</string>
 </resources>

@@ -79,6 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         private TextView participantesView;
         private TextView descripcionView;
         private TextView deporteView;
+        private TextView pistaEventoView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -87,6 +88,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             participantesView = itemView.findViewById(R.id.participantesEvent);
             descripcionView = itemView.findViewById(R.id.descEvento);
             deporteView = itemView.findViewById(R.id.deporteEvento);
+            pistaEventoView = itemView.findViewById(R.id.idPistaDeEvento);
 
         }
 
@@ -101,6 +103,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             deporteView.setText(evento.getDeporte().toString());
 
             fechaView.setText(evento.FORMAT.format(evento.getFecha()));
+
+            pistaEventoView.setText(evento.getPista());
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
