@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
-    private List<Evento> mItems = new ArrayList<Evento>();
+    private ArrayList<Evento> mItems;
     private final OnItemClickListener listener;
 
     public EventAdapter(OnItemClickListener listener) { this.listener = listener;}
@@ -52,9 +52,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void load(List<Evento> items){
+    public void load(ArrayList<Evento> items){
         mItems.clear();
         mItems = items;
+        notifyDataSetChanged();
+    }
+
+    public void setFilter(ArrayList<Evento> listaEventos){
+        this.mItems = new ArrayList<>();
+        this.mItems.addAll(listaEventos);
         notifyDataSetChanged();
     }
 
@@ -106,5 +112,4 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             });
         }
     }
-
 }
