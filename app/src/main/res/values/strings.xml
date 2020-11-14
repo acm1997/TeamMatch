@@ -26,7 +26,7 @@
     <string name="idIconoBaloncesto">Baloncesto</string>
     <string name="idIconoVoleibol">Voleibol</string>
     <string name="idIconoTenis">Tenis</string>
-    <string name="idBuscarPista">Buscar pista:</string>
+    <string name="idBuscarPista">Seleccionar pista:</string>
     <string name="Nuevo_Evento">Nuevo Evento</string>
     <string name="action_salir">Salir</string>
     <string name="action_cerrar_sesion">Cerrar Sesión</string>
