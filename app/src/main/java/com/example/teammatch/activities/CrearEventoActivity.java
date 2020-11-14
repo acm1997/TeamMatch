@@ -25,9 +25,7 @@ import com.example.teammatch.R;
 import com.example.teammatch.objects.Binding;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.Evento.Deporte;
-import com.example.teammatch.objects.User;
-import com.example.teammatch.room_db.EventoDataBase;
-import com.example.teammatch.room_db.UserDatabase;
+
 
 import java.util.Calendar;
 import java.util.Date;
@@ -127,11 +125,15 @@ public class CrearEventoActivity extends AppCompatActivity {
                     if(desc != null && desc.equals("")){
                         Toast.makeText(CrearEventoActivity.this, "La descripción está vacía", Toast.LENGTH_SHORT).show();
                     }else {
-                        Intent i = new Intent();
-                        Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, pist, usuario_id);
+                        if(pist != null && pist.equals("")){
+                            Toast.makeText(CrearEventoActivity.this, "El número de participantes está vacío", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent i = new Intent();
+                            Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, pist, usuario_id);
 
-                        setResult(RESULT_OK, i);
-                        finish();
+                            setResult(RESULT_OK, i);
+                            finish();
+                        }
                     }
                 }
             }

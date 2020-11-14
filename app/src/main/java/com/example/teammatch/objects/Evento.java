@@ -104,14 +104,14 @@ public class Evento {
         userCreatorId = intent.getLongExtra(Evento.USER, 0);
     }
 
-    public Evento(long id, String nombre, Date fecha, Integer participantes, String descripcion, Deporte deporte, String mPista, long userCreatorId) {
+    public Evento(long id, String nombre, Date fecha, Integer participantes, String descripcion, Deporte deporte, String pista, long userCreatorId) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
         this.participantes = participantes;
         this.descripcion = descripcion;
         this.deporte = deporte;
-        this.pista = mPista;
+        this.pista = pista;
         this.userCreatorId = userCreatorId;
     }
 

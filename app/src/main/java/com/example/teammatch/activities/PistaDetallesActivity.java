@@ -15,13 +15,7 @@ import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Binding;
 import com.example.teammatch.objects.Evento;
-import com.example.teammatch.objects.User;
-import com.example.teammatch.room_db.EventoDataBase;
-import com.example.teammatch.room_db.UserDatabase;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.text.Bidi;
 
 public class PistaDetallesActivity extends AppCompatActivity {
 
