@@ -4,14 +4,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.teammatch.objects.Equipo;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -19,7 +16,7 @@ public interface TeamMatchDAO {
 
     //  EVENTOS
     @Query("SELECT * FROM evento")
-    public ArrayList<Evento> getAllEventos();
+    public List<Evento> getAllEventos();
 
     @Insert
     public long insertEvento(Evento evento);
@@ -34,10 +31,10 @@ public interface TeamMatchDAO {
     public void deleteAllEventos();
 
     @Query("SELECT * FROM evento WHERE userCreatorId = :userCreatorId")
-    public ArrayList<Evento> getAllEventosByUserId(long userCreatorId);
+    public List<Evento> getAllEventosByUserId(long userCreatorId);
 
     @Query("SELECT * FROM evento where nombre= :nombre")
-    public ArrayList<Evento> SearchByName(String nombre);
+    public List<Evento> SearchByName(String nombre);
 
     /*
     @Query("SELECT * FROM evento WHERE userCreatorId = :idUser")

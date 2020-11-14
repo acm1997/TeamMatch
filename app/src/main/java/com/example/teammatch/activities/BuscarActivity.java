@@ -40,7 +40,7 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
     private RecyclerView mRecyclerViewSearchName;
     private RecyclerView.LayoutManager mLayoutManagerSearchName;
     private EventAdapter mAdapterSearch;
-    private ArrayList<Evento> ListaEventos;
+    private List<Evento> ListaEventos;
 
     private SharedPreferences preferences;
 
@@ -198,16 +198,16 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
     @Override
     public boolean onQueryTextChange(String newText) {
         try {
-            ArrayList<Evento>listafiltrada=filter(ListaEventos, newText);
-            mAdapterSearch.setFilter(listafiltrada);
+            List<Evento>listafiltrada=filter(ListaEventos, newText);
+           // mAdapterSearch.setFilter(listafiltrada);
 
         }catch (Exception e){
             e.printStackTrace();
         }
         return false;
     }
-    private ArrayList<Evento> filter(ArrayList<Evento> eventos, String texto){
-        ArrayList<Evento>listafiltrada= new ArrayList<>();
+    private List<Evento> filter(List<Evento> eventos, String texto){
+        List<Evento>listafiltrada= new ArrayList<>();
         try {
             texto.toLowerCase();
             for(Evento ev: eventos){

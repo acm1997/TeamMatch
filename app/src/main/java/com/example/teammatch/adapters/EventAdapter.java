@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
-    private ArrayList<Evento> mItems;
+    private List<Evento> mItems = new ArrayList<Evento>();
     private final OnItemClickListener listener;
 
     public EventAdapter(OnItemClickListener listener) { this.listener = listener;}
@@ -28,7 +28,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     // Create new views (invoked by the layout manager)
     @Override
-    public EventAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
                                                       int viewType) {
         View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.evento,parent,false);
 
@@ -52,15 +52,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void load(ArrayList<Evento> items){
+    public void load(List<Evento> items){
         mItems.clear();
         mItems = items;
-        notifyDataSetChanged();
-    }
-
-    public void setFilter(ArrayList<Evento> listaEventos){
-        this.mItems = new ArrayList<>();
-        this.mItems.addAll(listaEventos);
         notifyDataSetChanged();
     }
 
@@ -79,7 +73,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         private TextView participantesView;
         private TextView descripcionView;
         private TextView deporteView;
-        private TextView pistaEventoView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -88,7 +81,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             participantesView = itemView.findViewById(R.id.participantesEvent);
             descripcionView = itemView.findViewById(R.id.descEvento);
             deporteView = itemView.findViewById(R.id.deporteEvento);
-            pistaEventoView = itemView.findViewById(R.id.idPistaDeEvento);
 
         }
 
@@ -104,8 +96,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
             fechaView.setText(evento.FORMAT.format(evento.getFecha()));
 
-            pistaEventoView.setText(evento.getPista());
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -116,4 +106,5 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             });
         }
     }
+
 }
