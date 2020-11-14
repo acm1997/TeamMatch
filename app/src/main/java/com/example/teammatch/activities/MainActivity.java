@@ -6,47 +6,31 @@ import android.os.Bundle;
 
 import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
-import com.example.teammatch.activities.CrearEventoActivity;
 import com.example.teammatch.adapters.EventAdapter;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
-import com.example.teammatch.room_db.EventoDataBase;
-import com.example.teammatch.room_db.UserDatabase;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.snackbar.SnackbarContentLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
-
-import com.example.teammatch.objects.Evento.Deporte;
-
-import static java.lang.Math.log;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -138,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Evento item) {
-                Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+                Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a ver evento
             }
         });
 
@@ -155,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     //añadir evento en la BD
-                    EventoDataBase evento_dataBase = EventoDataBase.getInstance(MainActivity.this);
-                    long id_evento = evento_dataBase.getDao().insert(EventoItem);
+                    TeamMatchDataBase evento_dataBase = TeamMatchDataBase.getInstance(MainActivity.this);
+                    long id_evento = evento_dataBase.getDao().insertEvento(EventoItem);
 
                     //actualizar evento
                     EventoItem.setId(id_evento);
@@ -175,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     //Añadir usuario a la BD
-                    UserDatabase usuario_database = UserDatabase.getInstance(MainActivity.this);
-                    long id_user = usuario_database.userDao().insert(UserItem);
+                    TeamMatchDataBase usuario_database = TeamMatchDataBase.getInstance(MainActivity.this);
+                    long id_user = usuario_database.getDao().insertUser(UserItem);
 
                     //Actualizar user
                     UserItem.setId(id_user);
@@ -205,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onDestroy() {
-        EventoDataBase.getInstance(this).close();
+        TeamMatchDataBase.getInstance(this).close();
         super.onDestroy();
     }
 
@@ -244,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                List<Evento> eventos = EventoDataBase.getInstance(MainActivity.this).getDao().getAll();
+                List<Evento> eventos = TeamMatchDataBase.getInstance(MainActivity.this).getDao().getAllEventos();
                 runOnUiThread(() -> mAdapter.load(eventos));
             }
         });

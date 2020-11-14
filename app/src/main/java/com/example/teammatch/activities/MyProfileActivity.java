@@ -1,6 +1,9 @@
 package com.example.teammatch.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -12,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -23,8 +27,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
+import com.example.teammatch.adapters.EventAdapter;
+import com.example.teammatch.objects.Evento;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,9 +44,15 @@ import java.util.Date;
 
 public class MyProfileActivity extends AppCompatActivity {
 
+    private static final String TAG = "MY_PROFILE_ACTIVITY";
+
     private TextView tname;
     private Button btn_EditP;
     private ImageView img;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mlayoutManager;
+    private EventAdapter mAdapter;
 
     private SharedPreferences preferences;
 
@@ -105,6 +122,37 @@ public class MyProfileActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
+
+        loadItems();
+
+        mRecyclerView = findViewById(R.id.my_recycler_view_EventosUser);
+
+        mRecyclerView.setHasFixedSize(true);
+
+        mlayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mlayoutManager);
+
+        mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Evento item) {
+                Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+            }
+        });
+
+        mRecyclerView.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Load saved ToDoItems, if necessary
+
+        if (mAdapter.getItemCount() == 0)
+            loadItems();
     }
 
     String currentPhotoPath;
@@ -183,5 +231,31 @@ public class MyProfileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-        }
     }
+
+
+    // Load stored Eventos
+    private void loadItems() {
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        Long usuario_id = preferences.getLong("usuario_id", 0);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Evento> eventosUser= TeamMatchDataBase.getInstance(MyProfileActivity.this).getDao().getAllEventosByUserId(usuario_id);
+                //log("USUARIO CREADOR" + userWithEventos.getUser().getUsername().toString());
+                runOnUiThread(() -> mAdapter.load(eventosUser));
+            }
+        });
+    }
+
+
+    private void log (String msg){
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
+    }
+}

@@ -83,6 +83,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             descripcionView = itemView.findViewById(R.id.descEvento);
             deporteView = itemView.findViewById(R.id.deporteEvento);
             pistaEventoView = itemView.findViewById(R.id.idPistaDeEvento);
+
         }
 
         public void bind(final Evento evento, final OnItemClickListener listener) {

@@ -36,6 +36,10 @@ public class Evento {
     public final static String DEPORTE = "deporte";
     @Ignore
     public final static String PISTA = "pista";
+    @Ignore
+    public final static String USER = "user";
+
+
 
     @Ignore
     public final static SimpleDateFormat FORMAT = new SimpleDateFormat(
@@ -59,6 +63,9 @@ public class Evento {
     @TypeConverters(DeporteConverter.class)
     private Deporte deporte = Deporte.FUTBOL;
 
+    private long userCreatorId;
+
+    @Ignore
     public Evento() {
         this.nombre = "";
         this.fecha = null;
@@ -66,15 +73,17 @@ public class Evento {
         this.descripcion = "";
         this.deporte = null;
         this.pista = "";
+        this.userCreatorId = 0;
     }
 
     @Ignore
-    public Evento(String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte,String mPista) {
+    public Evento(String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte,String mPista,long userCreatorId) {
         this.nombre = mNombre;
         this.fecha = mFecha;
         this.participantes = mParticipantes;
         this.descripcion = mDescripcion;
         this.deporte = mDeporte;
+        this.userCreatorId = userCreatorId;
         this.pista = mPista;
     }
 
@@ -92,10 +101,10 @@ public class Evento {
             fecha = new Date();
         }
 
-
+        userCreatorId = intent.getLongExtra(Evento.USER, 0);
     }
 
-    public Evento(long id, String nombre, Date fecha, Integer participantes, String descripcion, Deporte deporte, String mPista) {
+    public Evento(long id, String nombre, Date fecha, Integer participantes, String descripcion, Deporte deporte, String mPista, long userCreatorId) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
@@ -103,6 +112,7 @@ public class Evento {
         this.descripcion = descripcion;
         this.deporte = deporte;
         this.pista = mPista;
+        this.userCreatorId = userCreatorId;
     }
 
     public long getId() {
@@ -153,6 +163,14 @@ public class Evento {
         this.deporte = deporte;
     }
 
+    public long getUserCreatorId() {
+        return userCreatorId;
+    }
+
+    public void setUserCreatorId(long userCreatorId) {
+        this.userCreatorId = userCreatorId;
+    }
+
     public String getPista() {
         return pista;
     }
@@ -161,13 +179,14 @@ public class Evento {
         this.pista = pista;
     }
 
-    public static void packageIntent(Intent intent, String mNombre, String mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte,String mPista) {
+    public static void packageIntent(Intent intent, String mNombre, String mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte,String mPista, long id_user) {
         intent.putExtra(Evento.NOMBRE, mNombre);
         intent.putExtra(Evento.DESCRIPCION, mDescripcion);
         intent.putExtra(Evento.FECHA, mFecha);
         intent.putExtra(Evento.PARTICIPANTES, mParticipantes);
         intent.putExtra(Evento.DEPORTE, mDeporte.toString());
         intent.putExtra(Evento.PISTA, mPista);
+        intent.putExtra(Evento.USER, id_user);
     }
 
 
