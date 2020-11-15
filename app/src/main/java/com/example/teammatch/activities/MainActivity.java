@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 //Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show();
                 Intent eventoIntent = new Intent(MainActivity.this, EventoDetallesActivity.class);
                 log("EVENTO DETALLADO: "+ item.toString());
-                Evento.packageIntent(eventoIntent,item.getNombre(),item.getFecha().toString(),item.getParticipantes(),item.getDescripcion(),item.getDeporte(),item.getPista(),item.getUserCreatorId());
+                Evento.packageIntent(eventoIntent,item.getNombre(),item.getFecha().toString(),item.getParticipantes(),item.getDescripcion(),item.getDeporte(),item.getPista(),item.getUserCreatorId(), item.getLatitud(),item.getLongitud());
                 log("EVENTO DETALLADO despues package: "+ eventoIntent.getStringExtra("nombre"));
 
                 startActivity(eventoIntent);

@@ -1,5 +1,7 @@
 package com.example.teammatch.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -20,6 +22,10 @@ public class EventoDetallesActivity extends AppCompatActivity {
         setContentView(R.layout.evento_detalle);
 
         Evento e = new Evento(getIntent());
+      /*  final String latitud = getIntent().getStringExtra(Evento.LATITUD);
+        final String longitud = getIntent().getStringExtra(Evento.LONGITUD);*/
+        log("LATITUD Y LONGITUD recibido en Evento detalle: " + e.getLatitud() + " " + e.getLongitud());
+
 
         log("EVENTO RECIBIDO: " + e.toString());
 
@@ -60,6 +66,14 @@ public class EventoDetallesActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(v -> {
             setResult(RESULT_CANCELED);
             finish();
+        });
+
+        final Button map = (Button) findViewById(R.id.idVerPistaMapa);
+        map.setOnClickListener(v -> {
+
+
+            Uri uri = Uri.parse("geo:"+e.getLatitud()+","+e.getLongitud()+"?z=16&q="+e.getLatitud()+","+e.getLongitud()+"(Caceres)");
+            startActivity( new Intent(Intent.ACTION_VIEW, uri));
         });
 
 

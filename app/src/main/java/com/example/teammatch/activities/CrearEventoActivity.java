@@ -51,8 +51,14 @@ public class CrearEventoActivity extends AppCompatActivity {
     private RadioButton mDefaultDeporte;
     private TextView mPista;
 
+     String latitud;
+    String longitud;
+
 
     private SharedPreferences preferences;
+
+    Intent i = new Intent();
+
 
 
     @Override
@@ -127,9 +133,10 @@ public class CrearEventoActivity extends AppCompatActivity {
                         if(pist != null && pist.equals("")){
                             Toast.makeText(CrearEventoActivity.this, "El número de participantes está vacío", Toast.LENGTH_SHORT).show();
                         }else {
-                            Intent i = new Intent();
-                            Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, pist, usuario_id);
-
+                            log("LATITUD Y LONGITUD que se pasan por el INTENT: " + latitud + " " + longitud);
+                            Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, pist, usuario_id, latitud,longitud);
+                            //log("LATITUD Y LONGITUD: " + latitud + " " + longitud);
+                           // Evento.packageIntent2(i, latitud, longitud);
                             setResult(RESULT_OK, i);
                             finish();
                         }
@@ -151,7 +158,12 @@ public class CrearEventoActivity extends AppCompatActivity {
                 public void run() {
                     final String nombrePista;
                     nombrePista = data.getStringExtra(Evento.PISTA);
-                  //  if ( nombrePista == null ) nombrePista="";
+                    latitud = data.getStringExtra(Evento.LATITUD);
+                    longitud = data.getStringExtra(Evento.LONGITUD);
+                   // i.putExtra(Evento.LATITUD, latitud);
+                    //i.putExtra(Evento.LONGITUD, longitud);
+
+                    //  if ( nombrePista == null ) nombrePista="";
                     runOnUiThread(() -> {
                         nombrePistaa.setText(nombrePista);
                     });

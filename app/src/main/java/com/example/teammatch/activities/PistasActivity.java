@@ -87,6 +87,8 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
         Intent pistaIntent = new Intent();
         Binding.packageIntent(pistaIntent,b);
         pistaIntent.putExtra(Evento.PISTA,b.getFoafName().getValue());
+        pistaIntent.putExtra("latitud", b.getGeoLat().getValue());
+        pistaIntent.putExtra("longitud", b.getGeoLong().getValue());
         setResult(RESULT_OK,pistaIntent);
         finish();
     }

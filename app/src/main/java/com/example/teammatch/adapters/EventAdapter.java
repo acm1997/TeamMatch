@@ -32,7 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                                                       int viewType) {
         View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.evento,parent,false);
 
-       return new ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
