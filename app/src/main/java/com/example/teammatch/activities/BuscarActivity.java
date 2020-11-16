@@ -98,7 +98,7 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
 
         listaEventos.setAdapter(mAdapter);
 
-        //BUSCADOR
+        // BUSCADOR
         buscador = findViewById(R.id.svSearch);
         buscador.setOnQueryTextListener(this);
 
