@@ -102,6 +102,7 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
         buscador = findViewById(R.id.svSearch);
         buscador.setOnQueryTextListener(this);
 
+
     }
 
     // Load stored Eventos
@@ -118,15 +119,19 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
     //BUSCADOR
     @Override
     public boolean onQueryTextSubmit(String query) {
+
+        Toast.makeText(BuscarActivity.this,"Our word : "+query,Toast.LENGTH_SHORT).show();
+        mAdapter.loadBuscardor(mAdapter.filtrado(query));
         return false;
     }
+
 
     @Override
     public boolean onQueryTextChange(String newText) {
         if(newText.isEmpty()){
             loadItems();
         }else{
-            mAdapter.load(mAdapter.filtrado(newText));
+           // mAdapter.loadBuscardor(mAdapter.filtrado(newText));
         }
         return false;
     }
