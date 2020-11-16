@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.adapters.EventAdapter;
+import com.example.teammatch.objects.Binding;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
 import com.example.teammatch.room_db.TeamMatchDataBase;
@@ -19,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_EVENTO_REQUEST = 0;
     public static final int REGISTER_REQUEST = 1;
     public static final int ADD_EQUIPO_REQUEST = 2;
+    public static final int SELECCIONAR_PISTA_EVENTO = 3;
+    private static final String TAG = "MAIN_ACTIVITY";
+
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mlayoutManager;
@@ -120,7 +125,13 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Evento item) {
-                Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a ver evento
+                //Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show();
+                Intent eventoIntent = new Intent(MainActivity.this, EventoDetallesActivity.class);
+                log("EVENTO DETALLADO: "+ item.toString());
+                Evento.packageIntent(eventoIntent,item.getNombre(),item.getFecha().toString(),item.getParticipantes(),item.getDescripcion(),item.getDeporte(),item.getPista(),item.getUserCreatorId(), item.getLatitud(),item.getLongitud());
+                log("EVENTO DETALLADO despues package: "+ eventoIntent.getStringExtra("nombre"));
+
+                startActivity(eventoIntent);
             }
         });
 
@@ -144,7 +155,9 @@ public class MainActivity extends AppCompatActivity {
                     EventoItem.setId(id_evento);
 
                     //insertar evento en la lista
-                    runOnUiThread(() -> mAdapter.add(EventoItem) );
+                    runOnUiThread(() -> {
+                        mAdapter.add(EventoItem);
+                    });
                 }
             });
         }
@@ -263,5 +276,16 @@ public class MainActivity extends AppCompatActivity {
             ishare.putExtra(Intent.EXTRA_TEXT, aux);
             startActivity(ishare);
         }catch (Exception e){ }
+    }
+
+
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }

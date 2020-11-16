@@ -15,6 +15,7 @@ import com.example.teammatch.PistasLoaderRunnable;
 import com.example.teammatch.R;
 import com.example.teammatch.adapters.PistaAdapter;
 import com.example.teammatch.objects.Binding;
+import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.Pista;
 import com.example.teammatch.objects.Pistas;
 import com.google.gson.Gson;
@@ -83,15 +84,17 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
 
     @Override
     public void onListInteraction(Binding b) {
-        /*Uri webpage = Uri.parse("http://opendata.ayto-caceres.es/dataset/instalaciones-deportivas-caceres");
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-        startActivity(webIntent);*/
-        setContentView(R.layout.pista_detalles);
-
-        Intent pistaIntent = new Intent(PistasActivity.this, PistaDetallesActivity.class);
+        Intent pistaIntent = new Intent();
         Binding.packageIntent(pistaIntent,b);
-        startActivity(pistaIntent);
+        pistaIntent.putExtra(Evento.PISTA,b.getFoafName().getValue());
+        pistaIntent.putExtra("latitud", b.getGeoLat().getValue());
+        pistaIntent.putExtra("longitud", b.getGeoLong().getValue());
+        setResult(RESULT_OK,pistaIntent);
+        finish();
     }
+
+
+
 
 
 }

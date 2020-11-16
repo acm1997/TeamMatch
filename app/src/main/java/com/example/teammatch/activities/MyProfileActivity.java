@@ -35,6 +35,7 @@ import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.io.File;
@@ -122,8 +123,6 @@ public class MyProfileActivity extends AppCompatActivity {
             }
             return false;
         });
-
-
 
         loadItems();
 

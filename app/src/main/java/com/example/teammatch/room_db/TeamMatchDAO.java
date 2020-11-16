@@ -4,13 +4,11 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.teammatch.objects.Equipo;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
-
 import java.util.List;
 
 @Dao

@@ -35,9 +35,15 @@ public class Evento {
     @Ignore
     public final static String DEPORTE = "deporte";
     @Ignore
+    public final static String PISTA = "pista";
+    @Ignore
     public final static String USER = "user";
+    @Ignore
+    public final static String LATITUD = "latitud";
+    @Ignore
+    public final static String LONGITUD = "longitud";
 
-    //todo Falta pista
+
 
     @Ignore
     public final static SimpleDateFormat FORMAT = new SimpleDateFormat(
@@ -56,10 +62,15 @@ public class Evento {
 
     private String descripcion;
 
+    private String pista;
+
     @TypeConverters(DeporteConverter.class)
     private Deporte deporte = Deporte.FUTBOL;
 
     private long userCreatorId;
+
+    private String latitud;
+    private String longitud;
 
     @Ignore
     public Evento() {
@@ -68,17 +79,23 @@ public class Evento {
         this.participantes = 0;
         this.descripcion = "";
         this.deporte = null;
+        this.pista = "";
         this.userCreatorId = 0;
+        this.latitud = "";
+        this.longitud = "";
     }
 
     @Ignore
-    public Evento(String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte, long userCreatorId) {
+    public Evento(String mNombre, Date mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte,String mPista,long userCreatorId, String mLatitud, String mLongitud) {
         this.nombre = mNombre;
         this.fecha = mFecha;
         this.participantes = mParticipantes;
         this.descripcion = mDescripcion;
         this.deporte = mDeporte;
         this.userCreatorId = userCreatorId;
+        this.pista = mPista;
+        this.latitud = mLatitud;
+        this.longitud = mLongitud;
     }
 
     @Ignore
@@ -87,6 +104,9 @@ public class Evento {
         participantes = intent.getIntExtra(Evento.PARTICIPANTES, 0);
         descripcion = intent.getStringExtra(Evento.DESCRIPCION);
         deporte = Deporte.valueOf(intent.getStringExtra(Evento.DEPORTE));
+        pista = intent.getStringExtra(Evento.PISTA);
+        latitud = intent.getStringExtra(Evento.LATITUD);
+        longitud = intent.getStringExtra(Evento.LONGITUD);
 
         try {
             fecha = Evento.FORMAT.parse(intent.getStringExtra(Evento.FECHA));
@@ -97,14 +117,17 @@ public class Evento {
         userCreatorId = intent.getLongExtra(Evento.USER, 0);
     }
 
-    public Evento(long id, String nombre, Date fecha, Integer participantes, String descripcion, Deporte deporte, long userCreatorId) {
+    public Evento(long id, String nombre, Date fecha, Integer participantes, String descripcion, Deporte deporte, String pista, long userCreatorId,  String latitud, String longitud) {
         this.id = id;
         this.nombre = nombre;
         this.fecha = fecha;
         this.participantes = participantes;
         this.descripcion = descripcion;
         this.deporte = deporte;
+        this.pista = pista;
         this.userCreatorId = userCreatorId;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public long getId() {
@@ -163,12 +186,46 @@ public class Evento {
         this.userCreatorId = userCreatorId;
     }
 
-    public static void packageIntent(Intent intent, String mNombre, String mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte, long id_user) {
+    public String getPista() {
+        return pista;
+    }
+
+    public void setPista(String pista) {
+        this.pista = pista;
+    }
+
+    public String getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(String latitud) {
+        this.latitud = latitud;
+    }
+
+    public String getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(String longitud) {
+        this.longitud = longitud;
+    }
+
+    public static void packageIntent(Intent intent, String mNombre, String mFecha, Integer mParticipantes, String mDescripcion, Deporte mDeporte, String mPista, long id_user, String mLatitud, String mLongitud) {
         intent.putExtra(Evento.NOMBRE, mNombre);
         intent.putExtra(Evento.DESCRIPCION, mDescripcion);
         intent.putExtra(Evento.FECHA, mFecha);
         intent.putExtra(Evento.PARTICIPANTES, mParticipantes);
         intent.putExtra(Evento.DEPORTE, mDeporte.toString());
+        intent.putExtra(Evento.PISTA, mPista);
         intent.putExtra(Evento.USER, id_user);
+        intent.putExtra(Evento.LATITUD, mLatitud);
+        intent.putExtra(Evento.LONGITUD, mLongitud);
     }
+
+/*    public static void packageIntent2(Intent intent, String mLatitud, String mLongitud) {
+        intent.putExtra(Evento.LATITUD, mLatitud);
+        intent.putExtra(Evento.LONGITUD, mLongitud);
+    }*/
+
+
 }

@@ -20,12 +20,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.Evento.Deporte;
 
+
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.example.teammatch.activities.MainActivity.SELECCIONAR_PISTA_EVENTO;
 
 public class CrearEventoActivity extends AppCompatActivity {
 
@@ -45,9 +49,16 @@ public class CrearEventoActivity extends AppCompatActivity {
     private EditText mDescripcion;
     private RadioGroup mDeportes;
     private RadioButton mDefaultDeporte;
-    public static final int BUSCAR_EVENTO_REQUEST = 0;
+    private TextView mPista;
+
+     String latitud;
+    String longitud;
+
 
     private SharedPreferences preferences;
+
+    Intent i = new Intent();
+
 
 
     @Override
@@ -59,8 +70,10 @@ public class CrearEventoActivity extends AppCompatActivity {
         mDescripcion = (EditText) findViewById(R.id.descEvento);
         mDeportes = (RadioGroup) findViewById(R.id.radioGroup);
         mDefaultDeporte = (RadioButton) findViewById(R.id.radioFutbol);
+        mPista = (TextView) findViewById(R.id.idPistaSeleccionada);
         fechaView = (TextView) findViewById(R.id.fecha);
         horaView = (TextView) findViewById(R.id.hora);
+
 
         //Usuario de la sesion
         preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
@@ -70,6 +83,7 @@ public class CrearEventoActivity extends AppCompatActivity {
         // Set the default date and time
 
         setDefaultDateTime();
+
 
         // OnClickListener for the Date button, calls showDatePickerDialog() to show
         // the Date dialog
@@ -86,7 +100,7 @@ public class CrearEventoActivity extends AppCompatActivity {
         final Button selPista = (Button) findViewById(R.id.idSelecPista);
         selPista.setOnClickListener(v -> {
             Intent intent = new Intent(CrearEventoActivity.this, PistasActivity.class);
-            startActivityForResult(intent, RESULT_OK);
+            startActivityForResult(intent, SELECCIONAR_PISTA_EVENTO);
         });
 
         final Button cancelButton = (Button) findViewById(R.id.cancelButton);
@@ -103,6 +117,7 @@ public class CrearEventoActivity extends AppCompatActivity {
             String d = fechaString +"-" + horaString;
             String p = mParticipantes.getText().toString();
             String desc = mDescripcion.getText().toString();
+            String pist = mPista.getText().toString();
             Deporte dep = getDeporte();
 
 
@@ -115,17 +130,49 @@ public class CrearEventoActivity extends AppCompatActivity {
                     if(desc != null && desc.equals("")){
                         Toast.makeText(CrearEventoActivity.this, "La descripción está vacía", Toast.LENGTH_SHORT).show();
                     }else {
-                        Intent i = new Intent();
-                        Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, usuario_id);
-
-                        setResult(RESULT_OK, i);
-                        finish();
+                        if(pist != null && pist.equals("")){
+                            Toast.makeText(CrearEventoActivity.this, "El número de participantes está vacío", Toast.LENGTH_SHORT).show();
+                        }else {
+                            log("LATITUD Y LONGITUD que se pasan por el INTENT: " + latitud + " " + longitud);
+                            Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, pist, usuario_id, latitud,longitud);
+                            //log("LATITUD Y LONGITUD: " + latitud + " " + longitud);
+                           // Evento.packageIntent2(i, latitud, longitud);
+                            setResult(RESULT_OK, i);
+                            finish();
+                        }
                     }
                 }
             }
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SELECCIONAR_PISTA_EVENTO && resultCode == RESULT_OK){
+            TextView nombrePistaa = findViewById(R.id.idPistaSeleccionada);
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    final String nombrePista;
+                    nombrePista = data.getStringExtra(Evento.PISTA);
+                    latitud = data.getStringExtra(Evento.LATITUD);
+                    longitud = data.getStringExtra(Evento.LONGITUD);
+                   // i.putExtra(Evento.LATITUD, latitud);
+                    //i.putExtra(Evento.LONGITUD, longitud);
+
+                    //  if ( nombrePista == null ) nombrePista="";
+                    runOnUiThread(() -> {
+                        nombrePistaa.setText(nombrePista);
+                    });
+                }
+            });
+        }
+    }
+
+
 
     private void setDefaultDateTime() {
 
