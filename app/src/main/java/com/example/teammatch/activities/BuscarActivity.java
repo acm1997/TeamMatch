@@ -4,11 +4,9 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,11 +21,12 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-public class BuscarActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    private RecyclerView rvLista;
-    private SearchView svSearch;
+public class BuscarActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+    private RecyclerView listaEventos;
     private RecyclerView.LayoutManager mlayoutManager;
     private EventAdapter mAdapter;
+
+    private SearchView buscador;
 
     private SharedPreferences preferences;
 
@@ -36,15 +35,6 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar);
-
-
-        initListener();
-        // Get the intent, verify the action and get the query
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            doMySearch(query);
-        }
 
         preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         Long usuario_id = preferences.getLong("usuario_id", 0);
@@ -88,39 +78,42 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
             return false;
         });
 
+        loadItems();
 
-        rvLista = findViewById(R.id.rvLista);
-        svSearch = findViewById(R.id.svSearch);
+        listaEventos = findViewById(R.id.listaEventos);
 
-        rvLista.setHasFixedSize(true);
+        listaEventos.setHasFixedSize(true);
 
         mlayoutManager = new LinearLayoutManager(this);
-        rvLista.setLayoutManager(mlayoutManager);
+        listaEventos.setLayoutManager(mlayoutManager);
 
         mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Evento item) {
-                Snackbar.make(rvLista, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+                Snackbar.make(listaEventos, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
             }
         });
 
-        rvLista.setAdapter(mAdapter);
+        listaEventos.setAdapter(mAdapter);
+
+        //BUSCADOR
+        buscador = findViewById(R.id.svSearch);
+        buscador.setOnQueryTextListener(this);
+
     }
 
-    private void doMySearch(String query) {
+    // Load stored Eventos
+    private void loadItems() {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                List<Evento> eventos = TeamMatchDataBase.getInstance(BuscarActivity.this).getDao().SearchByName(query);
+                List<Evento> eventos = TeamMatchDataBase.getInstance(BuscarActivity.this).getDao().getAllEventos();
                 runOnUiThread(() -> mAdapter.load(eventos));
             }
         });
     }
-    
-    private void initListener() {
-        svSearch.setOnQueryTextListener(this);
-    }
 
+    //BUSCADOR
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -128,6 +121,11 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        if(newText.isEmpty()){
+            loadItems();
+        }else{
+            mAdapter.load(mAdapter.filtrado(newText));
+        }
         return false;
     }
 }

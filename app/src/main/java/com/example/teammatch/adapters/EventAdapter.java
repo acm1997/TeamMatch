@@ -1,9 +1,10 @@
 package com.example.teammatch.adapters;
 
-import android.os.Build;
+import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,10 +14,10 @@ import com.example.teammatch.objects.Evento;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
-    private List<Evento> mItems = new ArrayList<Evento>();
+    private List<Evento> listaEventos = new ArrayList<>();
+    private List<Evento> listaEventosFiltrados = new ArrayList<>();
     private final OnItemClickListener listener;
 
     public EventAdapter(OnItemClickListener listener) { this.listener = listener;}
@@ -32,39 +33,63 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                                                       int viewType) {
         View v =  LayoutInflater.from(parent.getContext()).inflate(R.layout.evento,parent,false);
 
-       return new ViewHolder(v);
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(mItems.get(position),listener);
+        holder.bind(listaEventos.get(position),listener);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return listaEventos.size();
     }
 
     public void add(Evento item) {
-        mItems.add(item);
+        listaEventos.add(item);
         notifyDataSetChanged();
     }
 
     public void load(List<Evento> items){
-        mItems.clear();
-        mItems = items;
+        listaEventos.clear();
+        listaEventos = items;
         notifyDataSetChanged();
     }
 
     public void clear(){
-        mItems.clear();
+        listaEventos.clear();
         notifyDataSetChanged();
     }
 
+
+    //BUSCADOR
+    public void cargarListaFiltrado(){
+        listaEventosFiltrados.clear();
+        listaEventosFiltrados.addAll(listaEventos);
+        notifyDataSetChanged();
+    }
+
+   public List<Evento> filtrado(String palabra){
+        if(palabra.isEmpty()){
+            listaEventosFiltrados.clear();
+            listaEventosFiltrados.addAll(listaEventos);
+        }else{
+            listaEventosFiltrados.clear();
+            for(Evento evento : listaEventos){
+                if(evento.getNombre().toLowerCase().contains(palabra)){
+                    listaEventosFiltrados.add(evento);
+                }
+            }
+        }
+        notifyDataSetChanged();
+        return listaEventosFiltrados;
+    }
+
     public Object getItem(int pos) {
-        return mItems.get(pos);
+        return listaEventos.get(pos);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
