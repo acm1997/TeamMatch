@@ -57,6 +57,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void load(List<Evento> items){
         listaEventos.clear();
         listaEventos = items;
+        listaEventosAux.clear();
         listaEventosAux.addAll(listaEventos);
         notifyDataSetChanged();
     }
@@ -77,10 +78,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
    public List<Evento> filtrado(String palabra){
        listaEventosFiltrados.clear();
         if(palabra.isEmpty()){
-            listaEventosFiltrados.addAll(listaEventos);
+            listaEventosFiltrados.addAll(listaEventosAux);
         }else{
-
-            for(Evento evento : listaEventos){
+            for(Evento evento : listaEventosAux){
                 if(evento.getNombre().toLowerCase().contains(palabra.toLowerCase())){
                     listaEventosFiltrados.add(evento);
                 }
@@ -88,6 +88,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         }
         notifyDataSetChanged();
         return listaEventosFiltrados;
+    }
+
+    public void loadBuscardor(List<Evento> items){
+        listaEventos.clear();
+        listaEventos = items;
+        notifyDataSetChanged();
     }
 
     public Object getItem(int pos) {
