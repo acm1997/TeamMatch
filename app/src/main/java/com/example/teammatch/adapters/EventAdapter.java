@@ -17,6 +17,7 @@ import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     private List<Evento> listaEventos = new ArrayList<>();
+    private List<Evento> listaEventosAux = new ArrayList<>();
     private List<Evento> listaEventosFiltrados = new ArrayList<>();
     private final OnItemClickListener listener;
 
@@ -56,6 +57,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void load(List<Evento> items){
         listaEventos.clear();
         listaEventos = items;
+        listaEventosAux.addAll(listaEventos);
         notifyDataSetChanged();
     }
 
@@ -73,13 +75,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
 
    public List<Evento> filtrado(String palabra){
+       listaEventosFiltrados.clear();
         if(palabra.isEmpty()){
-            listaEventosFiltrados.clear();
             listaEventosFiltrados.addAll(listaEventos);
         }else{
-            listaEventosFiltrados.clear();
+
             for(Evento evento : listaEventos){
-                if(evento.getNombre().toLowerCase().contains(palabra)){
+                if(evento.getNombre().toLowerCase().contains(palabra.toLowerCase())){
                     listaEventosFiltrados.add(evento);
                 }
             }
