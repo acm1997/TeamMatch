@@ -114,7 +114,7 @@ public class CrearEventoActivity extends AppCompatActivity {
         submitButton.setOnClickListener(view -> {
 
             String n = mNombre.getText().toString();
-            String d = fechaString +"-" + horaString;
+            String d = fechaString +" " + horaString;
             String p = mParticipantes.getText().toString();
             String desc = mDescripcion.getText().toString();
             String pist = mPista.getText().toString();
@@ -135,8 +135,6 @@ public class CrearEventoActivity extends AppCompatActivity {
                         }else {
                             log("LATITUD Y LONGITUD que se pasan por el INTENT: " + latitud + " " + longitud);
                             Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, pist, usuario_id, latitud,longitud);
-                            //log("LATITUD Y LONGITUD: " + latitud + " " + longitud);
-                           // Evento.packageIntent2(i, latitud, longitud);
                             setResult(RESULT_OK, i);
                             finish();
                         }
