@@ -25,7 +25,7 @@ public class EditUserActivity extends AppCompatActivity {
     private Button btn_save;
     private Button btn_deleteuser;
     private SharedPreferences preferences;
-    public static final int GO_HOME_DELETE_REQUEST = 0;
+    public static final int GO_HOME_DELETE_USER_REQUEST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,7 @@ public class EditUserActivity extends AppCompatActivity {
                             preferences.edit().clear().apply();
                             userdao.deleteUser(userdelete);
                             Intent intentdelete = new Intent(EditUserActivity.this, MainActivity.class);
-                            startActivityForResult(intentdelete, GO_HOME_DELETE_REQUEST);
+                            startActivityForResult(intentdelete, GO_HOME_DELETE_USER_REQUEST);
                         }
                     }).start();
                 }

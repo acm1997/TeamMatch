@@ -52,4 +52,8 @@
     <string name="btnbaloncesto">Baloncesto</string>
     <string name="btntenis">Tenis</string>
     <string name="search_title">Nombre del evento</string>
+    <string name="btn_edit">Editar evento</string>
+    <string name="btn_delete">Borrar Evento</string>
+    <string name="title_activity_event_details">ScrollingActivity</string>
+
 </resources>

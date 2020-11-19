@@ -125,11 +125,10 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Evento item) {
-                //Snackbar.make(mRecyclerView, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show();
-                Intent eventoIntent = new Intent(MainActivity.this, EventoDetallesActivity.class);
-                log("EVENTO DETALLADO: "+ item.toString());
-                Evento.packageIntent(eventoIntent,item.getNombre(),item.getFecha().toString(),item.getParticipantes(),item.getDescripcion(),item.getDeporte(),item.getPista(),item.getUserCreatorId(), item.getLatitud(),item.getLongitud());
-                log("EVENTO DETALLADO despues package: "+ eventoIntent.getStringExtra("nombre"));
+                Intent eventoIntent = new Intent(MainActivity.this, EventDetailsActivity.class);
+                log("EVENTO DETALLADO: "+ item.toString()+ " con fecha: "+ item.getFecha());
+                Evento.packageIntent(eventoIntent,item.getNombre(),item.FORMAT.format(item.getFecha()),item.getParticipantes(),item.getDescripcion(),item.getDeporte(),item.getPista(),item.getUserCreatorId(), item.getLatitud(),item.getLongitud());
+                log("EVENTO DETALLADO despues package: "+ eventoIntent.getStringExtra("nombre") + " con fecha: "+eventoIntent.getStringExtra("fecha"));
 
                 startActivity(eventoIntent);
             }
