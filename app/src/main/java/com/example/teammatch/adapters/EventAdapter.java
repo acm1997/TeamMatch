@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,27 +105,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nombreView;
         private TextView fechaView;
-        private TextView participantesView;
-        private TextView descripcionView;
         private TextView deporteView;
+        private ImageView imgView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             nombreView = itemView.findViewById(R.id.nomEvento);
             fechaView = itemView.findViewById(R.id.fechaEvento);
-            participantesView = itemView.findViewById(R.id.participantesEvent);
-            descripcionView = itemView.findViewById(R.id.descEvento);
             deporteView = itemView.findViewById(R.id.deporteEvento);
+            imgView = itemView.findViewById(R.id.item_imageEvent);
 
         }
 
         public void bind(final Evento evento, final OnItemClickListener listener) {
 
             nombreView.setText(evento.getNombre());
-
-            participantesView.setText(evento.getParticipantes().toString());
-
-            descripcionView.setText(evento.getDescripcion());
 
             deporteView.setText(evento.getDeporte().toString());
 

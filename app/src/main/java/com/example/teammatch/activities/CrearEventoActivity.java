@@ -51,7 +51,7 @@ public class CrearEventoActivity extends AppCompatActivity {
     private RadioButton mDefaultDeporte;
     private TextView mPista;
 
-     String latitud;
+    String latitud;
     String longitud;
 
 
@@ -97,6 +97,7 @@ public class CrearEventoActivity extends AppCompatActivity {
         final Button timePickerButton = (Button) findViewById(R.id.botonhora);
         timePickerButton.setOnClickListener(v -> showTimePickerDialog());
 
+        //OnClickListener for the Pista button
         final Button selPista = (Button) findViewById(R.id.idSelecPista);
         selPista.setOnClickListener(v -> {
             Intent intent = new Intent(CrearEventoActivity.this, PistasActivity.class);
@@ -142,9 +143,9 @@ public class CrearEventoActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
+    //Actividad Añadir Pista
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -170,8 +171,7 @@ public class CrearEventoActivity extends AppCompatActivity {
         }
     }
 
-
-
+    //Bloque añadir fecha y hora
     private void setDefaultDateTime() {
 
         // Default is current time + 7 days
