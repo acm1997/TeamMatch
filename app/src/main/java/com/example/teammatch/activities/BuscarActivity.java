@@ -1,17 +1,18 @@
 package com.example.teammatch.activities;
 
-import android.app.SearchManager;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
@@ -29,14 +30,25 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
     private EventAdapter mAdapter;
 
     private SearchView buscador;
+    private Button btn_futbol;
+    private Button btn_baloncesto;
+    private Button btn_voleibol;
+    private Button btn_tenis;
 
     private SharedPreferences preferences;
+
+    private static final String TAG = "BUSCAR_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar);
+
+        btn_futbol = findViewById(R.id.btn_searchfutbol);
+        btn_baloncesto = findViewById(R.id.btn_searchbaloncesto);
+        btn_voleibol = findViewById(R.id.btn_searchvoleibol);
+        btn_tenis = findViewById(R.id.btn_searchtenis);
 
         preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
         Long usuario_id = preferences.getLong("usuario_id", 0);
@@ -102,7 +114,30 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
         buscador = findViewById(R.id.svSearch);
         buscador.setOnQueryTextListener(this);
 
+        //BUSCADORES POR CATEGORÍA
+        btn_futbol.setOnClickListener(v -> {
+            String categoria = "FUTBOL";
+            log("Buscamos por cat futbol");
+            onQueryCatSubmit(categoria);
+        });
 
+        btn_baloncesto.setOnClickListener(v -> {
+            String categoria = "BALONCESTO";
+            log("Buscamos por cat basket");
+            onQueryCatSubmit(categoria);
+        });
+
+        btn_voleibol.setOnClickListener(v -> {
+            String categoria = "VOLEIBOL";
+            log("Buscamos por cat voley");
+            onQueryCatSubmit(categoria);
+        });
+
+        btn_tenis.setOnClickListener(v -> {
+            String categoria = "TENIS";
+            log("Buscamos por cat tenis");
+            onQueryCatSubmit(categoria);
+        });
     }
 
     // Load stored Eventos
@@ -120,19 +155,38 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
     @Override
     public boolean onQueryTextSubmit(String query) {
 
-        Toast.makeText(BuscarActivity.this,"Our word : "+query,Toast.LENGTH_SHORT).show();
-        mAdapter.loadBuscardor(mAdapter.filtrado(query));
+       /* Toast.makeText(BuscarActivity.this,"Our word : "+query,Toast.LENGTH_SHORT).show();
+        mAdapter.loadBuscardor(mAdapter.filtrado(query));*/
+
         return false;
     }
 
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if(newText.isEmpty()){
+        mAdapter.loadBuscador(mAdapter.filtrado(newText));
+       /* if(newText.isEmpty()){
             loadItems();
         }else{
-           // mAdapter.loadBuscardor(mAdapter.filtrado(newText));
-        }
+
+        }*/
         return false;
+    }
+
+    public boolean onQueryCatSubmit(String query) {
+
+     //   Toast.makeText(BuscarActivity.this,"Our word : "+query,Toast.LENGTH_SHORT).show();
+        mAdapter.loadBuscador(mAdapter.filtradoporCategoria(query));
+        return false;
+    }
+
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }
