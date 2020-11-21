@@ -20,8 +20,10 @@
         android:id="@+id/textView8"
         android:layout_width="370dp"
         android:layout_height="86dp"
-        android:text="Selecciona la pista donde se celebrara su evento:"
+        android:text="@string/seleccionarpista"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/idRecyclerPista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

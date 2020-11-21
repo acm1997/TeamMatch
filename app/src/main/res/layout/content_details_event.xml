@@ -14,7 +14,7 @@
         android:id="@+id/tagParticipantesEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Número de participantes:"
+        android:text="@string/nparticipantes"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -42,7 +42,7 @@
         android:id="@+id/tagPistaEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lugar de celebración:"
+        android:text="@string/lugar"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -70,7 +70,7 @@
         android:id="@+id/tagFechaEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fecha del evento:"
+        android:text="@string/fechaevento"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -98,7 +98,7 @@
         android:id="@+id/tagCategoríaEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Categoría:"
+        android:text="@string/categoria"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -126,7 +126,7 @@
         android:id="@+id/tagDescripcionEvento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descripción:"
+        android:text="@string/descripcion"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -155,25 +155,37 @@
         android:layout_width="0dp"
         android:layout_height="61dp"
         android:backgroundTint="#4CE361"
-        android:text="Ver ubicación"
+        android:text="@string/VER_EN_MAPA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.634" />
+        app:layout_constraintVertical_bias="0.788" />
 
     <Button
         android:id="@+id/btn_deleteEvent"
         android:layout_width="0dp"
         android:layout_height="61dp"
         android:backgroundTint="@color/colorDanger"
-        android:text="Borrar evento"
+        android:text="@string/btn_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791" />
+        app:layout_constraintVertical_bias="0.939" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="172dp"
+        android:layout_height="33dp"
+        android:text="@string/PARTICIPACION"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.663" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

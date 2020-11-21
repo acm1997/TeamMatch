@@ -25,7 +25,7 @@
         android:layout_marginTop="84dp"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Nombre de Evento"
+        android:hint="@string/nameevent"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,28 +52,28 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Fútbol" />
+            android:text="@string/btnfutbol" />
 
         <RadioButton
             android:id="@+id/radioBaloncesto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Baloncesto" />
+            android:text="@string/btnbaloncesto" />
 
         <RadioButton
             android:id="@+id/radioVoleibol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Voleibol" />
+            android:text="@string/btnvoleibol" />
 
         <RadioButton
             android:id="@+id/radioTenis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Tenis" />
+            android:text="@string/btntenis" />
     </RadioGroup>
 
     <EditText
@@ -81,7 +81,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Descripción"
+        android:hint="@string/descripcion"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,7 @@
         android:id="@+id/buttonCrear"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:text="CREAR"
+        android:text="@string/crearevento"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.877"
@@ -106,7 +106,7 @@
         android:id="@+id/cancelButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:text="CANCELAR"
+        android:text="@string/CANCELAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonCrear"
         app:layout_constraintHorizontal_bias="0.531"
@@ -118,7 +118,7 @@
         android:id="@+id/textView"
         android:layout_width="140dp"
         android:layout_height="25dp"
-        android:text="Tiempo y Fecha"
+        android:text="@string/fechaevento"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +157,7 @@
         android:id="@+id/botonfecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ELIGE FECHA"
+        android:text="@string/elegirfecha"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
@@ -169,7 +169,7 @@
         android:id="@+id/botonhora"
         android:layout_width="108dp"
         android:layout_height="46dp"
-        android:text="ELIGE HORA"
+        android:text="@string/eligehora"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
@@ -182,7 +182,7 @@
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:ems="0"
-        android:hint="Numero de Participantes"
+        android:hint="@string/nparticipantes"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -195,7 +195,7 @@
         android:id="@+id/textView2"
         android:layout_width="140dp"
         android:layout_height="25dp"
-        android:text="Deporte"
+        android:text="@string/deporte"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

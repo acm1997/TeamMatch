@@ -132,7 +132,7 @@ public class CrearEventoActivity extends AppCompatActivity {
                         Toast.makeText(CrearEventoActivity.this, "La descripción está vacía", Toast.LENGTH_SHORT).show();
                     }else {
                         /*if(pist != null && pist.equals("")){
-                            Toast.makeText(CrearEventoActivity.this, "El número de participantes está vacío", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CrearEventoActivity.this, "No tiene asignada ninguna pista", Toast.LENGTH_SHORT).show();
                         }else {*/
                             log("LATITUD Y LONGITUD que se pasan por el INTENT: " + latitud + " " + longitud);
                             Evento.packageIntent(i, n, d, Integer.parseInt(p), desc, dep, null, usuario_id, latitud,longitud);
