@@ -1,10 +1,12 @@
 package com.example.teammatch.adapters;
 
 import android.util.EventLog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,8 +20,10 @@ import java.util.List;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     private List<Evento> listaEventos = new ArrayList<>();
     private List<Evento> listaEventosAux = new ArrayList<>();
-    private List<Evento> listaEventosFiltrados = new ArrayList<>();
+
     private final OnItemClickListener listener;
+
+    private static final String TAG = "BUSCAR_ADAPTER";
 
     public EventAdapter(OnItemClickListener listener) { this.listener = listener;}
 
@@ -69,28 +73,39 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
 
     //BUSCADOR
-    public void cargarListaFiltrado(){
-        listaEventosFiltrados.clear();
-        listaEventosFiltrados.addAll(listaEventos);
-        notifyDataSetChanged();
-    }
-
    public List<Evento> filtrado(String palabra){
-       listaEventosFiltrados.clear();
+        List<Evento> listaEventosFiltrados = new ArrayList<>();
         if(palabra.isEmpty()){
             listaEventosFiltrados.addAll(listaEventosAux);
         }else{
+            listaEventosFiltrados.clear();
             for(Evento evento : listaEventosAux){
                 if(evento.getNombre().toLowerCase().contains(palabra.toLowerCase())){
                     listaEventosFiltrados.add(evento);
                 }
             }
         }
-        notifyDataSetChanged();
         return listaEventosFiltrados;
     }
 
-    public void loadBuscardor(List<Evento> items){
+    public List<Evento> filtradoporCategoria(String categoria){
+        List<Evento> listaEventosFiltrados = new ArrayList<>();
+        log("Categoria: He entrado con "+categoria);
+        if(categoria.isEmpty()){
+            listaEventosFiltrados.addAll(listaEventosAux);
+        }else{
+            for(Evento evento : listaEventosAux){
+                log("Categoria: "+ evento.getDeporte());
+                if(evento.getDeporte().toString().equals(categoria)){
+                    log("Categoria a insertar: "+ evento.getDeporte());
+                    listaEventosFiltrados.add(evento);
+                }
+            }
+        }
+        return listaEventosFiltrados;
+    }
+
+    public void loadBuscador(List<Evento> items){
         listaEventos.clear();
         listaEventos = items;
         notifyDataSetChanged();
@@ -103,17 +118,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private TextView nombreView;
         private TextView fechaView;
-        private TextView participantesView;
-        private TextView descripcionView;
         private TextView deporteView;
+        private ImageView imgView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             nombreView = itemView.findViewById(R.id.nomEvento);
             fechaView = itemView.findViewById(R.id.fechaEvento);
-            participantesView = itemView.findViewById(R.id.participantesEvent);
-            descripcionView = itemView.findViewById(R.id.descEvento);
             deporteView = itemView.findViewById(R.id.deporteEvento);
+            imgView = itemView.findViewById(R.id.item_imageEvent);
 
         }
 
@@ -121,14 +134,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
             nombreView.setText(evento.getNombre());
 
-            participantesView.setText(evento.getParticipantes().toString());
-
-            descripcionView.setText(evento.getDescripcion());
-
             deporteView.setText(evento.getDeporte().toString());
 
             fechaView.setText(evento.FORMAT.format(evento.getFecha()));
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -138,6 +146,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 }
             });
         }
+    }
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 
 }

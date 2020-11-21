@@ -36,11 +36,8 @@ public interface TeamMatchDAO {
     @Query("SELECT * FROM evento where nombre= :nombre")
     public List<Evento> SearchByName(String nombre);
 
-    /*
-    @Query("SELECT * FROM evento WHERE userCreatorId = :idUser")
-    public List<Evento> getAllEventosByUser(long idUser);
-    */
-
+    @Query("SELECT * FROM evento where deporte LIKE :deporte")
+    public List<Evento> SearchByCatFutbol(String deporte);
 
     //  EQUIPOS
     @Query("SELECT * FROM equipo")

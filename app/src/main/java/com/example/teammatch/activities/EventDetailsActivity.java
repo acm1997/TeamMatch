@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
+import com.example.teammatch.room_db.TeamMatchDAO;
+import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -14,14 +16,19 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
+
 public class EventDetailsActivity extends AppCompatActivity {
 
-    private Button btn_delete;
+    private Button btn_deleteEvent;
     private SharedPreferences preferences;
+    public static final int GO_HOME_DELETE_EVENT_REQUEST = 0;
+    private static final String TAG = "DETALLES_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +82,43 @@ public class EventDetailsActivity extends AppCompatActivity {
             startActivity( new Intent(Intent.ACTION_VIEW, uri));
         });
 
-        final Button deleteEvent = (Button) findViewById(R.id.btn_deleteEvent);
+        btn_deleteEvent = findViewById(R.id.btn_deleteEvent);
         if(usuario_id > 0 && usuario_id.equals(e.getUserCreatorId())){
-            deleteEvent.setVisibility(View.VISIBLE);
-            deleteEvent.setOnClickListener(v -> {
-                //TODO borrar un evento
-            });
-        } else {
-            deleteEvent.setVisibility(View.INVISIBLE);
-        }
+            btn_deleteEvent.setVisibility(View.VISIBLE);
 
+            btn_deleteEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TeamMatchDataBase eventodatabase = TeamMatchDataBase.getInstance(getApplicationContext());
+                    TeamMatchDAO eventodao = eventodatabase.getDao();
+            //        Evento eventodelete = new Evento(e.getId(), e.getNombre(), e.getFecha(),e.getParticipantes(),e.getDescripcion(),e.getDeporte(),e.getPista(),e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            log("ID Evento a borrar: "+e.getId());
+                            e.setId(getIntent().getLongExtra("ID", 0));
+                            eventodao.deleteEvento(e);
+                            setResult(RESULT_OK);
+                            finish();
+   //                         Intent intentdelete = new Intent(EventDetailsActivity.this, MainActivity.class);
+   //                         startActivityForResult(intentdelete, GO_HOME_DELETE_EVENT_REQUEST);
+                        }
+                    }).start();
+                }
+            });
+        }
+        else {
+            btn_deleteEvent.setVisibility(View.INVISIBLE);
+        }
+    }
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }
