@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int REGISTER_REQUEST = 1;
     public static final int ADD_EQUIPO_REQUEST = 2;
     public static final int SELECCIONAR_PISTA_EVENTO = 3;
+    public static final int GO_DETAILS_ITEM = 4;
     private static final String TAG = "MAIN_ACTIVITY";
 
 
@@ -128,9 +129,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent eventoIntent = new Intent(MainActivity.this, EventDetailsActivity.class);
                 log("EVENTO DETALLADO: "+ item.toString()+ " con fecha: "+ item.getFecha());
                 Evento.packageIntent(eventoIntent,item.getNombre(),item.FORMAT.format(item.getFecha()),item.getParticipantes(),item.getDescripcion(),item.getDeporte(),item.getPista(),item.getUserCreatorId(), item.getLatitud(),item.getLongitud());
+                eventoIntent.putExtra("ID", item.getId());
                 log("EVENTO DETALLADO despues package: "+ eventoIntent.getStringExtra("nombre") + " con fecha: "+eventoIntent.getStringExtra("fecha"));
 
-                startActivity(eventoIntent);
+                startActivityForResult(eventoIntent, GO_DETAILS_ITEM);
             }
         });
 
@@ -178,6 +180,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        if (requestCode == GO_DETAILS_ITEM && resultCode == RESULT_OK){
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    log("HE ENTRADO");
+                    loadItems();
+
+                }
+            });
+        }
+
     }
 
     @Override
@@ -237,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 List<Evento> eventos = TeamMatchDataBase.getInstance(MainActivity.this).getDao().getAllEventos();
+          //      log("ID BD: "+ eventos.get(0).getId());
                 runOnUiThread(() -> mAdapter.load(eventos));
             }
         });

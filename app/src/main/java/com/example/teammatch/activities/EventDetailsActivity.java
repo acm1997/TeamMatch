@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     private Button btn_deleteEvent;
     private SharedPreferences preferences;
     public static final int GO_HOME_DELETE_EVENT_REQUEST = 0;
+    private static final String TAG = "DETALLES_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,14 +91,18 @@ public class EventDetailsActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     TeamMatchDataBase eventodatabase = TeamMatchDataBase.getInstance(getApplicationContext());
                     TeamMatchDAO eventodao = eventodatabase.getDao();
-                    Evento eventodelete = new Evento(e.getId(), e.getNombre(), e.getFecha(),e.getParticipantes(),e.getDescripcion(),e.getDeporte(),e.getPista(),e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
+            //        Evento eventodelete = new Evento(e.getId(), e.getNombre(), e.getFecha(),e.getParticipantes(),e.getDescripcion(),e.getDeporte(),e.getPista(),e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
 
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            eventodao.deleteEvento(eventodelete);
-                            Intent intentdelete = new Intent(EventDetailsActivity.this, MainActivity.class);
-                            startActivityForResult(intentdelete, GO_HOME_DELETE_EVENT_REQUEST);
+                            log("ID Evento a borrar: "+e.getId());
+                            e.setId(getIntent().getLongExtra("ID", 0));
+                            eventodao.deleteEvento(e);
+                            setResult(RESULT_OK);
+                            finish();
+   //                         Intent intentdelete = new Intent(EventDetailsActivity.this, MainActivity.class);
+   //                         startActivityForResult(intentdelete, GO_HOME_DELETE_EVENT_REQUEST);
                         }
                     }).start();
                 }
@@ -105,5 +111,14 @@ public class EventDetailsActivity extends AppCompatActivity {
         else {
             btn_deleteEvent.setVisibility(View.INVISIBLE);
         }
+    }
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }

@@ -113,7 +113,6 @@ public class CrearEventoActivity extends AppCompatActivity {
 
         final  Button submitButton = findViewById(R.id.buttonCrear);
         submitButton.setOnClickListener(view -> {
-
             String n = mNombre.getText().toString();
             String d = fechaString +" " + horaString;
             String p = mParticipantes.getText().toString();
