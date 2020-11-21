@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import com.example.teammatch.objects.Equipo;
 import com.example.teammatch.objects.Evento;
+import com.example.teammatch.objects.ParticipacionUserEvento;
 import com.example.teammatch.objects.User;
 import java.util.List;
 
@@ -75,4 +76,34 @@ public interface TeamMatchDAO {
     @Query("SELECT * FROM usuarios where username=(:username) and password=(:password)")
     User login(String username, String password);
 
+
+    // PARTICIPACION DE USUARIOS EN EVENTOS
+
+    @Insert
+    public long insertParticipacion(ParticipacionUserEvento participacionUserEvento);
+
+    @Query("SELECT * FROM evento " +
+            "JOIN participacionuserevento ON evento.id = participacionuserevento.idEvento " +
+            "WHERE participacionuserevento.idUser = :idUser")
+    public List<Evento> getAllParticipacionesByUser(long idUser);
+
+    @Query("SELECT * FROM usuarios " +
+            "JOIN participacionuserevento ON usuarios.id = participacionuserevento.idUser " +
+            "WHERE participacionuserevento.idEvento = :idEvento")
+    public List<User> getAllParticipacionesByEvento(long idEvento);
+
+    @Update
+    public int updateParticipacion(ParticipacionUserEvento participacionUserEvento);
+
+    @Delete
+    public void deleteParticipacion(ParticipacionUserEvento participacionUserEvento);
+
+    @Query("DELETE FROM participacionuserevento WHERE idUser = :idUser AND idEvento = :idEvento")
+    public void deleteParticipacion(long idUser, long idEvento);
+
+    @Query("DELETE FROM ParticipacionUserEvento WHERE idUser = :idUser")
+    public void deleteParticipacionByUser(long idUser);
+
+    @Query("DELETE FROM ParticipacionUserEvento WHERE idEvento = :idEvento")
+    public void deleteParticipacionByEvento(long idEvento);
 }

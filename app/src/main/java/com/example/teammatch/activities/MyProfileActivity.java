@@ -47,9 +47,15 @@ public class MyProfileActivity extends AppCompatActivity {
     private Button btn_EditP;
     private ImageView img;
 
+    //Mis eventos
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mlayoutManager;
     private EventAdapter mAdapter;
+
+    //Eventos en los que participo
+    private RecyclerView mRecyclerView2;
+    private RecyclerView.LayoutManager mlayoutManager2;
+    private EventAdapter mAdapter2;
 
     private SharedPreferences preferences;
 
@@ -137,7 +143,28 @@ public class MyProfileActivity extends AppCompatActivity {
                 startActivity(eventoIntent);
             }
         });
+
         mRecyclerView.setAdapter(mAdapter);
+
+        loadMisParticipaciones();
+
+        mRecyclerView2 = findViewById(R.id.my_recycler_view_EventosParticipacion);
+
+        mRecyclerView2.setHasFixedSize(true);
+
+        mlayoutManager2 = new LinearLayoutManager(this);
+        mRecyclerView2.setLayoutManager(mlayoutManager2);
+
+        mAdapter2 = new EventAdapter(new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Evento item) {
+                Intent eventoIntent = new Intent(MyProfileActivity.this, EventDetailsActivity.class);
+                Evento.packageIntent(eventoIntent,item.getNombre(),item.getFecha().toString(),item.getParticipantes(),item.getDescripcion(),item.getDeporte(),item.getPista(),item.getUserCreatorId(), item.getLatitud(),item.getLongitud());
+                startActivity(eventoIntent);
+            }
+        });
+
+        mRecyclerView2.setAdapter(mAdapter2);
     }
 
     @Override
@@ -238,6 +265,18 @@ public class MyProfileActivity extends AppCompatActivity {
                 List<Evento> eventosUser= TeamMatchDataBase.getInstance(MyProfileActivity.this).getDao().getAllEventosByUserId(usuario_id);
                 //log("USUARIO CREADOR" + userWithEventos.getUser().getUsername().toString());
                 runOnUiThread(() -> mAdapter.load(eventosUser));
+            }
+        });
+    }
+
+    private void loadMisParticipaciones() {
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        Long usuario_id = preferences.getLong("usuario_id", 0);
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                List<Evento> eventosParticipacion= TeamMatchDataBase.getInstance(MyProfileActivity.this).getDao().getAllParticipacionesByUser(usuario_id);
+                runOnUiThread(() -> mAdapter2.load(eventosParticipacion));
             }
         });
     }

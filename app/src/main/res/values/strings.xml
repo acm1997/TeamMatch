@@ -55,5 +55,8 @@
     <string name="btn_edit">Editar evento</string>
     <string name="btn_delete">Borrar Evento</string>
     <string name="title_activity_event_details">ScrollingActivity</string>
+    <string name="PARTICIPACION">Participo</string>
+    <string name="NO">NO</string>
+    <string name="SÍ">SÍ</string>
 
 </resources>

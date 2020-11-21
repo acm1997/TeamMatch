@@ -21,7 +21,7 @@ public class Evento {
 
     public enum Deporte {
         FUTBOL,BALONCESTO,TENIS,VOLEIBOL
-    };
+    }
 
     @Ignore
     public final static String NOMBRE = "nombre";
@@ -53,16 +53,16 @@ public class Evento {
     private String nombre;
 
     @TypeConverters(FechaConverter.class)
-    private Date fecha = new Date();
+    private Date fecha;
 
-    private Integer participantes = 0;
+    private Integer participantes;
 
     private String descripcion;
 
     private String pista;
 
     @TypeConverters(DeporteConverter.class)
-    private Deporte deporte = Deporte.FUTBOL;
+    private Deporte deporte;
 
     private long userCreatorId;
 
@@ -218,6 +218,5 @@ public class Evento {
         intent.putExtra(Evento.LATITUD, mLatitud);
         intent.putExtra(Evento.LONGITUD, mLongitud);
     }
-
 
 }
