@@ -3,6 +3,7 @@ package com.example.teammatch.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +34,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PistasActivity extends AppCompatActivity implements PistaAdapter.OnListInteractionListener{
+public class PistasActivity extends AppCompatActivity implements PistaAdapter.OnListInteractionListener, SearchView.OnQueryTextListener {
     private static final String TAG = "Pistas: ";
 
     private RecyclerView recyclerView;
@@ -58,7 +59,6 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
 
         OpenDataService service = retrofit.create(OpenDataService.class);//Retrofit me crea instancia de interfaz de arriba
 
-
         service.cogerPistas().enqueue(new Callback<Pistas>() {
             @Override
             public void onResponse(Call<Pistas> call, Response<Pistas> response) {
@@ -78,8 +78,11 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
             }
         });
 
-
         recyclerView.setAdapter(mAdapter);
+
+        //BUSCADOR DE PISTAS
+        SearchView buscadorPistas = findViewById(R.id.search_pista);
+        buscadorPistas.setOnQueryTextListener(this);
     }
 
     @Override
@@ -93,10 +96,15 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
         finish();
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mAdapter.loadBuscador(mAdapter.filtrado(query));
+        return false;
+    }
 
-
-
-
-
-
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        mAdapter.loadBuscador(mAdapter.filtrado(newText));
+        return false;
+    }
 }

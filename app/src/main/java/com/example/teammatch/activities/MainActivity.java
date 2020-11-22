@@ -6,17 +6,17 @@ import android.os.Bundle;
 
 import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
+import com.example.teammatch.SettingsFragment;
 import com.example.teammatch.adapters.EventAdapter;
-import com.example.teammatch.objects.Binding;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.User;
 import com.example.teammatch.room_db.TeamMatchDataBase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_2);
+
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fabNuevoEvento);
@@ -229,10 +232,21 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_settings) {
-            //accion Setting
-        } else if(id == R.id.action_text_login){
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
+            return true;
+        } else if(id == R.id.action_text_login){
+            preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+            Long usuario_id = preferences.getLong("usuario_id", 0);
+            String name = preferences.getString("username", null);
+            String email = preferences.getString("email", null);
+            String password = preferences.getString("password", null);
+            if(usuario_id > 0 && name != null && email != null && password != null){
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "Ya has iniciado sesión en la aplicación", Toast.LENGTH_LONG).show();
+            }
         } else if(id == R.id.action_text_share){
             compartirApp();
         }
@@ -281,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
             ishare.setType("text/plain");
             ishare.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
             String aux = "Descarga la aplicación Team Match\n";
-            aux += "https://play.google.com/store/apps/details?id=il.talent.winner&hl=es_419";
+            aux += "https://drive.google.com/drive/folders/1GE8CY6bNBtJwEDq6wiZkCdMmB7sdpYfu?usp=sharing";
             ishare.putExtra(Intent.EXTRA_TEXT, aux);
             startActivity(ishare);
         }catch (Exception e){ }

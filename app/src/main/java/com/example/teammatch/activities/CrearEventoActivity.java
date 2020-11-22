@@ -131,7 +131,7 @@ public class CrearEventoActivity extends AppCompatActivity {
                     if(desc != null && desc.equals("")){
                         Toast.makeText(CrearEventoActivity.this, "La descripción está vacía", Toast.LENGTH_SHORT).show();
                     }else {
-                        /*if(pist != null && pist.equals("")){
+                       /* if(pist != null && pist.equals("")){
                             Toast.makeText(CrearEventoActivity.this, "No tiene asignada ninguna pista", Toast.LENGTH_SHORT).show();
                         }else {*/
                             log("LATITUD Y LONGITUD que se pasan por el INTENT: " + latitud + " " + longitud);
@@ -150,7 +150,7 @@ public class CrearEventoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SELECCIONAR_PISTA_EVENTO && resultCode == RESULT_OK){
+        if (requestCode == SELECCIONAR_PISTA_EVENTO && resultCode == RESULT_OK) {
             TextView nombrePistaa = findViewById(R.id.idPistaSeleccionada);
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
@@ -159,10 +159,6 @@ public class CrearEventoActivity extends AppCompatActivity {
                     nombrePista = data.getStringExtra(Evento.PISTA);
                     latitud = data.getStringExtra(Evento.LATITUD);
                     longitud = data.getStringExtra(Evento.LONGITUD);
-                   // i.putExtra(Evento.LATITUD, latitud);
-                    //i.putExtra(Evento.LONGITUD, longitud);
-
-                    //  if ( nombrePista == null ) nombrePista="";
                     runOnUiThread(() -> {
                         nombrePistaa.setText(nombrePista);
                     });

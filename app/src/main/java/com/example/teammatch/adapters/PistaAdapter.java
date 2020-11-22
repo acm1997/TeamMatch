@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.teammatch.R;
 import com.example.teammatch.activities.PistasActivity;
 import com.example.teammatch.objects.Binding;
+import com.example.teammatch.objects.Evento;
 import com.example.teammatch.objects.Pistas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder> {
     private List<Binding> mDataset;
     private static final String TAG = "Pistas: ";
+    private List<Binding> mDatasetAux;
 
 
     public interface OnListInteractionListener{
@@ -86,7 +89,30 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
 
     public void swap(List<Binding> dataset){
         mDataset = dataset;
+        mDatasetAux.addAll(mDataset);
         notifyDataSetChanged();
     }
 
+    //BUSCADOR PISTAS
+    public List<Binding> filtrado(String nombre){
+        List<Binding> listaPistasFiltradas = new ArrayList<>();
+        if(nombre.isEmpty()){
+            listaPistasFiltradas.addAll(mDatasetAux);
+        }else{
+            listaPistasFiltradas.clear();
+            for(Binding binding : mDatasetAux){
+                if(binding.getFoafName().toString().toLowerCase().contains(nombre.toLowerCase())){
+                    listaPistasFiltradas.add(binding);
+                }
+            }
+        }
+        return listaPistasFiltradas;
+    }
+
+    //Carga la nueva lista
+    public void loadBuscador(List<Binding> items){
+        mDataset.clear();
+        mDataset = items;
+        notifyDataSetChanged();
+    }
 }
