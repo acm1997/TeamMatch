@@ -145,21 +145,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == ADD_EVENTO_REQUEST && resultCode == RESULT_OK){
             Evento EventoItem = new Evento(data);
-            AppExecutors.getInstance().diskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    //añadir evento en la BD
-                    TeamMatchDataBase evento_dataBase = TeamMatchDataBase.getInstance(MainActivity.this);
-                    long id_evento = evento_dataBase.getDao().insertEvento(EventoItem);
+            AppExecutors.getInstance().diskIO().execute(() -> {
+                //añadir evento en la BD
+                TeamMatchDataBase evento_dataBase = TeamMatchDataBase.getInstance(MainActivity.this);
+                long id_evento = evento_dataBase.getDao().insertEvento(EventoItem);
 
-                    //actualizar evento
-                    EventoItem.setId(id_evento);
+                //actualizar evento
+                EventoItem.setId(id_evento);
 
-                    //insertar evento en la lista
-                    runOnUiThread(() -> {
-                        mAdapter.add(EventoItem);
-                    });
-                }
+                //insertar evento en la lista
+                runOnUiThread(() -> mAdapter.add(EventoItem));
             });
         }
 

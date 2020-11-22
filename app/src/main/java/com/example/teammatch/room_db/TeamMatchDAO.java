@@ -82,6 +82,9 @@ public interface TeamMatchDAO {
     @Insert
     public long insertParticipacion(ParticipacionUserEvento participacionUserEvento);
 
+    @Query("SELECT * FROM participacionUserEvento WHERE idUser = :idUser AND idEvento = :idEvento")
+    public ParticipacionUserEvento getParticipacion(long idUser, long idEvento);
+
     @Query("SELECT * FROM evento " +
             "JOIN participacionuserevento ON evento.id = participacionuserevento.idEvento " +
             "WHERE participacionuserevento.idUser = :idUser")
