@@ -135,10 +135,6 @@ public class EditEventActivity extends AppCompatActivity {
                 TeamMatchDataBase eventodatabase = TeamMatchDataBase.getInstance(getApplicationContext());
                  TeamMatchDAO eventoDAO = eventodatabase.getDao();
 
-                  /*  Evento eventoupdate = new Evento(e.getId(),editNombreEvento, e.getFecha(), Integer.parseInt(editParticipantes), editDescripcionEvento,getDeporte(),editPista,e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
-                    log("EVENTO EDITADO: " + eventoupdate.getId());
-                    log("EVENTO EDITADO: " + eventoupdate.getId());*/
-
                     Intent i = new Intent();
                     Evento.packageIntent(i,editNombreEvento,editFechaHora,Integer.parseInt(editParticipantes),editDescripcionEvento,getDeporte(),editPista,e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
 
@@ -156,13 +152,7 @@ public class EditEventActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
     }
-
 
     private Evento.Deporte getDeporte() {
 

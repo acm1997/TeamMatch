@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
             ishare.setType("text/plain");
             ishare.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
             String aux = "Descarga la aplicación Team Match\n";
-            aux += "https://drive.google.com/file/d/1jb4LaIub2giuMT9Lq7qY7Yimj2jAxf0u/view?usp=sharing";
+            aux += "https://drive.google.com/drive/folders/1GE8CY6bNBtJwEDq6wiZkCdMmB7sdpYfu?usp=sharing";
             ishare.putExtra(Intent.EXTRA_TEXT, aux);
             startActivity(ishare);
         }catch (Exception e){ }
