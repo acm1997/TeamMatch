@@ -19,7 +19,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:parentActivityName=".activities.MainActivity"
+            ></activity>
         <activity
             android:name=".activities.EventDetailsActivity"
             android:label="@string/title_activity_event_details"
