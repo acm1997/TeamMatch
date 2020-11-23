@@ -241,10 +241,7 @@ public class MyProfileActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if(id == R.id.action_salir) {
-            finish();
-            System.exit(0);
-        } else if(id == R.id.action_cerrar_sesion){
+         if(id == R.id.action_cerrar_sesion){
             preferences.edit().clear().apply();
             Toast.makeText(getApplicationContext(), "Se ha cerrado la sesión", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MyProfileActivity.this, LoginActivity.class);

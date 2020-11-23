@@ -2,11 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.teammatch.activities.MainActivity">
-    <item
-        android:id="@+id/action_salir"
-        android:orderInCategory="100"
-        android:title="@string/action_salir"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_cerrar_sesion"
