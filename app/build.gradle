@@ -4,6 +4,12 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    lintOptions {
+
+        checkReleaseBuilds false
+
+    }
+
     defaultConfig {
         applicationId "com.example.teammatch"
         minSdkVersion 23

@@ -1,7 +1,9 @@
 package com.example.teammatch.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,17 +28,29 @@ public class EquiposActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManagerEquipos;
     private EquipoAdapter mAdapaterEquipos;
 
+    private SharedPreferences preferences;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipos);
 
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+        Long usuario_id = preferences.getLong("usuario_id", 0);
+        String name = preferences.getString("username", null);
+        String email = preferences.getString("email", null);
+        String password = preferences.getString("password", null);
 
+        //Solo se muestra el boton si el usuario se ha logeado
         FloatingActionButton fab = findViewById(R.id.fabNuevoEquipo);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(EquiposActivity.this, CrearEquipoActivity.class);
-            startActivityForResult(intent, ADD_EQUIPO_REQUEST);
-        });
-
+        if(usuario_id > 0 && name != null && email != null && password != null){
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(view -> {
+                Intent intent = new Intent(EquiposActivity.this, CrearEquipoActivity.class);
+                startActivityForResult(intent, ADD_EQUIPO_REQUEST);
+            });
+        } else {
+            fab.setVisibility(View.INVISIBLE);
+        }
 
         //Inicio variable bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
