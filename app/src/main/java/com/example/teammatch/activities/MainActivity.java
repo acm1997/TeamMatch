@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_EQUIPO_REQUEST = 2;
     public static final int SELECCIONAR_PISTA_EVENTO = 3;
     public static final int GO_DETAILS_ITEM = 4;
+    public static final int SELECCIONAR_PISTA_EDITAR_EVENTO = 5;
     private static final String TAG = "MAIN_ACTIVITY";
 
 

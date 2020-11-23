@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.teammatch.AppExecutors;
 import com.example.teammatch.R;
 import com.example.teammatch.objects.Evento;
 import com.example.teammatch.room_db.TeamMatchDAO;
@@ -26,6 +27,9 @@ import com.example.teammatch.room_db.TeamMatchDataBase;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.example.teammatch.activities.MainActivity.SELECCIONAR_PISTA_EDITAR_EVENTO;
+import static com.example.teammatch.activities.MainActivity.SELECCIONAR_PISTA_EVENTO;
 
 
 public class EditEventActivity extends AppCompatActivity {
@@ -49,7 +53,7 @@ public class EditEventActivity extends AppCompatActivity {
     private RadioButton mDeporteTenis;
     private RadioButton mDeporteVoleibol;
 
-    private EditText mPista;
+    private TextView mPista;
 
     private Button btn_save;
 
@@ -78,7 +82,7 @@ public class EditEventActivity extends AppCompatActivity {
         mDeporteTenis = (RadioButton) findViewById(R.id.radioETenis);
         mDeporteVoleibol = (RadioButton) findViewById(R.id.radioEVoleibol);
         mDeporteFutbol = (RadioButton) findViewById(R.id.radioEFutbol);
-        mPista = (EditText) findViewById(R.id.editCat);
+       // mPista = (TextView) findViewById(R.id.editCat);
         fechaView = (TextView) findViewById(R.id.editfecha);
         horaView = (TextView) findViewById(R.id.edithora);
         btn_save = findViewById(R.id.btn_saveEventEdit);
@@ -90,7 +94,6 @@ public class EditEventActivity extends AppCompatActivity {
         if(e.getDeporte().name().equals("BALONCESTO")) mDeporteBaloncesto.setChecked(true);
         if(e.getDeporte().name().equals("TENIS")) mDeporteTenis.setChecked(true);
         if(e.getDeporte().name().equals("VOLEIBOL")) mDeporteVoleibol.setChecked(true);
-
 
         setDefaultDateTime();
 
@@ -106,6 +109,12 @@ public class EditEventActivity extends AppCompatActivity {
         final Button btn_horaedit = (Button) findViewById(R.id.btn_horaedit);
         btn_horaedit.setOnClickListener(v -> showTimePickerDialog());
 
+        //OnClickListener for the Pista button
+        final Button btn_pistaedit = (Button) findViewById(R.id.btn_pistaedit);
+        btn_pistaedit.setOnClickListener(v -> {
+            Intent intent = new Intent(EditEventActivity.this, PistasActivity.class);
+            startActivityForResult(intent, SELECCIONAR_PISTA_EDITAR_EVENTO);
+        });
 
 
         TeamMatchDataBase.getInstance(this);
@@ -118,15 +127,26 @@ public class EditEventActivity extends AppCompatActivity {
                 final String editNombreEvento = mNombre.getText().toString();
                 final String editDescripcionEvento = mDescripcion.getText().toString();
                 final String editParticipantes = mParticipantes.getText().toString();
+                final String editPista = mPista.getText().toString();
                 final String editFechaHora =  fechaString +" " + horaString;
                 //TODO - Poner la fecha y hora editada en el nuevo evento editado.
 
 
                 TeamMatchDataBase eventodatabase = TeamMatchDataBase.getInstance(getApplicationContext());
-                    TeamMatchDAO eventoDAO = eventodatabase.getDao();
+                 TeamMatchDAO eventoDAO = eventodatabase.getDao();
 
-                    Evento eventoupdate = new Evento(e.getId(),editNombreEvento, e.getFecha(), Integer.parseInt(editParticipantes), editDescripcionEvento,getDeporte(),e.getPista(),e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
-                    new Thread(new Runnable() {
+                  /*  Evento eventoupdate = new Evento(e.getId(),editNombreEvento, e.getFecha(), Integer.parseInt(editParticipantes), editDescripcionEvento,getDeporte(),editPista,e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
+                    log("EVENTO EDITADO: " + eventoupdate.getId());
+                    log("EVENTO EDITADO: " + eventoupdate.getId());*/
+
+                    Intent i = new Intent();
+                    Evento.packageIntent(i,editNombreEvento,editFechaHora,Integer.parseInt(editParticipantes),editDescripcionEvento,getDeporte(),editPista,e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
+
+                    Evento eventoupdate = new Evento(i);
+                    eventoupdate.setId(e.getId());
+
+
+                new Thread(new Runnable() {
                         @Override
                         public void run() {
                             eventoDAO.updateEvento(eventoupdate);
@@ -142,6 +162,7 @@ public class EditEventActivity extends AppCompatActivity {
 
 
     }
+
 
     private Evento.Deporte getDeporte() {
 
@@ -166,7 +187,7 @@ public class EditEventActivity extends AppCompatActivity {
         mNombre.setText(_mNombre);
         mParticipantes.setText(_mParticipantes);
         mDescripcion.setText(_mDescripcion);
-        mPista.setText(_mPista);
+        //mPista.setText(_mPista);
     }
 
     public void mostrarHoraEvento(String fechaMasHora){
@@ -180,6 +201,26 @@ public class EditEventActivity extends AppCompatActivity {
         }
 
         horaView.setText(listaHora.toString());
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SELECCIONAR_PISTA_EDITAR_EVENTO && resultCode == RESULT_OK) {
+            mPista = findViewById(R.id.editCat);
+            AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    final String nombrePista;
+                    nombrePista = data.getStringExtra(Evento.PISTA);
+                    runOnUiThread(() -> {
+                        mPista.setText(nombrePista);
+                    });
+                }
+            });
+        }
     }
 
     private void setDefaultDateTime() {

@@ -62,6 +62,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             fab.setOnClickListener(view -> {
                 Intent eventIntent = new Intent(EventDetailsActivity.this, EditEventActivity.class);
                 Evento.packageIntent(eventIntent,e.getNombre(),e.getFecha().toString(),e.getParticipantes(),e.getDescripcion(),e.getDeporte(),e.getPista(),e.getUserCreatorId(), e.getLatitud(),e.getLongitud());
+                eventIntent.putExtra("ID", e.getId());
                 startActivity(eventIntent);
             });
 
