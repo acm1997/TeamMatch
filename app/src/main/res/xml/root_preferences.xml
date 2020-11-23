@@ -1,6 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <CheckBoxPreference
+        android:id="@+id/check_nightmode"
         android:defaultValue="false"
         android:key="pref_nightmode"
         android:summary="@string/nightmode_sum"

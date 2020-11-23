@@ -89,7 +89,7 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
 
     public void swap(List<Binding> dataset){
         mDataset = dataset;
-        mDatasetAux.addAll(mDataset);
+        mDatasetAux = mDataset;
         notifyDataSetChanged();
     }
 
