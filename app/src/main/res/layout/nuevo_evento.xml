@@ -135,10 +135,10 @@
         android:inputType="date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintHorizontal_bias="0.764"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.021" />
 
     <EditText
         android:id="@+id/hora"
@@ -148,10 +148,10 @@
         android:inputType="time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.775"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fecha"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <Button
         android:id="@+id/botonfecha"
@@ -167,7 +167,7 @@
 
     <Button
         android:id="@+id/botonhora"
-        android:layout_width="108dp"
+        android:layout_width="128dp"
         android:layout_height="46dp"
         android:text="@string/eligehora"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -206,7 +206,7 @@
 
     <Button
         android:id="@+id/idSelecPista"
-        android:layout_width="119dp"
+        android:layout_width="139dp"
         android:layout_height="59dp"
         android:layout_marginTop="24dp"
         android:text="@string/idBuscarPista"
@@ -219,13 +219,13 @@
 
     <TextView
         android:id="@+id/idPistaSeleccionada"
-        android:layout_width="243dp"
-        android:layout_height="wrap_content"
+        android:layout_width="174dp"
+        android:layout_height="73dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toEndOf="@+id/idSelecPista"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.099" />
+        app:layout_constraintVertical_bias="0.14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

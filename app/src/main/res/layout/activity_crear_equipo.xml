@@ -10,6 +10,7 @@
         android:layout_width="334dp"
         android:layout_height="51dp"
         android:background="@color/colorDanger"
+        android:backgroundTint="@color/colorDanger"
         android:text="@string/CANCELAR"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
