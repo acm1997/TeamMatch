@@ -1,6 +1,7 @@
 package com.example.teammatch.adapters;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder> {
     private List<Binding> mDataset;
-    private static final String TAG = "Pistas: ";
+    private static final String TAG = "Event Pistas: ";
     private List<Binding> mDatasetAux;
 
 
@@ -95,17 +96,22 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
 
     //BUSCADOR PISTAS
     public List<Binding> filtrado(String nombre){
+        log("Pista de nombre: "+nombre);
         List<Binding> listaPistasFiltradas = new ArrayList<>();
+        log("Pista lista tamaño: " + listaPistasFiltradas.size());
         if(nombre.isEmpty()){
             listaPistasFiltradas.addAll(mDatasetAux);
         }else{
             listaPistasFiltradas.clear();
+            log("Pista lista tamaño: " + listaPistasFiltradas.size());
             for(Binding binding : mDatasetAux){
-                if(binding.getFoafName().toString().toLowerCase().contains(nombre.toLowerCase())){
+                if(binding.getFoafName().getValue().toLowerCase().contains(nombre.toLowerCase())){
                     listaPistasFiltradas.add(binding);
+                    log("Pista lista tamaño: " + listaPistasFiltradas.size());
                 }
             }
         }
+        log("Pista lista tamaño: " + listaPistasFiltradas.size());
         return listaPistasFiltradas;
     }
 
@@ -114,5 +120,15 @@ public class PistaAdapter extends RecyclerView.Adapter<PistaAdapter.MyViewHolder
         mDataset.clear();
         mDataset = items;
         notifyDataSetChanged();
+    }
+
+    private void log(String msg) {
+        try {
+            Thread.sleep(500);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.i(TAG, msg);
     }
 }

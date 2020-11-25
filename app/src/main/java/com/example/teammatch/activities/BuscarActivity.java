@@ -104,7 +104,7 @@ public class BuscarActivity extends AppCompatActivity implements SearchView.OnQu
         mAdapter = new EventAdapter(new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Evento item) {
-                Snackbar.make(listaEventos, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show(); //TODO enviar a modificar evento
+                Snackbar.make(listaEventos, "Evento" +  item.getNombre() + "clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
 

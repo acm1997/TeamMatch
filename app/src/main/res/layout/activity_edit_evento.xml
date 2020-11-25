@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toEndOf="@+id/tvParticipantesEdit"
-        app:layout_constraintTop_toBottomOf="@+id/editCat"
+        app:layout_constraintTop_toBottomOf="@+id/editPista"
         app:layout_constraintVertical_bias="0.1" />
 
     <RadioGroup
@@ -206,7 +206,7 @@
         app:layout_constraintVertical_bias="0.394" />
 
     <EditText
-        android:id="@+id/editCat"
+        android:id="@+id/editPista"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:ems="10"

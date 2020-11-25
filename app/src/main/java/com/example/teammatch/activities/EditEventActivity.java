@@ -61,8 +61,6 @@ public class EditEventActivity extends AppCompatActivity {
     String latitud;
     String longitud;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,12 +75,12 @@ public class EditEventActivity extends AppCompatActivity {
         mParticipantes =(EditText) findViewById(R.id.Editparticipantes);
         mDescripcion = (EditText) findViewById(R.id.Editdesc);
         mDeportes = (RadioGroup) findViewById(R.id.radioEGroup);
+        mPista = (TextView) findViewById(R.id.editPista);
 
         mDeporteBaloncesto = (RadioButton) findViewById(R.id.radioEBaloncesto);
         mDeporteTenis = (RadioButton) findViewById(R.id.radioETenis);
         mDeporteVoleibol = (RadioButton) findViewById(R.id.radioEVoleibol);
         mDeporteFutbol = (RadioButton) findViewById(R.id.radioEFutbol);
-       // mPista = (TextView) findViewById(R.id.editCat);
         fechaView = (TextView) findViewById(R.id.editfecha);
         horaView = (TextView) findViewById(R.id.edithora);
         btn_save = findViewById(R.id.btn_saveEventEdit);
@@ -96,6 +94,10 @@ public class EditEventActivity extends AppCompatActivity {
         if(e.getDeporte().name().equals("VOLEIBOL")) mDeporteVoleibol.setChecked(true);
 
         setDefaultDateTime();
+
+        //Coordenadas actuales de la pista
+        latitud = e.getLatitud();
+        longitud = e.getLongitud();
 
         // OnClickListener for the Date button, calls showDatePickerDialog() to show
         // the Date dialog
@@ -129,14 +131,12 @@ public class EditEventActivity extends AppCompatActivity {
                 final String editParticipantes = mParticipantes.getText().toString();
                 final String editPista = mPista.getText().toString();
                 final String editFechaHora =  fechaString +" " + horaString;
-                //TODO - Poner la fecha y hora editada en el nuevo evento editado.
-
 
                 TeamMatchDataBase eventodatabase = TeamMatchDataBase.getInstance(getApplicationContext());
                  TeamMatchDAO eventoDAO = eventodatabase.getDao();
 
                     Intent i = new Intent();
-                    Evento.packageIntent(i,editNombreEvento,editFechaHora,Integer.parseInt(editParticipantes),editDescripcionEvento,getDeporte(),editPista,e.getUserCreatorId(),e.getLatitud(),e.getLongitud());
+                    Evento.packageIntent(i,editNombreEvento,editFechaHora,Integer.parseInt(editParticipantes),editDescripcionEvento,getDeporte(),editPista,e.getUserCreatorId(),latitud, longitud);
 
                     Evento eventoupdate = new Evento(i);
                     eventoupdate.setId(e.getId());
@@ -177,7 +177,7 @@ public class EditEventActivity extends AppCompatActivity {
         mNombre.setText(_mNombre);
         mParticipantes.setText(_mParticipantes);
         mDescripcion.setText(_mDescripcion);
-        //mPista.setText(_mPista);
+        mPista.setText(_mPista);
     }
 
     public void mostrarHoraEvento(String fechaMasHora){
@@ -199,12 +199,14 @@ public class EditEventActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == SELECCIONAR_PISTA_EDITAR_EVENTO && resultCode == RESULT_OK) {
-            mPista = findViewById(R.id.editCat);
+            mPista = findViewById(R.id.editPista);
             AppExecutors.getInstance().diskIO().execute(new Runnable() {
                 @Override
                 public void run() {
                     final String nombrePista;
                     nombrePista = data.getStringExtra(Evento.PISTA);
+                    latitud = data.getStringExtra(Evento.LATITUD);
+                    longitud = data.getStringExtra(Evento.LONGITUD);
                     runOnUiThread(() -> {
                         mPista.setText(nombrePista);
                     });

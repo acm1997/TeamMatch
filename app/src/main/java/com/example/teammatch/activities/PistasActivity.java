@@ -3,6 +3,7 @@ package com.example.teammatch.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,7 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
 
     private RecyclerView recyclerView;
     private PistaAdapter mAdapter;
+    private PistaAdapter mAdapterResults;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -51,7 +53,17 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new PistaAdapter(new ArrayList<Binding>(),this);
 
-// Create a very simple REST adapter which points to the API.
+        loadPistas();
+
+        recyclerView.setAdapter(mAdapter);
+
+        //BUSCADOR DE PISTAS
+        SearchView buscadorPistas = findViewById(R.id.search_pista);
+        buscadorPistas.setOnQueryTextListener(this);
+    }
+
+    public void loadPistas(){
+        // Create a very simple REST adapter which points to the API.
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://opendata.caceres.es/GetData/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -78,11 +90,6 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
             }
         });
 
-        recyclerView.setAdapter(mAdapter);
-
-        //BUSCADOR DE PISTAS
-        SearchView buscadorPistas = findViewById(R.id.search_pista);
-        buscadorPistas.setOnQueryTextListener(this);
     }
 
     @Override
@@ -104,7 +111,7 @@ public class PistasActivity extends AppCompatActivity implements PistaAdapter.On
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        mAdapter.loadBuscador(mAdapter.filtrado(newText));
+
         return false;
     }
 }

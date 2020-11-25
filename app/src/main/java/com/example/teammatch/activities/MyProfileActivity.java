@@ -173,8 +173,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
         // Load saved ToDoItems, if necessary
 
-        if (mAdapter.getItemCount() == 0)
+   //     if (mAdapter.getItemCount() == 0)
             loadItems();
+            loadMisParticipaciones();
     }
 
     String currentPhotoPath;
