@@ -9,8 +9,10 @@
         android:id="@+id/tVSaludo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/amaranth"
         android:text="@string/Nuevo_Evento"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -22,17 +24,15 @@
         android:id="@+id/nombreEvento"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="64dp"
         android:layout_weight="1"
         android:ems="10"
         android:hint="@string/nameevent"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tVSaludo"
-        app:layout_constraintVertical_bias="0.013" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -100,19 +100,20 @@
         app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descEvento"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.347" />
 
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="150dp"
         android:layout_height="50dp"
+        android:backgroundTint="@color/colorDanger"
         android:text="@string/CANCELAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonCrear"
-        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintHorizontal_bias="0.556"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descEvento"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintVertical_bias="0.347" />
 
     <TextView
         android:id="@+id/textView"
