@@ -33,6 +33,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     public static final int GO_HOME_DELETE_EVENT_REQUEST = 0;
     private static final String TAG = "DETALLES_ACTIVITY";
+    private static boolean Participo = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,22 +122,24 @@ public class EventDetailsActivity extends AppCompatActivity {
                     ParticipacionUserEvento participacionUserEvento = teamMatchDataBase.getDao().getParticipacion(usuario_id, e.getId());
                     if(Objects.equals(participacionUserEvento, null)){
                         runOnUiThread(()-> sw.setChecked(false));
+                        Participo = false;
                     }else{
                         runOnUiThread(()-> sw.setChecked(true));
+                        Participo = true;
                     }
                 }
             });
 
             sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    ParticipacionUserEvento participacionUserEvento =  new ParticipacionUserEvento(usuario_id, e.getId());
+                if (isChecked && !Participo) {
+                    ParticipacionUserEvento nuevoparticipante =  new ParticipacionUserEvento(usuario_id, e.getId());
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         TeamMatchDataBase teamMatchDataBase = TeamMatchDataBase.getInstance(EventDetailsActivity.this);
-                        long idParticipacion = teamMatchDataBase.getDao().insertParticipacion(participacionUserEvento);
-                        participacionUserEvento.setId(idParticipacion);
+                        long idParticipacion = teamMatchDataBase.getDao().insertParticipacion(nuevoparticipante);
+                        nuevoparticipante.setId(idParticipacion);
                     });
 
-                } else {
+                } else if(!isChecked){
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         TeamMatchDataBase teamMatchDataBase = TeamMatchDataBase.getInstance(EventDetailsActivity.this);
                         teamMatchDataBase.getDao().deleteParticipacion(usuario_id,e.getId());
