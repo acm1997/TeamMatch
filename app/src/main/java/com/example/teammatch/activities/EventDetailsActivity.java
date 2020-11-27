@@ -35,7 +35,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     public static final int GO_HOME_DELETE_EVENT_REQUEST = 0;
     private static final String TAG = "DETALLES_ACTIVITY";
-    private static boolean Participo = false;
+    private static boolean Participo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,12 +155,14 @@ public class EventDetailsActivity extends AppCompatActivity {
                         TeamMatchDataBase teamMatchDataBase = TeamMatchDataBase.getInstance(EventDetailsActivity.this);
                         long idParticipacion = teamMatchDataBase.getDao().insertParticipacion(nuevoparticipante);
                         nuevoparticipante.setId(idParticipacion);
+                        Participo = true;
                     });
 
                 } else if(!isChecked){
                     AppExecutors.getInstance().diskIO().execute(() -> {
                         TeamMatchDataBase teamMatchDataBase = TeamMatchDataBase.getInstance(EventDetailsActivity.this);
                         teamMatchDataBase.getDao().deleteParticipacion(usuario_id,e.getId());
+                        Participo = false;
                     });
                 }
             });
