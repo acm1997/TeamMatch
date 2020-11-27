@@ -43,6 +43,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.65" />
 
+    <Button
+        android:id="@+id/btn_deleteuser"
+        android:layout_width="214dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="@color/colorDanger"
+        android:text="@string/Borrarusuario"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tVBorrar" />
+
     <TextView
         android:id="@+id/tVBorrar"
         android:layout_width="wrap_content"
@@ -51,25 +66,10 @@
         android:textColor="#F14747"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86" />
-
-    <Button
-        android:id="@+id/btn_deleteuser"
-        android:layout_width="214dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="54dp"
-        android:backgroundTint="@color/colorDanger"
-        android:text="@string/Borrarusuario"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tVBorrar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <ImageView
         android:id="@+id/imageView6"

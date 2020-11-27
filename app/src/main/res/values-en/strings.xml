@@ -23,7 +23,7 @@
     <string name="Nuevo_Evento">New event</string>
     <string name="action_salir">Exit</string>
     <string name="action_cerrar_sesion">Log out</string>
-    <string name="textborrar">Do you want to delete your profile?\n NOTE: All your data will be lost</string>
+    <string name="textborrar">Do you want to delete your profile?</string>
     <string name="NOMBRE">Name</string>
     <string name="CIUDAD">City</string>
     <string name="CALLE">Street</string>

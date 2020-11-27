@@ -1,7 +1,10 @@
 package com.example.teammatch.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -94,21 +97,37 @@ public class EditUserActivity extends AppCompatActivity {
         btn_deleteuser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(usuario_id > 0 && name != null && email != null && password != null){
-                    TeamMatchDataBase userdatabase = TeamMatchDataBase.getInstance(getApplicationContext());
-                    TeamMatchDAO userdao = userdatabase.getDao();
-                    User userdelete = new User(usuario_id, name, email, password);
+                AlertDialog.Builder myBuild = new AlertDialog.Builder(EditUserActivity.this);
+                myBuild.setMessage("¿Deseas borrar tu perfil?\nNOTA: Todos tus datos se perderan");
+                myBuild.setTitle("Borrar perfil");
+                myBuild.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(usuario_id > 0 && name != null && email != null && password != null){
+                            TeamMatchDataBase userdatabase = TeamMatchDataBase.getInstance(getApplicationContext());
+                            TeamMatchDAO userdao = userdatabase.getDao();
+                            User userdelete = new User(usuario_id, name, email, password);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            preferences.edit().clear().apply();
-                            userdao.deleteUser(userdelete);
-                            Intent intentdelete = new Intent(EditUserActivity.this, MainActivity.class);
-                            startActivityForResult(intentdelete, GO_HOME_DELETE_USER_REQUEST);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    preferences.edit().clear().apply();
+                                    userdao.deleteUser(userdelete);
+                                    Intent intentdelete = new Intent(EditUserActivity.this, MainActivity.class);
+                                    startActivityForResult(intentdelete, GO_HOME_DELETE_USER_REQUEST);
+                                }
+                            }).start();
                         }
-                    }).start();
-                }
+                    }
+                });
+                myBuild.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog dialog = myBuild.create();
+                dialog.show();
             }
         });
     }

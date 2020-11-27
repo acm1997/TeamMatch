@@ -65,7 +65,6 @@ public class EditEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_evento);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Evento e = new Evento(getIntent());
         e.setId(getIntent().getLongExtra("ID", 0));

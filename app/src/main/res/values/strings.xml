@@ -54,7 +54,7 @@
     <string name="btn_edit">Editar evento</string>
     <string name="btn_delete">Borrar Evento</string>
     <string name="title_activity_event_details" translatable="false">ScrollingActivity</string>
-    <string name="textborrar">¿Deseas borrar tu perfil?\nNOTA: Todos tus datos se perderan</string>
+    <string name="textborrar">¿Deseas borrar tu perfil?</string>
     <string name="repetircontrasena">Repetir Contraseña:</string>
     <string name="nuevacontrasena">Nueva contraseña:</string>
     <string name="Borrarusuario">Borrar usuario</string>

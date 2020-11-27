@@ -1,5 +1,6 @@
 package com.example.teammatch.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.appcompat.widget.Toolbar;
@@ -70,18 +72,34 @@ public class EventDetailsActivity extends AppCompatActivity {
             //  BOTÓN BORRAR
             btn_deleteEvent.setVisibility(View.VISIBLE);
             btn_deleteEvent.setOnClickListener(v -> {
-                TeamMatchDataBase eventodatabase = TeamMatchDataBase.getInstance(getApplicationContext());
-                TeamMatchDAO eventodao = eventodatabase.getDao();
-
-                new Thread(new Runnable() {
+                AlertDialog.Builder myBuild = new AlertDialog.Builder(EventDetailsActivity.this);
+                myBuild.setMessage("¿Quieres eliminar este evento deportivo?\nNOTA: No podrás recuperar sus datos, y los usuarios que participen dejarán de tener acceso a este evento");
+                myBuild.setTitle("Borrar evento deportivo");
+                myBuild.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
-                    public void run() {
-                        log("ID Evento a borrar: "+e.getId());
-                        eventodao.deleteEvento(e);
-                        setResult(RESULT_OK);
-                        finish();
+                    public void onClick(DialogInterface dialog, int which) {
+                        TeamMatchDataBase eventodatabase = TeamMatchDataBase.getInstance(getApplicationContext());
+                        TeamMatchDAO eventodao = eventodatabase.getDao();
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                log("ID Evento a borrar: "+e.getId());
+                                eventodao.deleteEvento(e);
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }).start();
                     }
-                }).start();
+                });
+                myBuild.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog dialog = myBuild.create();
+                dialog.show();
             });
 
         } else {
