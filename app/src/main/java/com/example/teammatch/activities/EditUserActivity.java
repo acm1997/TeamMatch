@@ -1,5 +1,6 @@
 package com.example.teammatch.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,10 +8,13 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ public class EditUserActivity extends AppCompatActivity {
     private EditText eRePassword;
     private Button btn_save;
     private Button btn_deleteuser;
+    private ImageView imgProfile;
     private SharedPreferences preferences;
     public static final int GO_HOME_DELETE_USER_REQUEST = 0;
 
@@ -42,6 +47,7 @@ public class EditUserActivity extends AppCompatActivity {
         eRePassword = findViewById(R.id.editTextTextPassword2);
         btn_save = findViewById(R.id.btn_save);
         btn_deleteuser = findViewById(R.id.btn_deleteuser);
+        imgProfile = findViewById(R.id.img_profile);
 
         preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
@@ -148,6 +154,25 @@ public class EditUserActivity extends AppCompatActivity {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public void OpenGalery(View view) {
+        cargarImagen();
+    }
+
+    private void cargarImagen() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/");
+        startActivityForResult(intent.createChooser(intent, "Seleccione la Aplicación"), 10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Uri path = data.getData();
+            imgProfile.setImageURI(path);
         }
     }
 }
